@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Index from './Index';
+import Dashboard from './Dashboard';
+import Login from './Login';
 
 function App() {
     return (
         <div className='wrapper'>
             <Routes>
-                <Route path='/' Component={Index} />
+                <Route path='/login' Component={Login} />
+                <Route path='/' Component={Dashboard}></Route>
             </Routes>
         </div>
     );
