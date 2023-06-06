@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import avatar from '../assets/img/user.jpg';
 
 const SideBar = () => {
     return (
@@ -13,7 +15,7 @@ const SideBar = () => {
                     <div className='position-relative'>
                         <img
                             className='rounded-circle'
-                            src='img/user.jpg'
+                            src={avatar}
                             alt=''
                             style={{ width: '40px', height: '40px' }}
                         />
@@ -25,28 +27,28 @@ const SideBar = () => {
                     </div>
                 </div>
                 <div className='navbar-nav w-100'>
-                    <a href='index.html' className='nav-item nav-link active'>
+                    <Link to='/' className='nav-item nav-link active'>
                         <i className='fa fa-tachometer-alt me-2'></i>
                         Dashboard
-                    </a>
+                    </Link>
                     <div className='nav-item dropdown'>
                         <a
                             href='#'
                             className='nav-link dropdown-toggle'
                             data-bs-toggle='dropdown'
                         >
-                            <i className='fa fa-laptop me-2'></i>Elements
+                            <i className='fa fa-laptop me-2'></i>Contracts
                         </a>
                         <div className='dropdown-menu bg-transparent border-0'>
-                            <a href='button.html' className='dropdown-item'>
-                                Buttons
-                            </a>
-                            <a href='typography.html' className='dropdown-item'>
-                                Typography
-                            </a>
-                            <a href='element.html' className='dropdown-item'>
-                                Other Elements
-                            </a>
+                            <Link to='/add-contract' className='dropdown-item'>
+                                Add
+                            </Link>
+                            <Link
+                                to='/list-contracts'
+                                className='dropdown-item'
+                            >
+                                List
+                            </Link>
                         </div>
                     </div>
                     <a href='widget.html' className='nav-item nav-link'>

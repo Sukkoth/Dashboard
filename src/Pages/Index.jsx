@@ -1,4 +1,5 @@
 import React from 'react';
+import avatar from '../assets/img/user.jpg';
 
 const Index = () => {
     return (
@@ -221,7 +222,7 @@ const Index = () => {
                             <div className='d-flex align-items-center border-bottom py-3'>
                                 <img
                                     className='rounded-circle flex-shrink-0'
-                                    src='img/user.jpg'
+                                    src={avatar}
                                     alt=''
                                     style={{
                                         width: '40px',
@@ -239,7 +240,7 @@ const Index = () => {
                             <div className='d-flex align-items-center border-bottom py-3'>
                                 <img
                                     className='rounded-circle flex-shrink-0'
-                                    src='img/user.jpg'
+                                    src={avatar}
                                     alt=''
                                     style={{
                                         width: '40px',
@@ -257,7 +258,7 @@ const Index = () => {
                             <div className='d-flex align-items-center border-bottom py-3'>
                                 <img
                                     className='rounded-circle flex-shrink-0'
-                                    src='img/user.jpg'
+                                    src={avatar}
                                     alt=''
                                     style={{
                                         width: '40px',
@@ -275,7 +276,7 @@ const Index = () => {
                             <div className='d-flex align-items-center pt-3'>
                                 <img
                                     className='rounded-circle flex-shrink-0'
-                                    src='img/user.jpg'
+                                    src={avatar}
                                     alt=''
                                     style={{
                                         width: '40px',

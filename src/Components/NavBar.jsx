@@ -1,5 +1,7 @@
 import React from 'react';
 
+import avatar from '../assets/img/user.jpg';
+
 const NavBar = () => {
     return (
         <nav className='navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0'>
@@ -33,7 +35,7 @@ const NavBar = () => {
                             <div className='d-flex align-items-center'>
                                 <img
                                     className='rounded-circle'
-                                    src='img/user.jpg'
+                                    src={avatar}
                                     alt=''
                                     style={{
                                         width: '40px',
@@ -53,7 +55,7 @@ const NavBar = () => {
                             <div className='d-flex align-items-center'>
                                 <img
                                     className='rounded-circle'
-                                    src='img/user.jpg'
+                                    src={avatar}
                                     alt=''
                                     style={{
                                         width: '40px',
@@ -73,7 +75,7 @@ const NavBar = () => {
                             <div className='d-flex align-items-center'>
                                 <img
                                     className='rounded-circle'
-                                    src='img/user.jpg'
+                                    src={avatar}
                                     alt=''
                                     style={{
                                         width: '40px',
@@ -134,7 +136,7 @@ const NavBar = () => {
                     >
                         <img
                             className='rounded-circle me-lg-2'
-                            src='img/user.jpg'
+                            src={avatar}
                             alt=''
                             style={{
                                 width: '40px',
