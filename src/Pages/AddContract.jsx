@@ -3,8 +3,12 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import contractSchema from '../yupSchemas/contractSchema';
 import axios from '../API/axios';
+import useApiFetch from '../API/useApiFetch';
+import ClipLoader from 'react-spinners/ClipLoader';
+import { useNavigate } from 'react-router-dom';
 
 const AddContract = () => {
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -12,37 +16,43 @@ const AddContract = () => {
         reset,
     } = useForm({ resolver: yupResolver(contractSchema) });
 
+    const {
+        data: contractData,
+        isLoading,
+        errors: backEndError,
+        makeRequest,
+    } = useApiFetch({}, false);
+
     errors.length && console.log('Errors', errors);
     const onSubmitHandler = async (data) => {
         console.log({ data });
-        try {
-            const response = await axios.post(
-                'http://10.14.214.11:8080/leases',
-                data
-            );
-            console.log('AFTER SENDING', response.data);
-        } catch (error) {
-            console.log('ERROR', error);
+        await makeRequest({ data, url: '/leases', method: 'post' });
+        if (contractData?.length) {
+            reset();
+            setTimeout(() => {
+                navigate('/list-contracts');
+            }, 1000);
         }
-
-        // reset();
     };
+
+    console.log('Data', contractData?.length);
 
     return (
         <div className='container-fluid pt-4 px-4'>
+            here
             <form onSubmit={handleSubmit(onSubmitHandler)}>
                 <div className='row g-4'>
                     <div className='col-sm-12 col-xl-4'>
                         <div className='bg-light rounded h-100 p-4'>
                             <h6 className='mb-4'>Branch Info</h6>
-                            <label htmlFor='branch_name'>Branch Name</label>
+                            <label htmlFor='branchName'>Branch Name</label>
                             <select
                                 className='form-select my-2'
                                 aria-label='Default select example'
-                                id='branch_name'
-                                name='branch_name'
+                                id='branchName'
+                                name='branchName'
                                 defaultValue={''}
-                                {...register('branch_name')}
+                                {...register('branchName')}
                             >
                                 <option value=''>Select Branch Name</option>
                                 <option value='Addis Ababa Branch'>
@@ -55,28 +65,28 @@ const AddContract = () => {
                                     Bole Medanialem Branch
                                 </option>
                             </select>
-                            {errors?.branch_name && (
+                            {errors?.branchName && (
                                 <div className='form-text text-danger mb-4'>
-                                    {errors?.branch_name?.message}
+                                    {errors?.branchName?.message}
                                 </div>
                             )}
-                            <label htmlFor='branch_code'>Branch Code</label>
+                            <label htmlFor='branchCode'>Branch Code</label>
                             <select
-                                id='branch_code'
-                                name='branch_name'
+                                id='branchCode'
+                                name='branchCode'
                                 className='form-select my-2'
                                 aria-label='Default select example'
                                 defaultValue={''}
-                                {...register('branch_code')}
+                                {...register('branchCode')}
                             >
                                 <option value=''>Select Branch Code</option>
                                 <option value='QQ12'>QQ12</option>
                                 <option value='YY22'>YY22</option>
                                 <option value='ZZ22'>ZZ22</option>
                             </select>
-                            {errors?.branch_code && (
+                            {errors?.branchCode && (
                                 <div className='form-text text-danger mb-4'>
-                                    {errors?.branch_code?.message}
+                                    {errors?.branchCode?.message}
                                 </div>
                             )}
                         </div>
@@ -87,7 +97,7 @@ const AddContract = () => {
                             <div>
                                 <div className='mb-3'>
                                     <label
-                                        htmlFor='advance_payment'
+                                        htmlFor='advancePayment'
                                         className='form-label'
                                     >
                                         Advance Payment
@@ -95,21 +105,21 @@ const AddContract = () => {
                                     </label>
                                     <input
                                         type='number'
-                                        name='advance_payment'
+                                        name='advancePayment'
                                         className='form-control'
-                                        id='advance_payment'
+                                        id='advancePayment'
                                         min={0.0}
-                                        {...register('advance_payment')}
+                                        {...register('advancePayment')}
                                     />
-                                    {errors?.advance_payment && (
+                                    {errors?.advancePayment && (
                                         <div className='form-text text-danger'>
-                                            {errors?.advance_payment?.message}
+                                            {errors?.advancePayment?.message}
                                         </div>
                                     )}
                                 </div>
                                 <div className='mb-3'>
                                     <label
-                                        htmlFor='discount_rate'
+                                        htmlFor='discountRate'
                                         className='form-label'
                                     >
                                         Discount Rate
@@ -118,20 +128,20 @@ const AddContract = () => {
                                     <input
                                         type='number'
                                         className='form-control'
-                                        id='discount_rate'
-                                        name='discount_rate'
+                                        id='discountRate'
+                                        name='discountRate'
                                         min={0.0}
-                                        {...register('discount_rate')}
+                                        {...register('discountRate')}
                                     />
-                                    {errors?.discount_rate && (
+                                    {errors?.discountRate && (
                                         <div className='form-text text-danger'>
-                                            {errors?.discount_rate?.message}
+                                            {errors?.discountRate?.message}
                                         </div>
                                     )}
                                 </div>
                                 <div className='mb-3'>
                                     <label
-                                        htmlFor='initial_direct_cost'
+                                        htmlFor='initialDirectCost'
                                         className='form-label'
                                     >
                                         Initial Direct Cost
@@ -139,24 +149,21 @@ const AddContract = () => {
                                     <input
                                         type='number'
                                         className='form-control'
-                                        id='initial_direct_cost'
-                                        name='initial_direct_cost'
+                                        id='initialDirectCost'
+                                        name='initialDirectCost'
                                         min={0.0}
                                         defaultValue={0.0}
-                                        {...register('initial_direct_cost')}
+                                        {...register('initialDirectCost')}
                                     />
-                                    {errors?.initial_direct_cost && (
+                                    {errors?.initialDirectCost && (
                                         <div className='form-text text-danger'>
-                                            {
-                                                errors?.initial_direct_cost
-                                                    ?.message
-                                            }
+                                            {errors?.initialDirectCost?.message}
                                         </div>
                                     )}
                                 </div>
                                 <div className='mb-3'>
                                     <label
-                                        htmlFor='lease_incentive'
+                                        htmlFor='leaseIncentive'
                                         className='form-label'
                                     >
                                         Lease Incenstive
@@ -164,21 +171,21 @@ const AddContract = () => {
                                     <input
                                         type='number'
                                         className='form-control'
-                                        id='lease_incentive'
-                                        name='lease_incentive'
+                                        id='leaseIncentive'
+                                        name='leaseIncentive'
                                         min={0.0}
                                         defaultValue={0.0}
-                                        {...register('lease_incentive')}
+                                        {...register('leaseIncentive')}
                                     />
-                                    {errors?.lease_incentive && (
+                                    {errors?.leaseIncentive && (
                                         <div className='form-text text-danger'>
-                                            {errors?.lease_incentive?.message}
+                                            {errors?.leaseIncentive?.message}
                                         </div>
                                     )}
                                 </div>
                                 <div className='mb-3'>
                                     <label
-                                        htmlFor='total_payment'
+                                        htmlFor='totalPayment'
                                         className='form-label'
                                     >
                                         Total Payment
@@ -187,14 +194,14 @@ const AddContract = () => {
                                     <input
                                         type='number'
                                         className='form-control'
-                                        id='total_payment'
-                                        name='total_payment'
+                                        id='totalPayment'
+                                        name='totalPayment'
                                         min={0.0}
-                                        {...register('total_payment')}
+                                        {...register('totalPayment')}
                                     />
-                                    {errors?.total_payment && (
+                                    {errors?.totalPayment && (
                                         <div className='form-text text-danger'>
-                                            {errors?.total_payment?.message}
+                                            {errors?.totalPayment?.message}
                                         </div>
                                     )}
                                 </div>
@@ -207,7 +214,7 @@ const AddContract = () => {
                             <div>
                                 <div className='mb-3'>
                                     <label
-                                        htmlFor='contract_start_date '
+                                        htmlFor='contractStartDate '
                                         className='form-label'
                                     >
                                         Contract Start Date
@@ -216,23 +223,20 @@ const AddContract = () => {
                                     <input
                                         type='date'
                                         className='form-control'
-                                        id='contract_start_date '
+                                        id='contractStartDate '
                                         min={0.0}
-                                        name='contract_start_date'
-                                        {...register('contract_start_date')}
+                                        name='contractStartDate'
+                                        {...register('contractStartDate')}
                                     />
-                                    {errors?.contract_start_date && (
+                                    {errors?.contractStartDate && (
                                         <div className='form-text text-danger'>
-                                            {
-                                                errors?.contract_start_date
-                                                    ?.message
-                                            }
+                                            {errors?.contractStartDate?.message}
                                         </div>
                                     )}
                                 </div>
                                 <div className='mb-3'>
                                     <label
-                                        htmlFor='contract_end_date '
+                                        htmlFor='contractEndDate '
                                         className='form-label'
                                     >
                                         Contract End Date
@@ -241,14 +245,14 @@ const AddContract = () => {
                                     <input
                                         type='date'
                                         className='form-control'
-                                        id='contract_end_date '
-                                        name='contract_end_date'
+                                        id='contractEndDate '
+                                        name='contractEndDate'
                                         min={0.0}
-                                        {...register('contract_end_date')}
+                                        {...register('contractEndDate')}
                                     />
-                                    {errors?.contract_end_date && (
+                                    {errors?.contractEndDate && (
                                         <div className='form-text text-danger'>
-                                            {errors?.contract_end_date?.message}
+                                            {errors?.contractEndDate?.message}
                                         </div>
                                     )}
                                 </div>
@@ -266,15 +270,15 @@ const AddContract = () => {
                                     <textarea
                                         className='form-control'
                                         placeholder='Leave contract reason here'
-                                        id='contract_reason'
-                                        name='contract_reason'
+                                        id='reason'
+                                        name='reason'
                                         style={{ height: '200px' }}
-                                        {...register('contract_reason')}
+                                        {...register('reason')}
                                     ></textarea>
                                 </div>
-                                {errors?.contract_reason && (
+                                {errors?.reason && (
                                     <div className='form-text text-danger'>
-                                        {errors?.contract_reason?.message}
+                                        {errors?.reason?.message}
                                     </div>
                                 )}
                             </div>
@@ -282,11 +286,26 @@ const AddContract = () => {
                     </div>
                     <div className='col-sm-12 col-xl-12'></div>
                     <button
-                        className='btn btn-primary w-25 mx-auto'
+                        className='btn btn-primary w-25 mx-auto mb-5'
                         type='submit'
                         onClick={handleSubmit(onSubmitHandler)}
                     >
-                        Add Contract
+                        {contractData.length == 0 && !isLoading ? (
+                            'Add Contract'
+                        ) : (
+                            <>
+                                <ClipLoader color='white' />
+                            </>
+                        )}
+                        {contractData.length > 0 && (
+                            <div class='alert alert-primary' role='alert'>
+                                A simple primary alert with{' '}
+                                <a href='#' class='alert-link'>
+                                    an example link
+                                </a>
+                                . Give it a click if you like.
+                            </div>
+                        )}
                     </button>
                 </div>
             </form>
