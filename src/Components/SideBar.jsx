@@ -41,12 +41,20 @@ const SideBar = () => {
                         </a>
                         <div className='dropdown-menu bg-transparent border-0'>
                             <Link to='/add-contract' className='dropdown-item'>
+                                <i
+                                    className='fa fa-plus me-2'
+                                    style={{ color: '#d30fa9' }}
+                                ></i>
                                 Add
                             </Link>
                             <Link
                                 to='/list-contracts'
                                 className='dropdown-item'
                             >
+                                <i
+                                    className='fa fa-list me-2'
+                                    style={{ color: '#d30fa9' }}
+                                ></i>
                                 List
                             </Link>
                         </div>
