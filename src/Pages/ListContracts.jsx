@@ -4,7 +4,7 @@ import ScaleLoader from 'react-spinners/ScaleLoader';
 import { useNavigate } from 'react-router-dom';
 
 //TODO Try reloading the page if there is no error in deleteError Object, you are having difficulty wih blocking and non blocking concept, the error object gets populated after you check for it
-
+//!Fixed the above in a very odd way
 const ListContracts = () => {
     const [tobeDeleted, setTobeDeleted] = useState(false);
     const navigate = useNavigate();
