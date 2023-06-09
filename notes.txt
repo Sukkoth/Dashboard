@@ -1,0 +1,5 @@
+Contract
+    Authorize
+    Delete
+    Update
+    View => Report 

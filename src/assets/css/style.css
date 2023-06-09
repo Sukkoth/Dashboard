@@ -268,3 +268,8 @@
     background: var(--dark);
     border-color: var(--primary);
 }
+
+.table-responsive {
+    overflow-x: auto;
+    overflow-y: visible;
+}

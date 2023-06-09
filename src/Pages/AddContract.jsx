@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import contractSchema from '../yupSchemas/contractSchema';
-import axios from '../API/axios';
 import useApiFetch from '../API/useApiFetch';
-import ClipLoader from 'react-spinners/ClipLoader';
 import { useNavigate } from 'react-router-dom';
 
 const AddContract = () => {
@@ -20,22 +18,23 @@ const AddContract = () => {
         data: contractData,
         isLoading,
         errors: backEndError,
-        makeRequest,
+        fetchData: makeRequest,
     } = useApiFetch({}, false);
 
-    errors.length && console.log('Errors', errors);
-    const onSubmitHandler = async (data) => {
-        console.log({ data });
-        await makeRequest({ data, url: '/leases', method: 'post' });
-        if (contractData?.length) {
+    useEffect(() => {
+        if (!isLoading && contractData?.id) {
+            console.log('REDIRECTING ......');
             reset();
             setTimeout(() => {
                 navigate('/list-contracts');
-            }, 1000);
+            }, 1500);
         }
-    };
+    }, [contractData]);
 
-    console.log('Data', contractData?.length);
+    errors.length && console.log('Errors', errors);
+    const onSubmitHandler = async (data) => {
+        await makeRequest({ data, url: '/leases', method: 'post' });
+    };
 
     return (
         <div className='container-fluid pt-4 px-4'>
@@ -284,29 +283,20 @@ const AddContract = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='col-sm-12 col-xl-12'></div>
                     <button
                         className='btn btn-primary w-25 mx-auto mb-5'
                         type='submit'
                         onClick={handleSubmit(onSubmitHandler)}
                     >
-                        {contractData.length == 0 && !isLoading ? (
-                            'Add Contract'
-                        ) : (
-                            <>
-                                <ClipLoader color='white' />
-                            </>
-                        )}
-                        {contractData.length > 0 && (
-                            <div class='alert alert-primary' role='alert'>
-                                A simple primary alert with{' '}
-                                <a href='#' class='alert-link'>
-                                    an example link
-                                </a>
-                                . Give it a click if you like.
-                            </div>
-                        )}
+                        Add Contract
                     </button>
+                    {!isLoading && contractData?.id && (
+                        <div className='d-flex justify-content-center'>
+                            <div className='alert alert-primary' role='alert'>
+                                A new Contract has been added, redirecting . . .
+                            </div>
+                        </div>
+                    )}
                 </div>
             </form>
         </div>
