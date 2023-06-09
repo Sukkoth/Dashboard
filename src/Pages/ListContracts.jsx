@@ -12,7 +12,6 @@ const ListContracts = () => {
         data: contractsData,
         isLoading,
         errors,
-        fetchData,
     } = useApiFetch({
         url: '/leases',
         method: 'get',
@@ -32,14 +31,18 @@ const ListContracts = () => {
         false
     );
 
+    deleteErrors?.message &&
+        console.log('ERROR MESSAGE', deleteErrors?.message);
+
     const handleDelete = async () => {
         console.log('Strat');
         const finished = await deleteContract({
             url: `/leases/${tobeDeleted}`,
             method: 'delete',
         });
-        console.log('FINISEHD', finished);
-        console.log('finished', deleteErrors);
+        if (finished) {
+            navigate(0);
+        }
     };
 
     return (

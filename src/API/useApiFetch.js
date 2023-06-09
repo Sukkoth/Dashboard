@@ -29,6 +29,7 @@ const useApiFetch = (
                 ...request,
             });
             setData(response.data || []);
+            return true;
         } catch (error) {
             if (error?.response?.status === 400) {
                 setErrors({ message: 'Bad request' });
@@ -45,10 +46,10 @@ const useApiFetch = (
             } else {
                 console.log('ANOTHER ERROR OCCURED', error);
             }
+            return false;
         } finally {
             setIsLoading(false);
         }
-        return true;
     };
 
     useEffect(() => {
