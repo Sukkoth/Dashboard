@@ -73,7 +73,7 @@ const Index = () => {
             {/* <!-- Sales Chart End --> */}
 
             {/* <!-- Recent Sales Start --> */}
-            <div className='container-fluid pt-4 px-4'>
+            {/* <div className='container-fluid pt-4 px-4'>
                 <div className='bg-light text-center rounded p-4'>
                     <div className='d-flex align-items-center justify-content-between mb-4'>
                         <h6 className='mb-0'>Recent Salse</h6>
@@ -207,11 +207,11 @@ const Index = () => {
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* <!-- Recent Sales End --> */}
 
             {/* <!-- Widgets Start --> */}
-            <div className='container-fluid pt-4 px-4'>
+            {/* <div className='container-fluid pt-4 px-4'>
                 <div className='row g-4'>
                     <div className='col-sm-12 col-md-6 col-xl-4'>
                         <div className='h-100 bg-light rounded p-4'>
@@ -397,7 +397,7 @@ const Index = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {/* <!-- Widgets End --> */}
         </>
     );
