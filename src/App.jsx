@@ -4,6 +4,7 @@ import Login from './Login';
 import AddContract from './Pages/AddContract';
 import Index from './Pages/Index';
 import ListContracts from './Pages/ListContracts';
+import ShowContract from './Pages/ShowContract';
 
 function App() {
     return (
@@ -14,6 +15,10 @@ function App() {
                     <Route index Component={Index} />
                     <Route path='/add-contract' Component={AddContract} />
                     <Route path='/list-contracts' Component={ListContracts} />
+                    <Route
+                        path='/leases/:contractId'
+                        Component={ShowContract}
+                    />
                 </Route>
             </Routes>
         </div>

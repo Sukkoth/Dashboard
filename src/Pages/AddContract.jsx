@@ -283,13 +283,17 @@ const AddContract = () => {
                             </div>
                         </div>
                     </div>
-                    <button
-                        className='btn btn-primary w-25 mx-auto mb-5'
-                        type='submit'
-                        onClick={handleSubmit(onSubmitHandler)}
-                    >
-                        Add Contract
-                    </button>
+                    {!isLoading && backEndError?.message && (
+                        <div className='d-flex justify-content-center'>
+                            <div
+                                className='alert alert-warning w-25 text-center'
+                                role='alert'
+                            >
+                                <i className='fa fa-danger'></i>
+                                {backEndError?.message}
+                            </div>
+                        </div>
+                    )}
                     {!isLoading && contractData?.id && (
                         <div className='d-flex justify-content-center'>
                             <div className='alert alert-primary' role='alert'>
@@ -297,6 +301,13 @@ const AddContract = () => {
                             </div>
                         </div>
                     )}
+                    <button
+                        className='btn btn-primary w-25 mx-auto mb-5'
+                        type='submit'
+                        onClick={handleSubmit(onSubmitHandler)}
+                    >
+                        {(isLoading && 'Loading . . .') || 'Add Contract'}
+                    </button>
                 </div>
             </form>
         </div>

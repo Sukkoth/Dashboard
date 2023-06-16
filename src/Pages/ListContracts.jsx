@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import useApiFetch from '../API/useApiFetch';
 import ScaleLoader from 'react-spinners/ScaleLoader';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 //TODO Try reloading the page if there is no error in deleteError Object, you are having difficulty wih blocking and non blocking concept, the error object gets populated after you check for it
 //!Fixed the above in a very odd way
@@ -241,14 +241,14 @@ const ListContracts = () => {
                                                                         aria-labelledby='dropdownMenuButton2'
                                                                     >
                                                                         <li>
-                                                                            <a
+                                                                            <Link
+                                                                                to={`/leases/${contract?.id}`}
                                                                                 className='dropdown-item'
-                                                                                href='#'
                                                                             >
                                                                                 <i className='fa fa-info-circle me-2'></i>
                                                                                 View
                                                                                 Details
-                                                                            </a>
+                                                                            </Link>
                                                                         </li>
                                                                         <li>
                                                                             <a
