@@ -62,7 +62,7 @@ const SideBar = () => {
                             </Link>
                         </div>
                     </div>
-                    <a href='widget.html' className='nav-item nav-link'>
+                    {/* <a href='widget.html' className='nav-item nav-link'>
                         <i className='fa fa-th me-2'></i>Widgets
                     </a>
                     <a href='form.html' className='nav-item nav-link'>
@@ -73,8 +73,8 @@ const SideBar = () => {
                     </a>
                     <a href='chart.html' className='nav-item nav-link'>
                         <i className='fa fa-chart-bar me-2'></i>Charts
-                    </a>
-                    <div className='nav-item dropdown'>
+                    </a> */}
+                    {/* <div className='nav-item dropdown'>
                         <a
                             href='#'
                             className='nav-link dropdown-toggle'
@@ -96,7 +96,7 @@ const SideBar = () => {
                                 Blank Page
                             </a>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </nav>
         </div>
