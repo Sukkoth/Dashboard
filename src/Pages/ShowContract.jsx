@@ -28,15 +28,16 @@ const ShowContract = () => {
                             <div className='bg-light rounded h-100 p-4'>
                                 <ReportTable contracts={contracts} />
                                 <AmmortizationTable contracts={contracts} />
+                                <Journal contracts={contracts} />
                             </div>
                         </div>
                     </div>
                 </div>
             ) : (
-                <NoContracts message='No report contracts found' />
+                !isLoading && (
+                    <NoContracts message='No report contracts found' />
+                )
             )}
-
-            <Journal contracts={contracts} />
         </>
     );
 };
