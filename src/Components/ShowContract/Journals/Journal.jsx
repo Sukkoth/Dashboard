@@ -52,9 +52,71 @@ const Journal = ({ contracts }) => {
                                         Expense...........................
                                         {report.deprecationExp}
                                     </p>
-                                    <p className='mx-5 fst-italic'>
-                                        Acc.
-                                        Dep...........................314,230
+                                </div>
+                            )
+                        );
+                    })}
+
+                    <table className='table-success text-center'>
+                        <thead>
+                            <tr>
+                                <th colspan='2' style={rouTitle}>
+                                    ROU
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {contracts[0].report.map(
+                                (report, index) =>
+                                    index != 0 && (
+                                        <tr
+                                            style={
+                                                index ==
+                                                contracts[0].report.length - 1
+                                                    ? tableBottom
+                                                    : {}
+                                            }
+                                        >
+                                            <td style={rouLeftStyle}>
+                                                {report?.deprecationExp}
+                                            </td>
+                                            {index == 1 && (
+                                                <td style={rouRightStyle}>
+                                                    2575457545
+                                                </td>
+                                            )}
+                                        </tr>
+                                    )
+                            )}
+
+                            <tr>
+                                <td>1,753,729.48</td>
+                                <td>1,753,729.48</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className='mt-5 text-start px-5 text-dark'>
+                    <h2>The Finance charge.</h2>
+
+                    {contracts[0].ammortization.map((report, index) => {
+                        //! You are jumpig over the first index, take a loot at this later
+                        return (
+                            index != 0 && (
+                                <div className='periodEntry' key={index}>
+                                    <p className='mx-3 fw-bold'>
+                                        As of {FormatDate(report?.year)}
+                                    </p>
+                                    <p className='mx-4 fst-italic'>
+                                        Finance Lease Charge
+                                        ...........................
+                                        {report?.interest}
+                                    </p>
+                                    <p>
+                                        Lease
+                                        Liability...........................
+                                        {report?.interest}
                                     </p>
                                 </div>
                             )
@@ -67,3 +129,21 @@ const Journal = ({ contracts }) => {
 };
 
 export default Journal;
+
+const rouLeftStyle = {
+    borderRight: 'solid 1px',
+    padding: '5px 30px 10px 10px',
+};
+
+const rouRightStyle = {
+    padding: '5px 30px 10px 10px',
+};
+
+const rouTitle = {
+    borderBottom: 'solid 1px',
+    padding: '15px 0 5px 0',
+};
+
+const tableBottom = {
+    borderBottom: 'solid 1px',
+};
