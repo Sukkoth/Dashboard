@@ -1,3 +1,5 @@
+import FormatDate from '../../utils/FormatDate';
+
 const ReportTable = ({ contracts }) => {
     return (
         <>
@@ -31,7 +33,9 @@ const ReportTable = ({ contracts }) => {
                         {contracts.map((contract) =>
                             contract.report.map((report, index) => (
                                 <tr key={index}>
-                                    <th scope='row'>{report?.year}</th>
+                                    <th scope='row'>
+                                        {FormatDate(report?.year)}
+                                    </th>
                                     <td>{report?.balance}</td>
                                     <td>{report?.deprecationExp}</td>
                                     <td>{report?.months || '-'}</td>
