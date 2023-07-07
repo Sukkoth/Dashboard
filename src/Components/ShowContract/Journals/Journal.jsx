@@ -60,7 +60,7 @@ const Journal = ({ contracts }) => {
                     <table className='table-success text-center'>
                         <thead>
                             <tr>
-                                <th colspan='2' style={rouTitle}>
+                                <th colSpan='2' style={rouTitle}>
                                     ROU
                                 </th>
                             </tr>
@@ -70,6 +70,7 @@ const Journal = ({ contracts }) => {
                                 (report, index) =>
                                     index != 0 && (
                                         <tr
+                                            key={index}
                                             style={
                                                 index ==
                                                 contracts[0].report.length - 1
@@ -97,32 +98,35 @@ const Journal = ({ contracts }) => {
                     </table>
                 </div>
 
-                <div className='mt-5 text-start px-5 text-dark'>
-                    <h2>The Finance charge.</h2>
+                {contracts[0]?.detail[0].advancePayment !==
+                    contracts[0]?.detail[0].totalPayment && (
+                    <div className='mt-5 text-start px-5 text-dark'>
+                        <h2>The Finance charge.</h2>
 
-                    {contracts[0].ammortization.map((report, index) => {
-                        //! You are jumpig over the first index, take a loot at this later
-                        return (
-                            index != 0 && (
-                                <div className='periodEntry' key={index}>
-                                    <p className='mx-3 fw-bold'>
-                                        As of {FormatDate(report?.year)}
-                                    </p>
-                                    <p className='mx-4 fst-italic'>
-                                        Finance Lease Charge
-                                        ...........................
-                                        {report?.interest}
-                                    </p>
-                                    <p>
-                                        Lease
-                                        Liability...........................
-                                        {report?.interest}
-                                    </p>
-                                </div>
-                            )
-                        );
-                    })}
-                </div>
+                        {contracts[0].ammortization.map((report, index) => {
+                            //! You are jumpig over the first index, take a loot at this later
+                            return (
+                                index != 0 && (
+                                    <div className='periodEntry' key={index}>
+                                        <p className='mx-3 fw-bold'>
+                                            As of {FormatDate(report?.year)}
+                                        </p>
+                                        <p className='mx-4 fst-italic'>
+                                            Finance Lease Charge
+                                            ...........................
+                                            {report?.interest}
+                                        </p>
+                                        <p>
+                                            Lease
+                                            Liability...........................
+                                            {report?.interest}
+                                        </p>
+                                    </div>
+                                )
+                            );
+                        })}
+                    </div>
+                )}
             </div>
         </div>
     );

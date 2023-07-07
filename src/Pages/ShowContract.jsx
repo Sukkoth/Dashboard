@@ -27,7 +27,11 @@ const ShowContract = () => {
                         <div className='col-12'>
                             <div className='bg-light rounded h-100 p-4'>
                                 <ReportTable contracts={contracts} />
-                                <AmmortizationTable contracts={contracts} />
+
+                                {contracts[0]?.detail[0].advancePayment !==
+                                    contracts[0]?.detail[0].totalPayment && (
+                                    <AmmortizationTable contracts={contracts} />
+                                )}
                                 <Journal contracts={contracts} />
                             </div>
                         </div>
