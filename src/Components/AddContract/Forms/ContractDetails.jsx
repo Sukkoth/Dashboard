@@ -7,6 +7,26 @@ const ContractDetails = ({ register, errors }) => {
                 <h6 className='mb-4'>Contract Detail</h6>
                 <div>
                     <div className='mb-3'>
+                        <label htmlFor='totalPayment' className='form-label'>
+                            Total Payment
+                            <span className='text-danger'>*</span>
+                        </label>
+                        <input
+                            type='number'
+                            className='form-control'
+                            id='totalPayment'
+                            name='totalPayment'
+                            min={0.0}
+                            step={0.0001}
+                            {...register('totalPayment')}
+                        />
+                        {errors?.totalPayment && (
+                            <div className='form-text text-danger'>
+                                {errors?.totalPayment?.message}
+                            </div>
+                        )}
+                    </div>
+                    <div className='mb-3'>
                         <label htmlFor='advancePayment' className='form-label'>
                             Advance Payment
                             <span className='text-danger'>*</span>
@@ -17,6 +37,7 @@ const ContractDetails = ({ register, errors }) => {
                             className='form-control'
                             id='advancePayment'
                             min={0.0}
+                            step={0.0001}
                             {...register('advancePayment')}
                         />
                         {errors?.advancePayment && (
@@ -32,6 +53,7 @@ const ContractDetails = ({ register, errors }) => {
                         </label>
                         <input
                             type='number'
+                            step={0.00001}
                             className='form-control'
                             id='discountRate'
                             name='discountRate'
@@ -57,6 +79,7 @@ const ContractDetails = ({ register, errors }) => {
                             id='initialDirectCost'
                             name='initialDirectCost'
                             min={0.0}
+                            step={0.0001}
                             defaultValue={0.0}
                             {...register('initialDirectCost')}
                         />
@@ -76,31 +99,13 @@ const ContractDetails = ({ register, errors }) => {
                             id='leaseIncentive'
                             name='leaseIncentive'
                             min={0.0}
+                            step={0.0001}
                             defaultValue={0.0}
                             {...register('leaseIncentive')}
                         />
                         {errors?.leaseIncentive && (
                             <div className='form-text text-danger'>
                                 {errors?.leaseIncentive?.message}
-                            </div>
-                        )}
-                    </div>
-                    <div className='mb-3'>
-                        <label htmlFor='totalPayment' className='form-label'>
-                            Total Payment
-                            <span className='text-danger'>*</span>
-                        </label>
-                        <input
-                            type='number'
-                            className='form-control'
-                            id='totalPayment'
-                            name='totalPayment'
-                            min={0.0}
-                            {...register('totalPayment')}
-                        />
-                        {errors?.totalPayment && (
-                            <div className='form-text text-danger'>
-                                {errors?.totalPayment?.message}
                             </div>
                         )}
                     </div>

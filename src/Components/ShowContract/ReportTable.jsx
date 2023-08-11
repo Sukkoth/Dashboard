@@ -1,11 +1,16 @@
 import FormatDate from '../../utils/FormatDate';
+import numeral from 'numeral';
 
 const ReportTable = ({ contracts }) => {
     return (
         <>
             <h6 className='mb-4'>Report Table</h6>
+
             <div className='table-responsive mb-5'>
-                <table className='table table-hover table-bordered text-center'>
+                <table
+                    className='table table-hover table-bordered text-center'
+                    id='reportTable'
+                >
                     <thead>
                         <tr>
                             <th scope='col' colSpan='3'>
@@ -17,7 +22,9 @@ const ReportTable = ({ contracts }) => {
                             <th scope='col' colSpan='3'>
                                 DEPRECIATION PER MONTH
                             </th>
-                            <th scope='col'>23947382</th>
+                            <th scope='col'>
+                                {numeral(23947382).format('0,0.00')}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,12 +40,24 @@ const ReportTable = ({ contracts }) => {
                         {contracts.map((contract) =>
                             contract.report.map((report, index) => (
                                 <tr key={index}>
-                                    <th scope='row'>
+                                    <td scope='row'>
                                         {FormatDate(report?.year)}
-                                    </th>
-                                    <td>{report?.balance}</td>
-                                    <td>{report?.deprecationExp}</td>
-                                    <td>{report?.months || '-'}</td>
+                                    </td>
+                                    <td>
+                                        {numeral(report?.balance).format(
+                                            '0,0.00'
+                                        )}
+                                    </td>
+                                    <td>
+                                        {numeral(report?.deprecationExp).format(
+                                            '0,0'
+                                        )}
+                                    </td>
+                                    <td>
+                                        {numeral(report?.months).format(
+                                            '0,0.00'
+                                        )}
+                                    </td>
                                 </tr>
                             ))
                         )}

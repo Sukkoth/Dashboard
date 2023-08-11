@@ -28,6 +28,7 @@ const useApiFetch = (
                 ...requestConfig,
                 ...request,
             });
+            console.log(response.data);
             setData(response.data || []);
             return true;
         } catch (error) {

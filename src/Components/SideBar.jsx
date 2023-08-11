@@ -62,9 +62,13 @@ const SideBar = () => {
                             </Link>
                         </div>
                     </div>
-                    {/* <a href='widget.html' className='nav-item nav-link'>
-                        <i className='fa fa-th me-2'></i>Widgets
-                    </a>
+                    <Link to={'/generate-report'}>
+                        <a className='nav-item nav-link'>
+                            <i className='fa fa-scroll me-2'></i>Generate Report
+                        </a>
+                    </Link>
+
+                    {/*
                     <a href='form.html' className='nav-item nav-link'>
                         <i className='fa fa-keyboard me-2'></i>Forms
                     </a>

@@ -5,6 +5,7 @@ import AddContract from './Pages/AddContract';
 import Index from './Pages/Index';
 import ListContracts from './Pages/ListContracts';
 import ShowContract from './Pages/ShowContract';
+import GenerateReportPage from './Pages/GenerateReportPage';
 
 function App() {
     return (
@@ -18,6 +19,10 @@ function App() {
                     <Route
                         path='/leases/:contractId'
                         Component={ShowContract}
+                    />
+                    <Route
+                        path='/generate-report'
+                        Component={GenerateReportPage}
                     />
                 </Route>
             </Routes>

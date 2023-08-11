@@ -2,7 +2,7 @@ import React from 'react';
 import FormatDate from '../../../utils/formatDate';
 
 const Journal = ({ contracts }) => {
-    console.log(contracts);
+    console.log('here');
 
     return (
         <div className='container-fluid pt-4 px-4'>
@@ -21,14 +21,15 @@ const Journal = ({ contracts }) => {
                             07-AUG-2021
                         </p>
                         <p className='mx-3 fw-bold'>
-                            ROU..............................1,753,729.48
+                            ROU..............................{' '}
+                            {contracts[0].detail[0].rightOfUse}
                         </p>
                         <p className='mx-4 fst-italic'>
                             Cash ........................... 1,111,453.20
                         </p>
                         <p className='mx-5 fst-italic'>
                             Lease Liability...........................
-                            642,276.28
+                            {contracts[0]?.detail[0]?.leaseLiability || '0'}
                         </p>
                     </div>
 

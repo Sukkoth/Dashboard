@@ -1,3 +1,4 @@
+import numeral from 'numeral';
 const AmmortizationTable = ({ contracts }) => {
     return (
         <>
@@ -20,9 +21,22 @@ const AmmortizationTable = ({ contracts }) => {
                                     <tr key={index}>
                                         <th scope='row'>{index + 1}</th>
                                         <td>{ammortization?.year}</td>
-                                        <td>{ammortization?.payment || '-'}</td>
-                                        <td>{ammortization?.interest}</td>
-                                        <td>{ammortization?.balance}</td>
+                                        <td>
+                                            {numeral(
+                                                ammortization?.payment
+                                            ).format('0,0.00')}
+                                        </td>
+
+                                        <td>
+                                            {numeral(
+                                                ammortization?.interest
+                                            ).format('0,0.00')}
+                                        </td>
+                                        <td>
+                                            {numeral(
+                                                ammortization?.balance
+                                            ).format('0,0.00')}
+                                        </td>
                                     </tr>
                                 )
                             )
