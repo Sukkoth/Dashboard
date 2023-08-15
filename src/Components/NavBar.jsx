@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { LayoutContext } from '../Providers/LayoutProvider';
-import avatar from '../assets/img/user.jpg';
 
 const NavBar = () => {
     const { setSidebarToggle } = useContext(LayoutContext);
     return (
-        <nav className='navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0'>
+        <nav className='navbar navbar-expand bg-light navbar-light sticky-top px-4 py-3'>
             <a href='index.html' className='navbar-brand d-flex d-lg-none me-4'>
                 <h2 className='text-primary mb-0'>
                     <i className='fa fa-hashtag'></i>
@@ -25,8 +24,8 @@ const NavBar = () => {
                     placeholder='Search'
                 />
             </form>
-            <div className='navbar-nav align-items-center ms-auto'>
-                {/* <div className='nav-item dropdown'>
+            {/* <div className='navbar-nav align-items-center ms-auto'>
+                <div className='nav-item dropdown'>
                     <a
                         href='#'
                         className='nav-link dropdown-toggle'
@@ -132,7 +131,7 @@ const NavBar = () => {
                             See all notifications
                         </a>
                     </div>
-                </div> */}
+                </div>
                 <div className='nav-item dropdown'>
                     <a
                         href='#'
@@ -152,7 +151,7 @@ const NavBar = () => {
                             John Doe
                         </span>
                     </a>
-                    {/* <div className='dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0'>
+                    <div className='dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0'>
                         <a href='#' className='dropdown-item'>
                             My Profile
                         </a>
@@ -162,9 +161,9 @@ const NavBar = () => {
                         <a href='#' className='dropdown-item'>
                             Log Out
                         </a>
-                    </div> */}
+                    </div>
                 </div>
-            </div>
+            </div> */}
         </nav>
     );
 };

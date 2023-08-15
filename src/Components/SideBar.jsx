@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import avatar from '../assets/img/user.jpg';
+import avatar from '../assets/icon.png';
+
 import { LayoutContext } from '../Providers/LayoutProvider';
 
 const SideBar = () => {
@@ -15,17 +16,23 @@ const SideBar = () => {
                 </Link>
 
                 <div className='d-flex align-items-center ms-4 mb-4'>
-                    <div className='position-relative'>
+                    <div
+                        className='position-relative'
+                        style={{ objectFit: 'contain' }}
+                    >
                         <img
                             className='rounded-circle'
                             src={avatar}
                             alt=''
-                            style={{ width: '40px', height: '40px' }}
+                            style={{
+                                width: '40px',
+                                height: '40px',
+                            }}
                         />
                         <div className='bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1'></div>
                     </div>
                     <div className='ms-3'>
-                        <h6 className='mb-0'>John Doe</h6>
+                        <h6 className='mb-0'>Finance Head</h6>
                         <span>Admin</span>
                     </div>
                 </div>
@@ -62,10 +69,8 @@ const SideBar = () => {
                             </Link>
                         </div>
                     </div>
-                    <Link to={'/generate-report'}>
-                        <a className='nav-item nav-link'>
-                            <i className='fa fa-scroll me-2'></i>Generate Report
-                        </a>
+                    <Link className='nav-item nav-link' to={'/generate-report'}>
+                        <i className='fa fa-scroll me-2'></i>Generate Report
                     </Link>
 
                     {/*

@@ -1,9 +1,7 @@
-import React from 'react';
-import FormatDate from '../../../utils/formatDate';
+import FormatDate from '../../../utils/FormatDate.js';
+import PropTypes from 'prop-types';
 
 const Journal = ({ contracts }) => {
-    console.log('here');
-
     return (
         <div className='container-fluid pt-4 px-4'>
             <div
@@ -151,4 +149,8 @@ const rouTitle = {
 
 const tableBottom = {
     borderBottom: 'solid 1px',
+};
+
+Journal.propTypes = {
+    contracts: PropTypes.array.isRequired,
 };

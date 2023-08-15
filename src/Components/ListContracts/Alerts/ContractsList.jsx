@@ -98,6 +98,16 @@ const ContractsList = ({ contractsData, setTobeDeleted }) => {
                                                             </Link>
                                                         </li>
                                                         <li>
+                                                            <Link
+                                                                to={`/report/${contract?.id}`}
+                                                                className='dropdown-item'
+                                                            >
+                                                                <i className='fa fa-scroll me-2'></i>
+                                                                View Report
+                                                            </Link>
+                                                        </li>
+
+                                                        {/* <li>
                                                             <a
                                                                 className='dropdown-item'
                                                                 href='#'
@@ -105,7 +115,7 @@ const ContractsList = ({ contractsData, setTobeDeleted }) => {
                                                                 <i className='fa fa-edit me-2'></i>
                                                                 Update
                                                             </a>
-                                                        </li>
+                                                        </li> */}
 
                                                         <li>
                                                             <hr className='dropdown-divider' />

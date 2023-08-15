@@ -2,7 +2,7 @@ import FormatDate from '../../utils/FormatDate';
 import numeral from 'numeral';
 import PropTypes from 'prop-types';
 
-const ReportTable = ({ contracts }) => {
+const YearlyReportTable = ({ contracts }) => {
     return (
         <>
             <h6 className='mb-4'>Report Table</h6>
@@ -14,13 +14,7 @@ const ReportTable = ({ contracts }) => {
                 >
                     <thead>
                         <tr>
-                            {/* <th scope='col' colSpan='2'>
-                                Contract Months
-                            </th> */}
-                            {/* <th scope='col'>60 Months</th> */}
-                        </tr>
-                        <tr>
-                            <th scope='col' colSpan='2'>
+                            <th scope='col' colSpan='3'>
                                 DEPRECIATION PER MONTH
                             </th>
                             <th scope='col'>
@@ -36,10 +30,10 @@ const ReportTable = ({ contracts }) => {
                             <th colSpan='4' className='bg-secondary'></th>
                         </tr>
                         <tr>
-                            <th>Month</th>
-                            {/* <th>Balance</th> */}
-                            <th>Deprecitation Expense</th>
-                            <th>Months</th>
+                            <th>Year</th>
+                            <th>Balance</th>
+                            <th>Deprecitation Exp</th>
+                            <th>Remaining Months</th>
                         </tr>
                         {contracts?.map((contract) =>
                             contract.report.map((report, index) => (
@@ -47,11 +41,11 @@ const ReportTable = ({ contracts }) => {
                                     <td scope='row'>
                                         {FormatDate(report?.year)}
                                     </td>
-                                    {/* <td>
+                                    <td>
                                         {numeral(report?.balance).format(
                                             '0,0.00'
                                         )}
-                                    </td> */}
+                                    </td>
                                     <td>
                                         {report?.deprecationExp === 0
                                             ? '-'
@@ -74,8 +68,8 @@ const ReportTable = ({ contracts }) => {
     );
 };
 
-ReportTable.propTypes = {
+YearlyReportTable.propTypes = {
     contracts: PropTypes.array.isRequired,
 };
 
-export default ReportTable;
+export default YearlyReportTable;
