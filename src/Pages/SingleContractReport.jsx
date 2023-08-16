@@ -4,6 +4,7 @@ import useFetchData from '../hooks/useFetchData';
 import ReportTable from '../Components/ShowContract/ReportTable';
 import YearlyReportTable from '../Components/ShowContract/YearlyReportTable';
 import Journal from '../Components/ShowContract/Journals/Journal';
+import FullLoader from '../Components/Loaders/FullLoader';
 
 const SingleContractReport = () => {
     const { contractId } = useParams();
@@ -15,8 +16,6 @@ const SingleContractReport = () => {
         isLoading: reportLoading,
         error: reportError,
     } = useFetchData(`/leases/report`, reportTerm, type, contractId);
-
-    console.log(report);
 
     return (
         <>
@@ -61,41 +60,54 @@ const SingleContractReport = () => {
                     </div>
                 </div>
             </div>
-            <div className='container-fluid pt-4 px-4'>
-                <div
-                    className='row bg-light rounded mx-0'
-                    style={{ minHeight: '100vh' }}
-                >
-                    {report?.length && (
-                        <div className='container-fluid pt-4 px-4'>
-                            <div
-                                className='row g-4'
-                                style={{ minHeight: '500px' }}
-                            >
-                                <div className='col-12'>
-                                    <div className='bg-light rounded h-100 p-4'>
-                                        {reportTerm === 'monthly' ? (
-                                            <>
-                                                <ReportTable
-                                                    contracts={report}
-                                                />
-                                                <Journal contracts={report} />
-                                            </>
-                                        ) : (
-                                            <>
-                                                <YearlyReportTable
-                                                    contracts={report}
-                                                />
-                                                <Journal contracts={report} />
-                                            </>
-                                        )}
+            {<FullLoader isLoading={reportLoading} />}
+            {!reportLoading && (
+                <div className='container-fluid pt-4 px-4'>
+                    <div
+                        className='row bg-light rounded mx-0 d-flex justify-content-center align-items-center'
+                        style={{ minHeight: '100vh', textAlign: 'center' }}
+                    >
+                        {reportError && (
+                            <p className='h1'>
+                                {reportError?.message ||
+                                    'Error fetching report'}
+                            </p>
+                        )}
+                        {report?.length > 0 && (
+                            <div className='container-fluid pt-4 px-4'>
+                                <div
+                                    className='row g-4'
+                                    style={{ minHeight: '500px' }}
+                                >
+                                    <div className='col-12'>
+                                        <div className='bg-light rounded h-100 p-4'>
+                                            {reportTerm === 'monthly' ? (
+                                                <>
+                                                    <ReportTable
+                                                        contracts={report}
+                                                    />
+                                                    <Journal
+                                                        contracts={report}
+                                                    />
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <YearlyReportTable
+                                                        contracts={report}
+                                                    />
+                                                    <Journal
+                                                        contracts={report}
+                                                    />
+                                                </>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
-            </div>
+            )}
         </>
     );
 };

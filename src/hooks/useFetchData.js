@@ -7,13 +7,10 @@ const useFetchData = (url, term, type, contractId) => {
     const [error, setError] = useState('');
 
     const fetchData = useCallback(async () => {
-        const data = { term, type, ids: [Number(contractId)] };
-        console.log('DATA', data);
         try {
             setError('');
             setData('');
             setIsLoading(true);
-            console.log('Loading');
             const res = await axios.post(url, {
                 type,
                 term,
@@ -24,7 +21,6 @@ const useFetchData = (url, term, type, contractId) => {
             setError(error);
         } finally {
             setIsLoading(false);
-            console.log('Ended');
         }
     }, [term, type, contractId, url]);
 

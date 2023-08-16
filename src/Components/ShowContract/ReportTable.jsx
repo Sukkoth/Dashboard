@@ -37,36 +37,31 @@ const ReportTable = ({ contracts }) => {
                         </tr>
                         <tr>
                             <th>Month</th>
-                            {/* <th>Balance</th> */}
                             <th>Deprecitation Expense</th>
-                            <th>Months</th>
+                            <th>Summation</th>
                         </tr>
-                        {contracts?.map((contract) =>
-                            contract.report.map((report, index) => (
-                                <tr key={index}>
-                                    <td scope='row'>
-                                        {FormatDate(report?.year)}
-                                    </td>
-                                    {/* <td>
-                                        {numeral(report?.balance).format(
-                                            '0,0.00'
-                                        )}
-                                    </td> */}
-                                    <td>
-                                        {report?.deprecationExp === 0
-                                            ? '-'
-                                            : numeral(
-                                                  report?.deprecationExp
-                                              ).format('0,0')}
-                                    </td>
-                                    <td>
-                                        {numeral(report?.months).format(
-                                            '0,0.00'
-                                        )}
-                                    </td>
-                                </tr>
-                            ))
-                        )}
+                        {contracts?.map((contract) => {
+                            let sum = 0;
+                            return contract.report.map((report, index) => {
+                                sum += report?.deprecationExp;
+                                return (
+                                    <tr key={index}>
+                                        <td scope='row'>
+                                            {FormatDate(report?.year)}
+                                        </td>
+                                        <td>
+                                            {report?.deprecationExp === 0
+                                                ? '-'
+                                                : numeral(
+                                                      report?.deprecationExp
+                                                  ).format('0,0.00')}
+                                        </td>
+
+                                        <td>{numeral(sum).format('0,0.00')}</td>
+                                    </tr>
+                                );
+                            });
+                        })}
                     </tbody>
                 </table>
             </div>

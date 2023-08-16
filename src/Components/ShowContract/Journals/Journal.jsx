@@ -1,7 +1,12 @@
+import numeral from 'numeral';
 import FormatDate from '../../../utils/FormatDate.js';
 import PropTypes from 'prop-types';
 
 const Journal = ({ contracts }) => {
+    const sum = contracts[0].report.reduce((sum, report) => {
+        return sum + report.deprecationExp;
+    }, 0);
+
     return (
         <div className='container-fluid pt-4 px-4'>
             <div
@@ -20,15 +25,25 @@ const Journal = ({ contracts }) => {
                         </p>
                         <p className='mx-3 fw-bold'>
                             ROU..............................{' '}
-                            {contracts[0].detail[0].rightOfUse}
+                            {numeral(contracts[0].detail[0].rightOfUse).format(
+                                '0,0.00'
+                            )}
                         </p>
                         <p className='mx-4 fst-italic'>
-                            Cash ........................... 1,111,453.20
+                            Cash ...........................{' '}
+                            {numeral(
+                                contracts[0].detail[0].rightOfUse -
+                                    contracts[0]?.detail[0]?.leaseLiability
+                            ).format('0,0.00')}
                         </p>
-                        <p className='mx-5 fst-italic'>
-                            Lease Liability...........................
-                            {contracts[0]?.detail[0]?.leaseLiability || '0'}
-                        </p>
+                        {contracts[0]?.detail[0]?.leaseLiability > 0 && (
+                            <p className='mx-5 fst-italic'>
+                                Lease Liability...........................
+                                {numeral(
+                                    contracts[0]?.detail[0]?.leaseLiability
+                                ).format('0,0.00')}
+                            </p>
+                        )}
                     </div>
 
                     <p>
@@ -49,7 +64,10 @@ const Journal = ({ contracts }) => {
                                     <p className='mx-4 fst-italic'>
                                         Depreciation
                                         Expense...........................
-                                        {report.deprecationExp}
+                                        {numeral(report.deprecationExp).format(
+                                            '0,0.00'
+                                        )}
+                                        {}
                                     </p>
                                 </div>
                             )
@@ -78,11 +96,16 @@ const Journal = ({ contracts }) => {
                                             }
                                         >
                                             <td style={rouLeftStyle}>
-                                                {report?.deprecationExp}
+                                                {numeral(
+                                                    report?.deprecationExp
+                                                ).format('0,0.00')}
                                             </td>
                                             {index == 1 && (
                                                 <td style={rouRightStyle}>
-                                                    2575457545
+                                                    {numeral(
+                                                        contracts[0].detail[0]
+                                                            .rightOfUse
+                                                    ).format('0,0.00')}
                                                 </td>
                                             )}
                                         </tr>
@@ -90,14 +113,14 @@ const Journal = ({ contracts }) => {
                             )}
 
                             <tr>
-                                <td>1,753,729.48</td>
-                                <td>1,753,729.48</td>
+                                <td>{numeral(sum).format('0,0.00')}</td>
+                                <td> {contracts[0].detail[0].rightOfUse}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                {contracts[0]?.detail[0].advancePayment !==
+                {/* {contracts[0]?.detail[0].advancePayment !==
                     contracts[0]?.detail[0].totalPayment && (
                     <div className='mt-5 text-start px-5 text-dark'>
                         <h2>The Finance charge.</h2>
@@ -125,7 +148,7 @@ const Journal = ({ contracts }) => {
                             );
                         })}
                     </div>
-                )}
+                )} */}
             </div>
         </div>
     );

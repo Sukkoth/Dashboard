@@ -21,7 +21,6 @@ const ConfirmationModal = ({ tobeDeleted, setTobeDeleted }) => {
     );
 
     const handleDelete = async () => {
-        console.log('Strat');
         const finished = await deleteContract({
             url: `/leases/${tobeDeleted}`,
             method: 'delete',

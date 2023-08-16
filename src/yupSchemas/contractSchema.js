@@ -1,14 +1,14 @@
 import * as yup from 'yup';
 
 const contractSchema = yup.object().shape({
-    // email: yup.string().email().required(),
-    // password: yup.string().min(8).max(32).required(),
-    branchName: yup.string().required('Branch name is required'),
+    branchName: yup.string().required('Branch is required'),
     branchCode: yup
         .string()
         .required('Branch code is required')
         .min(4, 'Branch code must be 4 characters')
         .max(4, 'Branch code must be 4 characters'),
+    district: yup.string().required('District is required'),
+    region: yup.string().required('Region is required'),
     advancePayment: yup
         .number()
         .required('Advance Payment is required')

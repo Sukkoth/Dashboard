@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import contractSchema from '../yupSchemas/contractSchema';
 import useApiFetch from '../API/useApiFetch';
 import { useNavigate } from 'react-router-dom';
-
+import { DataContext } from '../Providers/DataProvider';
 import FormContainer from '../Components/AddContract/Forms/FormContainer';
 
 const AddContract = () => {
     const navigate = useNavigate();
+    const { regionsData } = useContext(DataContext);
+
     const {
         register,
         handleSubmit,
@@ -25,20 +27,34 @@ const AddContract = () => {
 
     useEffect(() => {
         if (!isLoading && contractData?.id) {
-            console.log('REDIRECTING ......');
             reset();
             setTimeout(() => {
                 navigate('/list-contracts');
             }, 1500);
         }
-    }, [contractData]);
+    }, [contractData, isLoading, navigate, reset]);
 
-    errors.length && console.log('Errors', errors);
     const onSubmitHandler = async (data) => {
-        await makeRequest({ data, url: '/leases', method: 'post' });
+        const updatedLocation = {
+            region: regionsData[data.region].region,
+            district: regionsData[data.region].districts[data.district].name,
+            branchName:
+                regionsData[data.region].districts[data.district].branches[
+                    data.district
+                ].name,
+        };
+
+        console.log({ ...data, ...updatedLocation });
+
+        await makeRequest({
+            data: { ...data, ...updatedLocation },
+            url: '/leases',
+            method: 'post',
+        });
     };
 
     return (
+        //TODO You can improve this prop drilling by using children in the FormContainer and moving all other components here
         <FormContainer
             handleSubmit={handleSubmit}
             onSubmitHandler={onSubmitHandler}

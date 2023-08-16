@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from './axios';
+console.log('WHY');
 const useApiFetch = (
     requestConfigParam = {
         url: '',
@@ -14,21 +15,16 @@ const useApiFetch = (
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [data, setData] = useState([]);
-    const [requestConfig, setRequestConfig] = useState(requestConfigParam);
+    const [requestConfig] = useState(requestConfigParam);
 
-    const fetchData = async (request = {}) => {
+    const fetchData = useCallback(async (request = {}) => {
         setIsLoading(true);
         setErrors({});
         try {
-            console.log('MAKING REQUEST', {
-                ...requestConfig,
-                ...request,
-            });
             const response = await axios.request({
                 ...requestConfig,
                 ...request,
             });
-            console.log(response.data);
             setData(response.data || []);
             return true;
         } catch (error) {
@@ -51,11 +47,11 @@ const useApiFetch = (
         } finally {
             setIsLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
         intialFetch && fetchData(requestConfig);
-    }, [requestConfig]);
+    }, [requestConfig, fetchData, intialFetch]);
 
     return { isLoading, errors, data, fetchData, setErrors };
 };

@@ -28,8 +28,8 @@ const FormContainer = ({
                     )}
                     {!isLoading && contractData?.id && <NewContractAdded />}
                     <SubmitButton
-                        handleSubmit={handleSubmit}
-                        onSubmitHandler={onSubmitHandler}
+                        // handleSubmit={handleSubmit}
+                        // onSubmitHandler={onSubmitHandler}
                         isLoading={isLoading}
                     />
                 </div>
