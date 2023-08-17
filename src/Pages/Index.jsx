@@ -11,8 +11,8 @@ const Index = () => {
                         <div className='bg-light rounded d-flex align-items-center justify-content-between p-4'>
                             <i className='fa fa-chart-line fa-3x text-primary'></i>
                             <div className='ms-3'>
-                                <p className='mb-2'>Today Sale</p>
-                                <h6 className='mb-0'>$1234</h6>
+                                <p className='mb-2'>Total Contracts</p>
+                                <h6 className='mb-0'>1234</h6>
                             </div>
                         </div>
                     </div>
@@ -20,8 +20,8 @@ const Index = () => {
                         <div className='bg-light rounded d-flex align-items-center justify-content-between p-4'>
                             <i className='fa fa-chart-bar fa-3x text-primary'></i>
                             <div className='ms-3'>
-                                <p className='mb-2'>Total Sale</p>
-                                <h6 className='mb-0'>$1234</h6>
+                                <p className='mb-2'>Total Branches</p>
+                                <h6 className='mb-0'>1234</h6>
                             </div>
                         </div>
                     </div>
@@ -29,8 +29,8 @@ const Index = () => {
                         <div className='bg-light rounded d-flex align-items-center justify-content-between p-4'>
                             <i className='fa fa-chart-area fa-3x text-primary'></i>
                             <div className='ms-3'>
-                                <p className='mb-2'>Today Revenue</p>
-                                <h6 className='mb-0'>$1234</h6>
+                                <p className='mb-2'>Today Districts</p>
+                                <h6 className='mb-0'>1234</h6>
                             </div>
                         </div>
                     </div>
@@ -38,8 +38,8 @@ const Index = () => {
                         <div className='bg-light rounded d-flex align-items-center justify-content-between p-4'>
                             <i className='fa fa-chart-pie fa-3x text-primary'></i>
                             <div className='ms-3'>
-                                <p className='mb-2'>Total Revenue</p>
-                                <h6 className='mb-0'>$1234</h6>
+                                <p className='mb-2'>Total Amount</p>
+                                <h6 className='mb-0'>1234</h6>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@ const Index = () => {
                     <div className='col-sm-12 col-xl-6'>
                         <div className='bg-light text-center rounded p-4'>
                             <div className='d-flex align-items-center justify-content-between mb-4'>
-                                <h6 className='mb-0'>Worldwide Sales</h6>
+                                <h6 className='mb-0'>Active Contracts</h6>
                                 <a href=''>Show All</a>
                             </div>
                             <canvas id='worldwide-sales'></canvas>
@@ -63,7 +63,7 @@ const Index = () => {
                         <div className='bg-light text-center rounded p-4'>
                             <div className='d-flex align-items-center justify-content-between mb-4'>
                                 <h6 className='mb-0'>Salse & Revenue</h6>
-                                <a href=''>Show All</a>
+                                <a href=''>Expired Contracts</a>
                             </div>
                             <canvas id='salse-revenue'></canvas>
                         </div>
@@ -108,7 +108,7 @@ const Index = () => {
                                     <td>01 Jan 2045</td>
                                     <td>INV-0123</td>
                                     <td>Jhon Doe</td>
-                                    <td>$123</td>
+                                    <td>123</td>
                                     <td>Paid</td>
                                     <td>
                                         <a
@@ -129,7 +129,7 @@ const Index = () => {
                                     <td>01 Jan 2045</td>
                                     <td>INV-0123</td>
                                     <td>Jhon Doe</td>
-                                    <td>$123</td>
+                                    <td>123</td>
                                     <td>Paid</td>
                                     <td>
                                         <a
@@ -150,7 +150,7 @@ const Index = () => {
                                     <td>01 Jan 2045</td>
                                     <td>INV-0123</td>
                                     <td>Jhon Doe</td>
-                                    <td>$123</td>
+                                    <td>123</td>
                                     <td>Paid</td>
                                     <td>
                                         <a
@@ -171,7 +171,7 @@ const Index = () => {
                                     <td>01 Jan 2045</td>
                                     <td>INV-0123</td>
                                     <td>Jhon Doe</td>
-                                    <td>$123</td>
+                                    <td>123</td>
                                     <td>Paid</td>
                                     <td>
                                         <a
@@ -192,7 +192,7 @@ const Index = () => {
                                     <td>01 Jan 2045</td>
                                     <td>INV-0123</td>
                                     <td>Jhon Doe</td>
-                                    <td>$123</td>
+                                    <td>123</td>
                                     <td>Paid</td>
                                     <td>
                                         <a

@@ -1,14 +1,43 @@
+import { useState } from 'react';
+import GenerateReport from '../Components/GenerateRepot/GenerateReport';
+import Report from '../Components/GenerateRepot/Report';
+
 const GenerateReportPage = () => {
-    return (
-        <div className='container-fluid pt-4 px-4'>
-            <div
-                className='row bg-light rounded mx-0 p-5'
-                style={{ minHeight: '100vh' }}
-            >
-                Generate Report
-            </div>
-        </div>
+    const [selectedRegions, setSelectedRegions] = useState([]);
+    const [selectedDistricts, setSelectedDistricts] = useState([]);
+    const [selectedBranches, setSelectedBranches] = useState([]);
+    const [selectedMonths, setSelectedMonths] = useState([]);
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+
+    const [showReport, setShowReport] = useState(false);
+
+    const propsToPassToGenerateReport = {
+        selectedRegions,
+        setSelectedRegions,
+        selectedDistricts,
+        setSelectedDistricts,
+        selectedBranches,
+        setSelectedBranches,
+        selectedMonths,
+        setSelectedMonths,
+        selectedYear,
+        setSelectedYear,
+        setShowReport,
+    };
+
+    const propsToPassToReport = {
+        selectedRegions,
+        selectedDistricts,
+        selectedBranches,
+        selectedMonths,
+        selectedYear,
+        setShowReport,
+    };
+
+    return showReport === true ? (
+        <Report {...propsToPassToReport} />
+    ) : (
+        <GenerateReport {...propsToPassToGenerateReport} />
     );
 };
-
 export default GenerateReportPage;

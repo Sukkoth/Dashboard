@@ -15,7 +15,7 @@ const YearlyReportTable = ({ contracts }) => {
                     <thead>
                         <tr>
                             <th scope='col' colSpan='3'>
-                                DEPRECIATION PER MONTH
+                                DEPRECIATION PER YEAR
                             </th>
                             <th scope='col'>
                                 {numeral(
@@ -42,9 +42,11 @@ const YearlyReportTable = ({ contracts }) => {
                                         {FormatDate(report?.year)}
                                     </td>
                                     <td>
-                                        {numeral(report?.balance).format(
-                                            '0,0.00'
-                                        )}
+                                        {report?.balance === 0
+                                            ? ' - '
+                                            : numeral(report?.balance).format(
+                                                  '0,0.00'
+                                              )}
                                     </td>
                                     <td>
                                         {report?.deprecationExp === 0

@@ -1,5 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
-// import regionsData from '../list.json';
+import { createContext } from 'react';
 import useApiFetch from '../API/useApiFetch';
 
 export const DataContext = createContext({});

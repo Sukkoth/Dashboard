@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
 import axios from './axios';
-console.log('WHY');
 const useApiFetch = (
     requestConfigParam = {
         url: '',
