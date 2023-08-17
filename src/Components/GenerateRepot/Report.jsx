@@ -22,6 +22,7 @@ const Report = (props) => {
                     <button
                         className='btn btn-primary'
                         style={{ marginLeft: '2rem' }}
+                        onClick={() => alert('EXPORTING DATA SOON')}
                     >
                         <i className='fa fa-file alt'></i> Export
                     </button>

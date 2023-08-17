@@ -62,8 +62,8 @@ const Index = () => {
                     <div className='col-sm-12 col-xl-6'>
                         <div className='bg-light text-center rounded p-4'>
                             <div className='d-flex align-items-center justify-content-between mb-4'>
-                                <h6 className='mb-0'>Salse & Revenue</h6>
-                                <a href=''>Expired Contracts</a>
+                                <h6 className='mb-0'>Expired Contracts</h6>
+                                <a href=''>Show all</a>
                             </div>
                             <canvas id='salse-revenue'></canvas>
                         </div>
