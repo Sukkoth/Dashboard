@@ -27,6 +27,7 @@ const useApiFetch = (
             setData(response.data || []);
             return true;
         } catch (error) {
+            console.log('ERROR', error);
             if (error?.response?.status === 400) {
                 setErrors({ message: 'Bad request' });
             } else if (error?.response?.status === 401) {

@@ -2,6 +2,7 @@ import * as yup from 'yup';
 
 const contractSchema = yup.object().shape({
     branchName: yup.string().required('Branch is required'),
+    contractType: yup.string().required('Contract Type is required'),
     branchCode: yup
         .string()
         .required('Branch code is required')
@@ -14,7 +15,6 @@ const contractSchema = yup.object().shape({
         .required('Advance Payment is required')
         .typeError('Advance Payment is required')
         .min(1, 'Advance Payment must be greater than 0'),
-
     discountRate: yup
         .number()
         .typeError('Discount rate must be a number')

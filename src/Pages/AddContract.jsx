@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import contractSchema from '../yupSchemas/contractSchema';
@@ -10,6 +10,7 @@ import FormContainer from '../Components/AddContract/Forms/FormContainer';
 const AddContract = () => {
     const navigate = useNavigate();
     const { regionsData } = useContext(DataContext);
+    const [installmentData, setInstallmentData] = useState([]);
 
     const {
         register,
@@ -44,10 +45,28 @@ const AddContract = () => {
                 ].name,
         };
 
-        console.log({ ...data, ...updatedLocation });
+        let formattedInstallmentData = installmentData.reduce((acc, data) => {
+            acc[`${data.installmentDate}`] = Number(data.amount);
+            return acc;
+        }, {});
+
+        formattedInstallmentData =
+            installmentData.length > 0
+                ? JSON.stringify(formattedInstallmentData).replace(/\\/g, '')
+                : null;
+
+        console.log({
+            ...data,
+            ...updatedLocation,
+            installmentDetails: formattedInstallmentData,
+        });
 
         await makeRequest({
-            data: { ...data, ...updatedLocation },
+            data: {
+                ...data,
+                ...updatedLocation,
+                installmentDetails: formattedInstallmentData,
+            },
             url: '/leases',
             method: 'post',
         });
@@ -63,6 +82,8 @@ const AddContract = () => {
             backEndError={backEndError}
             isLoading={isLoading}
             contractData={contractData}
+            installmentData={installmentData}
+            setInstallmentData={setInstallmentData}
         />
     );
 };
