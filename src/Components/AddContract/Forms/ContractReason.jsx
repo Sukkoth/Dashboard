@@ -2,7 +2,7 @@ import React from 'react';
 
 const ContractReason = ({ register, errors }) => {
     return (
-        <div className='col-sm-12 col-xl-6'>
+        <div className='col-sm-12 col-xl-8'>
             <div className='bg-light rounded h-100 p-4'>
                 <h6 className='mb-4'>
                     Contract Reason

@@ -14,7 +14,6 @@ const contractSchema = yup.object().shape({
         .required('Advance Payment is required')
         .typeError('Advance Payment is required')
         .min(1, 'Advance Payment must be greater than 0'),
-
     discountRate: yup
         .number()
         .typeError('Discount rate must be a number')

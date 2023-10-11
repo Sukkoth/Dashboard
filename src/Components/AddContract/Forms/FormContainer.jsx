@@ -4,6 +4,7 @@ import BranchInfo from './BranchInfo';
 import ContractDetails from './ContractDetails';
 import ContractDuration from './ContractDuration';
 import ContractReason from './ContractReason';
+import InstallmentData from './InstallmentData';
 import SubmitButton from './SubmitButton';
 
 const FormContainer = ({
@@ -14,6 +15,8 @@ const FormContainer = ({
     isLoading,
     errors,
     contractData,
+    installmentData,
+    setInstallmentData,
 }) => {
     return (
         <div className='container-fluid pt-4 px-4'>
@@ -22,6 +25,10 @@ const FormContainer = ({
                     <BranchInfo register={register} errors={errors} />
                     <ContractDetails register={register} errors={errors} />
                     <ContractDuration register={register} errors={errors} />
+                    <InstallmentData
+                        installmentData={installmentData}
+                        setInstallmentData={setInstallmentData}
+                    />
                     <ContractReason register={register} errors={errors} />
                     {!isLoading && backEndError?.message && (
                         <BackEndError message={backEndError?.message} />

@@ -1839,7 +1839,7 @@ progress {
 .form-control:focus {
     color: #757575;
     background-color: #fff;
-    border-color: #80ceff;
+    border-color: purple;
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgba(0, 156, 255, 0.25);
 }
@@ -2562,7 +2562,7 @@ fieldset:disabled .btn {
     color: #000;
     background-color: #f055ce;
     border-color: #ffd51a;
-    box-shadow: 0 0 0 0.25rem rgba(0, 133, 217, 0.5);
+    box-shadow: 0 0 0 0.25rem #df7fca;
 }
 .btn-check:checked + .btn-primary,
 .btn-check:active + .btn-primary,
@@ -2578,7 +2578,7 @@ fieldset:disabled .btn {
 .btn-primary:active:focus,
 .btn-primary.active:focus,
 .show > .btn-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.25rem rgba(0, 133, 217, 0.5);
+    box-shadow: 0 0 0 0.25rem #df7fca;
 }
 .btn-primary:disabled,
 .btn-primary.disabled {
@@ -2679,7 +2679,7 @@ fieldset:disabled .btn {
     color: #000;
     background-color: #31d2f2;
     border-color: #25cff2;
-    box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5);
+    box-shadow: 0 0 0 0.25rem #df7fca;
 }
 .btn-check:checked + .btn-info,
 .btn-check:active + .btn-info,
@@ -2695,7 +2695,7 @@ fieldset:disabled .btn {
 .btn-info:active:focus,
 .btn-info.active:focus,
 .show > .btn-info.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.25rem rgba(11, 172, 204, 0.5);
+    box-shadow: 0 0 0 0.25rem #df7fca;
 }
 .btn-info:disabled,
 .btn-info.disabled {
