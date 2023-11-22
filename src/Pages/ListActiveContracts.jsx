@@ -2,9 +2,9 @@ import { useState } from 'react';
 import useApiFetch from '../API/useApiFetch';
 import FullLoader from '../Components/Loaders/FullLoader';
 import LargeAlert from '../Components/ListContracts/Alerts/LargeAlert';
+import ContractsList from '../Components/ListContracts/ContractsList';
 import ConfirmationModal from '../Components/ListContracts/ConfirmationModal';
 import NoContracts from '../Components/ListContracts/NoContracts';
-import ContractsList from '../Components/ListContracts/ContractsList';
 
 //! Try reloading the page if there is no error in deleteError Object,
 //!you are having difficulty wih blocking and non blocking concept,
@@ -12,14 +12,14 @@ import ContractsList from '../Components/ListContracts/ContractsList';
 
 //*Fixed the above in a very odd way
 
-const ListContracts = () => {
+const ListActiveContracts = () => {
     const [tobeDeleted, setTobeDeleted] = useState(false);
     const {
         data: contractsData,
         isLoading,
         errors,
     } = useApiFetch({
-        url: '/leases',
+        url: '/leases/activeContracts',
         method: 'get',
     });
 
@@ -44,4 +44,4 @@ const ListContracts = () => {
     );
 };
 
-export default ListContracts;
+export default ListActiveContracts;

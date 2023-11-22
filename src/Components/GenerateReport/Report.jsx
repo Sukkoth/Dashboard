@@ -55,7 +55,6 @@ const Report = (props) => {
                 }),
         };
     });
-    console.log('Transformed ', transformedData);
     return (
         <div className='container-fluid pt-4 px-4'>
             <div className='bg-light rounded mx-0 p-5'>
@@ -95,6 +94,12 @@ const Report = (props) => {
                                                     Branch Name
                                                 </th>
                                                 <th className='bg-light'>
+                                                    Contract Start Date
+                                                </th>
+                                                <th className='bg-light'>
+                                                    Contract End Date
+                                                </th>
+                                                <th className='bg-light'>
                                                     Contract Price
                                                 </th>
                                                 <th className='bg-light'>
@@ -112,102 +117,20 @@ const Report = (props) => {
                                                     The First/ Last Monthly
                                                     Expense to Be
                                                 </th>
-                                                <th>7/31/2023</th>
-                                                <th>7/31/2023</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
                                             </tr>
                                         </thead>
-
                                         <tbody>
                                             {transformedData.map((region) => (
-                                                <>
-                                                    <tr>
-                                                        <td rowSpan='6'>
-                                                            {region?.region}
-                                                        </td>
-                                                        <td rowSpan='3'>
-                                                            District .1
-                                                        </td>
-                                                        <td>Branch Name</td>
-                                                        <td>Data -2</td>
-                                                        <td>Data -3</td>
-                                                        <td>Data -4</td>
-                                                        <td>Data -5</td>
-                                                        <td>Data -6</td>
-                                                        <td>Data -7</td>
-                                                        <td>Data -8</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Branch Name</td>
-                                                        <td>Data -10</td>
-                                                        <td>Data -11</td>
-                                                        <td>Data -12</td>
-                                                        <td>Data -13</td>
-                                                        <td>Data -14</td>
-                                                        <td>Data -15</td>
-                                                        <td>Data -16</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>Branch Name</td>
-                                                        <td>Data -18</td>
-                                                        <td>Data -19</td>
-                                                        <td>Data -20</td>
-                                                        <td>Data -21</td>
-                                                        <td>Data -22</td>
-                                                        <td>Data -23</td>
-                                                        <td>Data -24</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td rowSpan='3'>
-                                                            District .2
-                                                        </td>
-                                                        <td>Branch Name</td>
-                                                        <td>Data -26</td>
-                                                        <td>Data -27</td>
-                                                        <td>Data -28</td>
-                                                        <td>Data -29</td>
-                                                        <td>Data -30</td>
-                                                        <td>Data -31</td>
-                                                        <td>Data -32</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Branch Name</td>
-                                                        <td>Data -34</td>
-                                                        <td>Data -35</td>
-                                                        <td>Data -36</td>
-                                                        <td>Data -37</td>
-                                                        <td>Data -38</td>
-                                                        <td>Data -39</td>
-                                                        <td>Data -40</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td className='bg-secondary text-light'>
-                                                            TOTAL
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -34
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -35
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -36
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -37
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -38
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -39
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -40
-                                                        </td>
-                                                    </tr>
-                                                </>
+                                                <Region
+                                                    selectedBranches={
+                                                        selectedBranches
+                                                    }
+                                                    key={region.region}
+                                                    region={region}
+                                                />
                                             ))}
                                         </tbody>
                                     </table>
@@ -221,6 +144,30 @@ const Report = (props) => {
     );
 };
 
+function Region({ region, selectedBranches }) {
+    return (
+        <>
+            {selectedBranches?.map((branch) => (
+                <tr key={branch.BranchId}>
+                    <td>{region.region}</td>
+                    <td>District Name</td>
+                    <td>Branch Name</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            ))}
+        </>
+    );
+}
+
 Report.propTypes = {
     selectedRegions: PropTypes.array,
     selectedDistricts: PropTypes.array,
@@ -231,110 +178,3 @@ Report.propTypes = {
 };
 
 export default Report;
-
-/**
- * 
- *   <tbody>
-                                            {selectedRegions.map( => (
-                                                <>
-                                                    <tr>
-                                                        <td rowSpan='6'>
-                                                            Region 
-                                                        </td>
-                                                        <td rowSpan='3'>
-                                                            District .1
-                                                        </td>
-                                                        <td>
-                                                            Branch Name 
-                                                        </td>
-                                                        <td>Data -2</td>
-                                                        <td>Data -3</td>
-                                                        <td>Data -4</td>
-                                                        <td>Data -5</td>
-                                                        <td>Data -6</td>
-                                                        <td>Data -7</td>
-                                                        <td>Data -8</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Branch Name 
-                                                        </td>
-                                                        <td>Data -10</td>
-                                                        <td>Data -11</td>
-                                                        <td>Data -12</td>
-                                                        <td>Data -13</td>
-                                                        <td>Data -14</td>
-                                                        <td>Data -15</td>
-                                                        <td>Data -16</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            Branch Name 
-                                                        </td>
-                                                        <td>Data -18</td>
-                                                        <td>Data -19</td>
-                                                        <td>Data -20</td>
-                                                        <td>Data -21</td>
-                                                        <td>Data -22</td>
-                                                        <td>Data -23</td>
-                                                        <td>Data -24</td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td rowSpan='3'>
-                                                            District .2
-                                                        </td>
-                                                        <td>
-                                                            Branch Name 
-                                                        </td>
-                                                        <td>Data -26</td>
-                                                        <td>Data -27</td>
-                                                        <td>Data -28</td>
-                                                        <td>Data -29</td>
-                                                        <td>Data -30</td>
-                                                        <td>Data -31</td>
-                                                        <td>Data -32</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Branch Name 
-                                                        </td>
-                                                        <td>Data -34</td>
-                                                        <td>Data -35</td>
-                                                        <td>Data -36</td>
-                                                        <td>Data -37</td>
-                                                        <td>Data -38</td>
-                                                        <td>Data -39</td>
-                                                        <td>Data -40</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td className='bg-secondary text-light'>
-                                                            TOTAL
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -34
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -35
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -36
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -37
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -38
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -39
-                                                        </td>
-                                                        <td className='bg-secondary text-light'>
-                                                            Data -40
-                                                        </td>
-                                                    </tr>
-                                                </>
-                                            ))}
-                                        </tbody>
- */

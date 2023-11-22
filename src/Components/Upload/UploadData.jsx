@@ -95,7 +95,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     const {
         data: reports,
         isLoading: reportIsLoading,
-        error: reportError,
+        errors: reportError,
     } = useApiFetch({
         url: '/leases/reports/all',
         method: 'POST',
@@ -127,8 +127,14 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
         );
     }
 
-    if (!branches?.length || !reports?.length) {
-        return <LargeAlert message='Some or All Data missing' />;
+    if (!branches?.length) {
+        return <LargeAlert message='No branch data found' />;
+    }
+
+    if (!reports?.length) {
+        return (
+            <LargeAlert message={`No report data found ${reports.length}`} />
+        );
     }
 
     let extractedReports = [];
@@ -161,12 +167,6 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     extractedReports.sort((a, b) =>
         a.branchName.toUpperCase() < b.branchName.toUpperCase() ? -1 : 1
     );
-    //to test use this one
-    // const newOne = Array.from(
-    //     { length: 10000 },
-    //     (_, index) => extractedReports[index % 10]
-    // );
-    // console.log(newOne);
     return (
         <div className='container-fluid pt-4 px-4'>
             <div className='bg-light rounded mx-0 p-5'>

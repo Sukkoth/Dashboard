@@ -56,6 +56,10 @@ const AddContract = () => {
                 regionsData[data.region].districts[data.district].branches[
                     data.district
                 ].name,
+            branch_id:
+                regionsData[data.region].districts[data.district].branches[
+                    data.district
+                ].BranchId,
         };
 
         //the backend requires the installement data to be formatted into stringfied JSON
@@ -68,6 +72,11 @@ const AddContract = () => {
             installmentData.length > 0
                 ? JSON.stringify(formattedInstallmentData).replace(/\\/g, '')
                 : null;
+        console.log({
+            ...data,
+            ...updatedLocation,
+            installmentDetails: formattedInstallmentData,
+        });
 
         await makeRequest({
             data: {

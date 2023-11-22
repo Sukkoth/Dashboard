@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import avatar from '../assets/icon.png';
 
 import { LayoutContext } from '../Providers/LayoutProvider';
@@ -37,45 +37,59 @@ const SideBar = () => {
                     </div>
                 </div>
                 <div className='navbar-nav w-100'>
-                    <Link to='/' className='nav-item nav-link active'>
+                    <NavLink to='/' className='nav-item nav-link'>
                         <i className='fa fa-tachometer-alt me-2'></i>
                         Dashboard
-                    </Link>
+                    </NavLink>
                     <div className='nav-item dropdown'>
-                        <a
+                        <Link
                             href='#'
                             className='nav-link dropdown-toggle'
                             data-bs-toggle='dropdown'
                         >
                             <i className='fa fa-laptop me-2'></i>Contracts
-                        </a>
+                        </Link>
                         <div className='dropdown-menu bg-transparent border-0'>
-                            <Link to='/add-contract' className='dropdown-item'>
-                                <i
-                                    className='fa fa-plus me-2'
-                                    style={{ color: '#d30fa9' }}
-                                ></i>
-                                Add
-                            </Link>
-                            <Link
-                                to='/list-contracts'
-                                className='dropdown-item'
+                            <NavLink
+                                to='/add-contract'
+                                className='dropdown-item mb-3 mx-4 '
                             >
-                                <i
-                                    className='fa fa-list me-2'
-                                    style={{ color: '#d30fa9' }}
-                                ></i>
-                                List
-                            </Link>
+                                <i className='fa fa-plus me-2 text-dark'></i>
+                                Add
+                            </NavLink>
+                            <NavLink
+                                to='/list-contracts/all'
+                                className='dropdown-item mb-3 mx-4'
+                            >
+                                <i className='fa fa-list me-2 text-dark'></i>
+                                List All
+                            </NavLink>
+                            <NavLink
+                                to='/list-contracts/active'
+                                className='dropdown-item mb-3 mx-4'
+                            >
+                                <i className='fas fa-file-contract me-2 text-dark'></i>
+                                Active Contracts
+                            </NavLink>
+                            <NavLink
+                                to='/list-contracts/ended'
+                                className='dropdown-item mb-3 mx-4'
+                            >
+                                <i className='fas fa-exclamation-circle me-2 text-dark'></i>
+                                Ended Contracts
+                            </NavLink>
                         </div>
                     </div>
-                    <Link className='nav-item nav-link' to={'/generate-report'}>
+                    {/* <NavLink
+                        className='nav-item nav-link'
+                        to={'/generate-report'}
+                    >
                         <i className='fa fa-scroll me-2'></i>Generate Report
-                    </Link>
-                    <Link className='nav-item nav-link' to={'/export'}>
+                    </NavLink> */}
+                    <NavLink className='nav-item nav-link' to={'/export'}>
                         <i className='fas fa-upload me-2'></i>Generate for
                         Upload
-                    </Link>
+                    </NavLink>
 
                     {/*
                     <a href='form.html' className='nav-item nav-link'>

@@ -8,6 +8,8 @@ import ShowContract from './Pages/ShowContract';
 import GenerateReportPage from './Pages/GenerateReportPage';
 import SingleContractReport from './Pages/SingleContractReport';
 import ExportForUpload from './Pages/ExportForUpload';
+import EndedContracts from './Pages/EndedContracts';
+import ListActiveContracts from './Pages/ListActiveContracts';
 
 function App() {
     return (
@@ -17,7 +19,18 @@ function App() {
                 <Route path='/' Component={Dashboard}>
                     <Route index Component={Index} />
                     <Route path='/add-contract' Component={AddContract} />
-                    <Route path='/list-contracts' Component={ListContracts} />
+                    <Route
+                        path='/list-contracts/all'
+                        Component={ListContracts}
+                    />
+                    <Route
+                        path='/list-contracts/ended'
+                        Component={EndedContracts}
+                    />
+                    <Route
+                        path='/list-contracts/active'
+                        Component={ListActiveContracts}
+                    />
                     <Route
                         path='/leases/:contractId'
                         Component={ShowContract}

@@ -144,7 +144,7 @@ SelectBox.propTypes = {
 };
 
 GenerateForUpload.propTypes = {
-    selectedMonth: PropTypes.array,
+    selectedMonth: PropTypes.number,
     selectedYear: PropTypes.number,
     setShowReport: PropTypes.func,
     setSelectedYear: PropTypes.func,

@@ -26,7 +26,7 @@ const useApiFetch = (
                 ...request,
             });
             setData(response.data || []);
-            return true;
+            // return true;
         } catch (error) {
             if (error?.response?.status === 400) {
                 setErrors({ message: 'Bad request', details: error });
@@ -49,7 +49,8 @@ const useApiFetch = (
                 });
             } else if (
                 error?.response?.status &&
-                400 <= error?.response?.status <= 499
+                400 <= error?.response?.status &&
+                error?.response?.status <= 499
             ) {
                 setErrors({
                     message: 'Bad Request here',
@@ -57,7 +58,8 @@ const useApiFetch = (
                 });
             } else if (
                 error?.response?.status &&
-                500 <= error?.response?.status === 599
+                500 <= error?.response?.status &&
+                error?.response?.status <= 599
             ) {
                 setErrors({ message: 'Server Error', details: error });
             } else if (error?.response?.data?.message) {
@@ -72,8 +74,8 @@ const useApiFetch = (
                     message: 'Unknown Error',
                 });
             }
-            console.log(error);
-            return false;
+
+            // return false;
         } finally {
             setIsLoading(false);
         }

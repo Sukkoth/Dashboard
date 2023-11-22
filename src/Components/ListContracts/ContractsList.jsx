@@ -1,13 +1,73 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 
 const ContractsList = ({ contractsData, setTobeDeleted }) => {
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+
+    let filteredData = contractsData;
+
+    if (startDate.length === 4) {
+        const filterStartDate = new Date(`01/01/${startDate}`);
+        filteredData = filteredData.filter((data) => {
+            const contractStartDate = new Date(
+                data.contractRegisteredDate
+            ).getFullYear();
+            if (filterStartDate.getFullYear() === contractStartDate)
+                return true;
+        });
+    }
+
+    //filter based on end date
+    if (endDate.length === 4) {
+        const filterEndDate = new Date(`01/01/${endDate}`);
+        filteredData = filteredData.filter((data) => {
+            const contractEndDate = new Date(
+                data.contractEndDate
+            ).getFullYear();
+            if (filterEndDate.getFullYear() === contractEndDate) return true;
+        });
+    }
+
     return (
         <div className='container-fluid pt-4 px-4'>
             <div className='row g-4' style={{ minHeight: '500px' }}>
                 <div className='col-12'>
                     <div className='bg-light rounded h-100 p-4'>
-                        <h6 className='mb-4'>Contracts List</h6>
+                        <h6 className='mb-4'>
+                            Contracts List ({filteredData.length || 0})
+                        </h6>
+                        <form action=''>
+                            <div className='row my-3'>
+                                <div className='col-2'>
+                                    <label htmlFor='regionName mt-2'>
+                                        Contract Registration Date
+                                    </label>
+                                    <input
+                                        type='text'
+                                        className='form-control'
+                                        value={startDate}
+                                        onChange={(e) =>
+                                            setStartDate(e.target.value)
+                                        }
+                                    />
+                                </div>
+                                <div className='col-2'>
+                                    <label htmlFor='regionName mt-2'>
+                                        Contract End Date
+                                    </label>
+                                    <input
+                                        type='text'
+                                        className='form-control'
+                                        value={endDate}
+                                        onChange={(e) =>
+                                            setEndDate(e.target.value)
+                                        }
+                                    />
+                                </div>
+                            </div>
+                        </form>
                         <div className='table-responsive mb-5'>
                             <table
                                 className='table'
@@ -23,7 +83,9 @@ const ContractsList = ({ contractsData, setTobeDeleted }) => {
                                     <tr>
                                         <th scope='col'>ID</th>
                                         <th scope='col'>Branch Name</th>
-                                        <th scope='col'>Contract Number</th>
+                                        <th scope='col'>
+                                            Contract Registered Date
+                                        </th>
                                         <th scope='col'>Contract Start Date</th>
                                         <th scope='col'>Contract End Date</th>
                                         <th scope='col'>Advance Payment</th>
@@ -37,11 +99,15 @@ const ContractsList = ({ contractsData, setTobeDeleted }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {contractsData.map((contract, index) => (
+                                    {filteredData.map((contract, index) => (
                                         <tr key={contract.id}>
                                             <th scope='row'>{index + 1}</th>
-                                            <td>{contract.branchName}</td>
-                                            <td>{contract?.contractNumber}</td>
+                                            <td>{contract.branch_id}</td>
+                                            <td>
+                                                {
+                                                    contract?.contractRegisteredDate
+                                                }
+                                            </td>
                                             <td>
                                                 {contract?.contractStartDate}
                                             </td>
