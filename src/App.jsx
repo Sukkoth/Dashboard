@@ -10,6 +10,7 @@ import SingleContractReport from './Pages/SingleContractReport';
 import ExportForUpload from './Pages/ExportForUpload';
 import EndedContracts from './Pages/EndedContracts';
 import ListActiveContracts from './Pages/ListActiveContracts';
+import './App.css';
 
 function App() {
     return (
