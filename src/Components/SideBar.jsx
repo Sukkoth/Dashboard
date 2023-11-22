@@ -11,7 +11,8 @@ const SideBar = () => {
             <nav className='navbar bg-light navbar-light'>
                 <Link to='/' className='navbar-brand mx-4 mb-3'>
                     <h3 className='text-primary'>
-                        <i className='fa fa-hashtag me-2'></i>CBELM
+                        <i className='fa fa-hashtag me-2 text-secondary'></i>
+                        CBELM
                     </h3>
                 </Link>
 
