@@ -1,16 +1,10 @@
 import { useState } from 'react';
-import useApiFetch from '../API/useApiFetch';
-import FullLoader from '../Components/Loaders/FullLoader';
-import LargeAlert from '../Components/ListContracts/Alerts/LargeAlert';
-import ConfirmationModal from '../Components/ListContracts/ConfirmationModal';
-import NoContracts from '../Components/ListContracts/NoContracts';
-import ContractsList from '../Components/ListContracts/ContractsList';
-
-//! Try reloading the page if there is no error in deleteError Object,
-//!you are having difficulty wih blocking and non blocking concept,
-//!the error object gets populated after you check for it
-
-//*Fixed the above in a very odd way
+import useApiFetch from '../../API/useApiFetch';
+import FullLoader from '../../Components/Loaders/FullLoader';
+import LargeAlert from '../../Components/ListContracts/Alerts/LargeAlert';
+import ConfirmationModal from '../../Components/ListContracts/ConfirmationModal';
+import NoContracts from '../../Components/ListContracts/NoContracts';
+import ContractsList from '../../Components/ListContracts/ContractsList';
 
 const ListContracts = () => {
     const [tobeDeleted, setTobeDeleted] = useState(false);

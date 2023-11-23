@@ -7,13 +7,25 @@ import { LayoutContext } from '../Providers/LayoutProvider';
 const SideBar = () => {
     const { sidebarToggle } = useContext(LayoutContext);
     return (
-        <div className={`sidebar ${!sidebarToggle && 'open'} pe-4 pb-3`}>
-            <nav className='navbar bg-light navbar-light'>
+        <div
+            className={`sidebar ${!sidebarToggle && 'open'} pe-4 pb-3`}
+            style={{ backgroundColor: 'white' }}
+        >
+            <nav
+                className='navbar navbar-dark'
+                style={{ backgroundColor: 'white' }}
+            >
                 <Link to='/' className='navbar-brand mx-4 mb-3'>
-                    <h3 className='text-primary'>
-                        <i className='fa fa-hashtag me-2 text-secondary'></i>
+                    <h1
+                        className='h1 text-header text-lg'
+                        style={{ fontWeight: 'bolder' }}
+                    >
+                        <i
+                            className='fa fa-hashtag me-2 text-secondary'
+                            style={{ fontSize: '2.5rem' }}
+                        ></i>
                         CBELM
-                    </h3>
+                    </h1>
                 </Link>
 
                 <div className='d-flex align-items-center ms-4 mb-4'>
@@ -37,7 +49,7 @@ const SideBar = () => {
                         <span>Admin</span>
                     </div>
                 </div>
-                <div className='navbar-nav w-100'>
+                <div className='navbar-nav w-100 mt-4'>
                     <NavLink to='/' className='nav-item nav-link'>
                         <i className='fa fa-tachometer-alt me-2'></i>
                         Dashboard
@@ -53,28 +65,28 @@ const SideBar = () => {
                         <div className='dropdown-menu bg-transparent border-0'>
                             <NavLink
                                 to='/add-contract'
-                                className='dropdown-item mb-3 mx-4 '
+                                className='dropdown-item mb-1 mx-4 '
                             >
                                 <i className='fa fa-plus me-2 text-dark'></i>
                                 Add
                             </NavLink>
                             <NavLink
                                 to='/list-contracts/all'
-                                className='dropdown-item mb-3 mx-4'
+                                className='dropdown-item mb-1 mx-4'
                             >
                                 <i className='fa fa-list me-2 text-dark'></i>
                                 List All
                             </NavLink>
                             <NavLink
                                 to='/list-contracts/active'
-                                className='dropdown-item mb-3 mx-4'
+                                className='dropdown-item mb-1 mx-4'
                             >
                                 <i className='fas fa-file-contract me-2 text-dark'></i>
                                 Active Contracts
                             </NavLink>
                             <NavLink
                                 to='/list-contracts/ended'
-                                className='dropdown-item mb-3 mx-4'
+                                className='dropdown-item mx-4'
                             >
                                 <i className='fas fa-exclamation-circle me-2 text-dark'></i>
                                 Ended Contracts
@@ -91,40 +103,6 @@ const SideBar = () => {
                         <i className='fas fa-upload me-2'></i>Generate for
                         Upload
                     </NavLink>
-
-                    {/*
-                    <a href='form.html' className='nav-item nav-link'>
-                        <i className='fa fa-keyboard me-2'></i>Forms
-                    </a>
-                    <a href='table.html' className='nav-item nav-link'>
-                        <i className='fa fa-table me-2'></i>Tables
-                    </a>
-                    <a href='chart.html' className='nav-item nav-link'>
-                        <i className='fa fa-chart-bar me-2'></i>Charts
-                    </a> */}
-                    {/* <div className='nav-item dropdown'>
-                        <a
-                            href='#'
-                            className='nav-link dropdown-toggle'
-                            data-bs-toggle='dropdown'
-                        >
-                            <i className='far fa-file-alt me-2'></i>Pages
-                        </a>
-                        <div className='dropdown-menu bg-transparent border-0'>
-                            <a href='signin.html' className='dropdown-item'>
-                                Sign In
-                            </a>
-                            <a href='signup.html' className='dropdown-item'>
-                                Sign Up
-                            </a>
-                            <a href='404.html' className='dropdown-item'>
-                                404 Error
-                            </a>
-                            <a href='blank.html' className='dropdown-item'>
-                                Blank Page
-                            </a>
-                        </div>
-                    </div> */}
                 </div>
             </nav>
         </div>

@@ -12,8 +12,8 @@ const BranchInfo = ({ register, errors }) => {
 
     return (
         <div className='col-sm-12 col-xl-4'>
-            <div className='bg-light rounded h-100 p-4'>
-                <h6 className='mb-4'>Branch Info</h6>
+            <div className='bg-white rounded h-100 p-4'>
+                <h6 className='h4 mb-4'>Branch Info</h6>
                 {/* REGION */}
 
                 <label htmlFor='regionName mt-2'>Region Name</label>

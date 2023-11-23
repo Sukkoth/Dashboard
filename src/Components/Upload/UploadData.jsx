@@ -150,6 +150,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
                                 : `${selectedMonth}`
                         }`
             );
+
             if (row?.deprecationExp) {
                 const branchName = branches.find(
                     (branch) => branch.BranchId === report.detail[0].BranchId
@@ -158,17 +159,37 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
                 extractedReports.push({
                     ...row,
                     branchName,
-                    year: report.year,
                 });
             }
         }
     });
 
-    extractedReports.sort((a, b) =>
-        a.branchName.toUpperCase() < b.branchName.toUpperCase() ? -1 : 1
+    extractedReports?.sort((a, b) =>
+        a?.branchName?.toUpperCase() < b?.branchName?.toUpperCase() ? -1 : 1
     );
+
+    let extractedAmmortization = [];
+
+    reports.forEach((report) => {
+        if (report?.ammortization?.length) {
+            console.log('AMM', report.ammortization);
+            const row = report?.ammortization.find(
+                (report) => report?.year === Number(selectedYear)
+            );
+
+            const branchName = branches.find(
+                (branch) => branch.BranchId === report.detail[0].BranchId
+            )?.name;
+
+            extractedAmmortization.push({
+                ...row,
+                branchName,
+            });
+        }
+    });
+
     return (
-        <div className='container-fluid pt-4 px-4'>
+        <div className='container-fluid pt-4 px-4 take-screen'>
             <div className='bg-light rounded mx-0 p-5'>
                 <div id='menu' className='mb-5'>
                     <button
@@ -211,6 +232,40 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
                                 <th>K</th>
                             </tr>
                             {extractedReports.map((row, key) => (
+                                <ReportRow
+                                    key={key}
+                                    selectedYear={selectedYear}
+                                    selectedMonth={selectedMonth}
+                                    row={row}
+                                />
+                            ))}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td className='text-light'>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td className='text-light'>-</td>
+                                <td></td>
+                            </tr>
+                            {extractedAmmortization.map((row, key) => (
                                 <ReportRow
                                     key={key}
                                     selectedYear={selectedYear}

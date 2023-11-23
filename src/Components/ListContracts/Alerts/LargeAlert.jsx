@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 const LargeAlert = ({ isLoading, message }) => {
     return (
         !isLoading &&
         message && (
-            <div className='container-fluid pt-4 px-4'>
+            <div className='container-fluid  '>
                 <div
-                    className='row bg-light rounded align-items-center justify-content-center mx-0'
+                    className='row bg-white rounded align-items-center justify-content-center mx-0'
                     style={{ minHeight: '80vh' }}
                 >
                     <div className='col-md-6 text-center'>

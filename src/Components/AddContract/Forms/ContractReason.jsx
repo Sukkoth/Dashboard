@@ -3,8 +3,8 @@ import React from 'react';
 const ContractReason = ({ register, errors }) => {
     return (
         <div className='col-sm-12 col-xl-8'>
-            <div className='bg-light rounded h-100 p-4'>
-                <h6 className='mb-4'>
+            <div className='bg-white rounded h-100 p-4'>
+                <h6 className='mb-4 h4'>
                     Contract Info
                     <span className='text-danger'>*</span>
                 </h6>
@@ -15,7 +15,6 @@ const ContractReason = ({ register, errors }) => {
                             id='region'
                             name='region'
                             className='form-select my-2 mb-3'
-                            aria-label='Default select example'
                             defaultValue={''}
                             {...register('contractType')}
                         >

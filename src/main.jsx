@@ -7,12 +7,12 @@ import DataProvider from './Providers/DataProvider.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <LayoutProvider>
-            <DataProvider>
+        <DataProvider>
+            <LayoutProvider>
                 <BrowserRouter>
                     <App />
                 </BrowserRouter>
-            </DataProvider>
-        </LayoutProvider>
+            </LayoutProvider>
+        </DataProvider>
     </React.StrictMode>
 );

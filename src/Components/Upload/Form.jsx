@@ -28,9 +28,12 @@ const GenerateForUpload = ({
     setSelectedMonth,
 }) => {
     return (
-        <div className='container-fluid pt-4 px-4'>
-            <div className='row bg-light rounded mx-0 p-5 align-text-center justify-content-center'>
-                <div className='bg-ligh rounded col-2 mx-4'>
+        <div
+            className='container-fluid pt-4 px-4 take-screen'
+            style={{ backgroundColor: '#f2f7ff' }}
+        >
+            <div className='row bg-white rounded mx-0 p-5 align-text-center justify-content-center'>
+                <div className='bg-white rounded col-2 mx-4'>
                     <h2 style={{ fontSize: '17px' }}>
                         <label htmlFor='year'>Select Year</label>
                         <select
@@ -50,7 +53,7 @@ const GenerateForUpload = ({
                         </select>
                     </h2>
                 </div>
-                <div className='bg-light rounded col-2'>
+                <div className='bg-white rounded col-2'>
                     <h2 style={{ fontSize: '17px' }}>
                         <label htmlFor='year'>Select Month</label>
                         <select
@@ -70,7 +73,10 @@ const GenerateForUpload = ({
                         </select>
                     </h2>
                 </div>
-                <div className='bg-light rounded d-flex justify-content-center mt-5'>
+                <div
+                    className='bg-white rounded d-flex justify-content-center mt-5'
+                    style={{ boxShadow: 'none' }}
+                >
                     <button
                         className='btn btn-primary'
                         onClick={() => setShowReport(true)}

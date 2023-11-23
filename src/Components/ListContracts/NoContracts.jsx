@@ -7,7 +7,7 @@ const NoContracts = ({ message }) => {
                 className='row bg-light rounded d-felx mx-0 text-center align-items-center'
                 style={{ minHeight: '80vh' }}
             >
-                <h3 className='justify-self-center'>
+                <h3 className='h3 fw-bold justify-self-center'>
                     {message || 'No Contracts data found'}
                 </h3>
             </div>

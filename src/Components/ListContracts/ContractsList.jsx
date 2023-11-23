@@ -31,11 +31,14 @@ const ContractsList = ({ contractsData, setTobeDeleted }) => {
     }
 
     return (
-        <div className='container-fluid pt-4 px-4'>
+        <div
+            className='container-fluid pt-4 px-4 take-screen'
+            style={{ backgroundColor: '#f2f7ff' }}
+        >
             <div className='row g-4' style={{ minHeight: '500px' }}>
                 <div className='col-12'>
-                    <div className='bg-light rounded h-100 p-4'>
-                        <h6 className='mb-4'>
+                    <div className='bg-white rounded h-100 p-4'>
+                        <h6 className='mb-4 h4' style={{ fontWeight: 'bold' }}>
                             Contracts List ({filteredData.length || 0})
                         </h6>
                         <form action=''>

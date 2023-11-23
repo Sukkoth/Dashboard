@@ -3,8 +3,8 @@ import React from 'react';
 const ContractDetails = ({ register, errors }) => {
     return (
         <div className='col-sm-12 col-xl-6'>
-            <div className='bg-light rounded h-100 p-4'>
-                <h6 className='mb-4'>Contract Detail</h6>
+            <div className='bg-white rounded h-100 p-4'>
+                <h6 className='mb-4 h4'>Contract Detail</h6>
                 <div>
                     <div className='mb-3'>
                         <label htmlFor='totalPayment' className='form-label'>

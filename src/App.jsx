@@ -3,13 +3,13 @@ import Dashboard from './Dashboard';
 import Login from './Login';
 import AddContract from './Pages/AddContract';
 import Index from './Pages/Index';
-import ListContracts from './Pages/ListContracts';
+import ListContracts from './Pages/ContractsList/ListContracts';
 import ShowContract from './Pages/ShowContract';
-import GenerateReportPage from './Pages/GenerateReportPage';
+// import GenerateReportPage from './Pages/GenerateReportPage';
 import SingleContractReport from './Pages/SingleContractReport';
 import ExportForUpload from './Pages/ExportForUpload';
-import EndedContracts from './Pages/EndedContracts';
-import ListActiveContracts from './Pages/ListActiveContracts';
+import EndedContracts from './Pages/ContractsList/EndedContracts';
+import ListActiveContracts from './Pages/ContractsList/ListActiveContracts';
 import './App.css';
 
 function App() {
@@ -40,10 +40,10 @@ function App() {
                         path='/report/:contractId'
                         Component={SingleContractReport}
                     />
-                    <Route
+                    {/* <Route
                         path='/generate-report'
                         Component={GenerateReportPage}
-                    />
+                    /> */}
                     <Route path='/export' Component={ExportForUpload} />
                 </Route>
             </Routes>

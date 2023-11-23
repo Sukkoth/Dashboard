@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import GenerateForUpload from '../Components/Upload/GenerateForUpload';
+import GenerateForUpload from '../Components/Upload/Form';
 import UploadData from '../Components/Upload/UploadData';
 
 const AnotherReport = () => {

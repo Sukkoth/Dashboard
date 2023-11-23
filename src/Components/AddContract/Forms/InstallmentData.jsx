@@ -30,8 +30,8 @@ const InstallmentData = ({ installmentData, setInstallmentData }) => {
     }
     return (
         <div className='col-sm-12 col-xl-6'>
-            <div className='bg-light rounded h-100 p-4'>
-                <h6 className='mb-4'>
+            <div className='bg-white rounded h-100 p-4'>
+                <h6 className='mb-4 h4'>
                     Installment Data{' '}
                     <button
                         className='btn btn-primary mx-3'
