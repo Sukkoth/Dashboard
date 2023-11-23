@@ -11,8 +11,8 @@ const Index = () => {
             <div className='container-fluid pt-4 px-4'>
                 <div className='row g-4'>
                     <div className='col-sm-6 col-xl-3'>
-                        <div className='bg-white rounded d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa fa-chart-pie fa-3x color-primary'></i>
+                        <div className='trans  d-flex align-items-center justify-content-between p-4 '>
+                            <i className='fa fa fa-chart-pie fa-3x text-white'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Contracts</p>
                                 <h6 className='mb-0'>{data?.totalContracts}</h6>
@@ -20,8 +20,8 @@ const Index = () => {
                         </div>
                     </div>
                     <div className='col-sm-6 col-xl-3'>
-                        <div className='bg-white rounded d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-line fa-3x color-primary'></i>
+                        <div className='trans d-flex align-items-center justify-content-between p-4'>
+                            <i className='fa fa-chart-line fa-3x text-white'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Active Contracts</p>
                                 <h6 className='mb-0'>
@@ -31,8 +31,8 @@ const Index = () => {
                         </div>
                     </div>
                     <div className='col-sm-6 col-xl-3'>
-                        <div className='bg-white rounded d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-area fa-3x color-primary'></i>
+                        <div className='trans d-flex align-items-center justify-content-between p-4'>
+                            <i className='fa fa-chart-area fa-3x text-white'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Expired Contracts</p>
                                 <h6 className='mb-0'>
@@ -42,8 +42,8 @@ const Index = () => {
                         </div>
                     </div>
                     <div className='col-sm-6 col-xl-3'>
-                        <div className='bg-white rounded d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-bar fa-3x color-primary'></i>
+                        <div className='trans d-flex align-items-center justify-content-between p-4'>
+                            <i className='fa fa-chart-bar fa-3x text-white'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Amount</p>
                                 <h6 className='mb-0'>1234</h6>
@@ -58,10 +58,16 @@ const Index = () => {
             <div className='container-fluid pt-4 px-4'>
                 <div className='row g-4'>
                     <div className='col-sm-12 col-xl-6'>
-                        <div className='bg-white text-center rounded p-4'>
+                        <div className='trans items-center  p-4'>
                             <div className='d-flex align-items-center justify-content-between mb-4'>
                                 <h6 className='mb-0'>Active Contracts</h6>
-                                <Link to='/list-contracts/active'>
+                                <Link
+                                    to='/list-contracts/active'
+                                    style={{
+                                        color: 'white',
+                                        textDecoration: 'underline',
+                                    }}
+                                >
                                     Show All
                                 </Link>
                             </div>
@@ -69,10 +75,18 @@ const Index = () => {
                         </div>
                     </div>
                     <div className='col-sm-12 col-xl-6'>
-                        <div className='bg-white text-center rounded p-4'>
+                        <div className='trans items-center  p-4'>
                             <div className='d-flex align-items-center justify-content-between mb-4'>
                                 <h6 className='mb-0'>Expired Contracts</h6>
-                                <Link to='/list-contracts/ended'>Show All</Link>
+                                <Link
+                                    to='/list-contracts/ended'
+                                    style={{
+                                        color: 'white',
+                                        textDecoration: 'underline',
+                                    }}
+                                >
+                                    Show All
+                                </Link>
                             </div>
                             <canvas id='salse-revenue'></canvas>
                         </div>

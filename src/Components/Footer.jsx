@@ -1,11 +1,11 @@
 const Footer = () => {
     return (
-        <footer className='container-fluid pt-4 px-4 bg-white'>
-            <div className=' rounded-top p-4'>
+        <footer className='container-fluid pt-2 px-1 bg-white'>
+            <div className=' rounded-top p-3'>
                 <div className='row'>
-                    <div className='col-12 col-sm-6 text-center text-sm-start'>
+                    <div className='col-12 col-sm-6 text-center text-sm-start h6'>
                         &copy;
-                        <a href='https://www.combanketh.et/'>
+                        <a className='h6' href='https://www.combanketh.et/'>
                             Commercial Bank of Ethiopia
                         </a>
                         , All Right Reserved.

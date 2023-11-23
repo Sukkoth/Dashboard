@@ -52,7 +52,7 @@ body * {
 
 .btn.btn-primary {
     color: #ffffff;
-    background-color: var(--primary);
+    /* background-color: var(--primary); */
     border-color: var(--primary);
 }
 
@@ -326,11 +326,17 @@ body * {
     padding-bottom: 2rem;
     background-color: #f2f7ff;
     position: relative;
+
+    background-image: linear-gradient(
+        to top,
+        #f3e7e9 0%,
+        #e3eeff 99%,
+        #e3eeff 100%
+    );
 }
 
 .bg-white {
     background: none;
-    box-shadow: 0 0 8px 5px #85868a10;
 }
 
 .text-header {
@@ -347,4 +353,14 @@ a:hover {
 
 .rs-table {
     padding: 1rem;
+}
+
+.trans {
+    background: none;
+    background-color: #191c240c;
+    color: black;
+    font-weight: bolder;
+    border-radius: 2rem;
+    background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
+    /* background-image: linear-gradient(135deg, #76bcee 10%, var(--primary) 100%); */
 }
