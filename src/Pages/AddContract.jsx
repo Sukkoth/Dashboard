@@ -39,7 +39,7 @@ const AddContract = () => {
         if (!isLoading && contractData?.id) {
             reset();
             setTimeout(() => {
-                navigate('/list-contracts');
+                navigate('/list-contracts/all');
             }, 1500);
         }
     }, [contractData, isLoading, navigate, reset]);
@@ -56,10 +56,12 @@ const AddContract = () => {
                 regionsData[data.region].districts[data.district].branches[
                     data.district
                 ].name,
-            branch_id:
-                regionsData[data.region].districts[data.district].branches[
-                    data.district
-                ].BranchId,
+            branch: {
+                branchId:
+                    regionsData[data.region].districts[data.district].branches[
+                        data.district
+                    ].BranchId,
+            },
         };
 
         //the backend requires the installement data to be formatted into stringfied JSON

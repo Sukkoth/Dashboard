@@ -87,11 +87,12 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
         method: 'GET',
     });
 
+    //extract all branches from hierarchy
     const branches = BranchData.flatMap((region) =>
         region.districts.flatMap((district) => district.branches)
     );
 
-    //fetch reports
+    //*Fetch reports
     const {
         data: reports,
         isLoading: reportIsLoading,
@@ -137,9 +138,18 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
         );
     }
 
+    /**
+     * *Extracted reports array contains
+     * * **** reports which have data (!undefined)
+     * * **** Reports which have the same month and year as the user have selected
+     * * **** Reports that have deprecation expense
+     */
+
     let extractedReports = [];
     reports.forEach((report) => {
+        //check if the report is pressent
         if (report !== undefined) {
+            //find reports which have the selected years and months
             const row = report?.report.find(
                 (report) =>
                     report.year.split('-')[0] === `${selectedYear}` &&
@@ -151,28 +161,32 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
                         }`
             );
 
+            //find the reports which have deprecationExpense,
+            //If they do not have it, you need it in the list
             if (row?.deprecationExp) {
                 const branchName = branches.find(
                     (branch) => branch.BranchId === report.detail[0].BranchId
                 )?.name;
-
                 extractedReports.push({
                     ...row,
                     branchName,
+                    type: report?.detail?.[0].contractType,
+                    year: report?.year,
                 });
             }
         }
     });
 
+    //Finally sort the reports based on branchName
     extractedReports?.sort((a, b) =>
         a?.branchName?.toUpperCase() < b?.branchName?.toUpperCase() ? -1 : 1
     );
 
+    //Contains the list of ammortization report to be viewed
     let extractedAmmortization = [];
 
     reports.forEach((report) => {
         if (report?.ammortization?.length) {
-            console.log('AMM', report.ammortization);
             const row = report?.ammortization.find(
                 (report) => report?.year === Number(selectedYear)
             );
@@ -190,7 +204,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
 
     return (
         <div className='container-fluid pt-4 px-4 take-screen'>
-            <div className='bg-light rounded mx-0 p-5'>
+            <div className='bg-white rounded mx-0 p-5'>
                 <div id='menu' className='mb-5'>
                     <button
                         className='btn btn-warning'
@@ -284,6 +298,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
 };
 
 function ReportRow({ row, selectedMonth, selectedYear }) {
+    console.log('MONTH', selectedMonth, 'year', row?.year);
     return (
         <tr>
             <td>01</td>
@@ -297,8 +312,9 @@ function ReportRow({ row, selectedMonth, selectedYear }) {
             <td>{row?.deprecationExp}</td>
             <td>-</td>
             <td>
-                {row?.branchName} ATM Depr. Expense- Right of Use Asset for the
-                month of {monthsInYear[selectedMonth]} {selectedYear}
+                {row?.branchName} {row?.type} Depr. Expense- Right of Use Asset
+                for the month of {monthsInYear[selectedMonth - 1]}{' '}
+                {selectedYear}
             </td>
         </tr>
     );
@@ -312,7 +328,7 @@ UploadData.propTypes = {
 };
 
 ReportRow.propTypes = {
-    row: PropTypes.obj,
+    row: PropTypes.object,
     selectedMonth: PropTypes.number,
     selectedYear: PropTypes.number,
 };

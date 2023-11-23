@@ -3,11 +3,6 @@ import * as yup from 'yup';
 const contractSchema = yup.object().shape({
     branchName: yup.string().required('Branch is required'),
     contractType: yup.string().required('Contract Type is required'),
-    branchCode: yup
-        .string()
-        .required('Branch code is required')
-        .min(4, 'Branch code must be 4 characters')
-        .max(4, 'Branch code must be 4 characters'),
     district: yup.string().required('District is required'),
     region: yup.string().required('Region is required'),
     advancePayment: yup

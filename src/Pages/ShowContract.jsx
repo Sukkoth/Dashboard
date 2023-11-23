@@ -20,8 +20,8 @@ const ShowContract = () => {
             {errors?.message ? (
                 <AlertError message={errors?.message} />
             ) : (
-                <div className='container-fluid pt-4 px-4'>
-                    <div className='row bg-light rounded mx-0 py-4 px-5'>
+                <div className='container-fluid pt-4 px-4 take-screen'>
+                    <div className='row bg-white rounded mx-0 py-4 px-5'>
                         <h4>Contract Information</h4>
                         <p>
                             <strong>Contract Number</strong>:

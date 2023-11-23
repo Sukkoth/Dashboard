@@ -5,10 +5,10 @@ const LargeAlert = ({ isLoading, message }) => {
     return (
         !isLoading &&
         message && (
-            <div className='container-fluid  '>
+            <div className='container-fluid  take-screen p-4'>
                 <div
                     className='row bg-white rounded align-items-center justify-content-center mx-0'
-                    style={{ minHeight: '80vh' }}
+                    style={{ minHeight: '80vh', boxShadow: 'none' }}
                 >
                     <div className='col-md-6 text-center'>
                         <div

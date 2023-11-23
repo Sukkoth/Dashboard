@@ -37,9 +37,9 @@ const SingleContractReport = () => {
     }, [reportTerm, fetchData, contractId]);
 
     return (
-        <>
-            <div className='container-fluid pt-4 px-4'>
-                <div className='row bg-light rounded mx-0 py-4 px-5'>
+        <div className='take-screen p-3'>
+            <div className='container-fluid pt-4 px-4 bg-white'>
+                <div className='row rounded mx-0 py-4 px-5'>
                     <div className='d-flexjustify-content-around'>
                         <div id='selectType'>
                             <p className='h5 px-2'>Report Type</p>
@@ -81,9 +81,9 @@ const SingleContractReport = () => {
             </div>
             {<FullLoader isLoading={reportLoading} />}
             {!reportLoading && (
-                <div className='container-fluid pt-4 px-4'>
+                <div className='bg-white pt-4 px-4 mt-3'>
                     <div
-                        className='row bg-light rounded mx-0 d-flex justify-content-center align-items-center'
+                        className='row  rounded mx-0 d-flex justify-content-center align-items-center'
                         style={{ minHeight: '100vh', textAlign: 'center' }}
                     >
                         {reportError && (
@@ -99,7 +99,10 @@ const SingleContractReport = () => {
                                     style={{ minHeight: '500px' }}
                                 >
                                     <div className='col-12'>
-                                        <div className='bg-light rounded h-100 p-4'>
+                                        <div
+                                            className='bg-white rounded h-100 p-4'
+                                            style={{ boxShadow: 'none' }}
+                                        >
                                             {reportTerm === 'monthly' ? (
                                                 <>
                                                     <ReportTable
@@ -127,7 +130,7 @@ const SingleContractReport = () => {
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 };
 

@@ -114,28 +114,6 @@ const BranchInfo = ({ register, errors }) => {
                         {errors?.branchName?.message}
                     </div>
                 )}
-                {/* BRANCH CODE */}
-                <label htmlFor='branchCode'>Branch Code</label>
-                <select
-                    id='branchCode'
-                    name='branchCode'
-                    className='form-select my-2'
-                    aria-label='Default select example'
-                    defaultValue={''}
-                    {...register('branchCode')}
-                >
-                    <option value='' disabled>
-                        Select Branch Code
-                    </option>
-                    <option value='QQ12'>QQ12</option>
-                    <option value='YY22'>YY22</option>
-                    <option value='ZZ22'>ZZ22</option>
-                </select>
-                {errors?.branchCode && (
-                    <div className='form-text text-danger mb-4'>
-                        {errors?.branchCode?.message}
-                    </div>
-                )}
             </div>
         </div>
     );

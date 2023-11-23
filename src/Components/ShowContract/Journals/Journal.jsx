@@ -8,9 +8,9 @@ const Journal = ({ contracts }) => {
     }, 0);
 
     return (
-        <div className='container-fluid pt-4 px-4'>
+        <div className='container-fluid pt-4 px-4 '>
             <div
-                className='row bg-light rounded justify-content-center mx-0'
+                className='row rounded justify-content-center mx-0'
                 id='journal'
                 style={{ minHeight: '600px' }}
             >
