@@ -3,7 +3,6 @@ import useApiFetch from '../../API/useApiFetch';
 import FullLoader from '../../Components/Loaders/FullLoader';
 import LargeAlert from '../../Components/ListContracts/Alerts/LargeAlert';
 import ConfirmationModal from '../../Components/ListContracts/ConfirmationModal';
-import NoContracts from '../../Components/ListContracts/NoContracts';
 import ContractsList from '../../Components/ListContracts/ContractsList';
 
 const ListContracts = () => {
@@ -31,7 +30,10 @@ const ListContracts = () => {
                         />
                     </>
                 ) : (
-                    <NoContracts />
+                    <LargeAlert
+                        isLoading={false}
+                        message={'No Contracts data found'}
+                    />
                 ))}
             <LargeAlert isLoading={isLoading} message={errors?.message} />
         </>

@@ -1,19 +1,51 @@
 import useApiFetch from '../API/useApiFetch';
 import { useParams } from 'react-router-dom';
 import FullLoader from '../Components/Loaders/FullLoader';
-import getContractStatus from '../utils/getContractStatus';
+import getContracttatus from '../utils/getContractstatus';
 import AlertError from '../Components/ListContracts/Alerts/LargeAlert';
+import { useContext } from 'react';
+import { DataContext } from '../Providers/DataProvider';
+import numeral from 'numeral';
 
 const ShowContract = () => {
     const { contractId } = useParams();
+    const { findBranchInfo } = useContext(DataContext);
+
     const {
-        data: contracts,
+        data: contract,
         isLoading,
         errors,
     } = useApiFetch({
         url: `/leases/${contractId}`,
         method: 'GET',
     });
+    const branchInfo = findBranchInfo(contract.branchId);
+
+    // sample
+    // const isLoading = false;
+    // const errors = { message: null };
+    // const contract = {
+    //     advancePayment: 9566870,
+    //     authorization: true,
+    //     branchId: 3,
+    //     branchName: 'Bahir Dar Branch',
+    //     contractEndDate: '2027-07-21',
+    //     contractRegisteredDate: '2022-07-22',
+    //     contractStartDate: '2022-07-22',
+    //     contractType: 'ATM',
+    //     discountRate: 0.0465,
+    //     id: 26,
+    //     initialDirectCost: 0,
+    //     installmentDetails: null,
+    //     leaseIncentive: 0,
+    //     numberOfInstallments: 0,
+    //     totalPayment: 9566870,
+    // };
+    // const branchInfo = { district: 'Central', region: 'North East' };
+    let installmentDetails = null;
+    if (contract.installmentDetails) {
+        installmentDetails = JSON.parse(contract?.installmentDetails);
+    }
     return (
         <>
             <FullLoader isLoading={isLoading} />
@@ -21,44 +53,158 @@ const ShowContract = () => {
                 <AlertError message={errors?.message} />
             ) : (
                 <div className='container-fluid pt-4 px-4 take-screen'>
-                    <div className='row bg-white rounded mx-0 py-4 px-5'>
-                        <h4>Contract Information</h4>
-                        <p>
-                            <strong>Contract Number</strong>:
-                            {contracts?.contractNumber}
-                        </p>
-                        <p>
-                            <strong>Branch Name</strong>:{contracts?.branchName}
-                        </p>
-                        <p>
-                            <strong>Region</strong>:{contracts?.region}
-                        </p>
-                        <p>
-                            <strong>District</strong>:{contracts?.district}
-                        </p>
-                        <p>
-                            <strong>Contract Start Date</strong>:
-                            {contracts?.contractStartDate}
-                        </p>
-                        <p>
-                            <strong>Contract End Date</strong>:
-                            {contracts?.contractEndDate}{' '}
-                            <span style={{ color: 'red' }}>
-                                {getContractStatus(contracts?.contractEndDate)}
-                            </span>
-                        </p>
-                        <p>
-                            <strong>Total Payment</strong>:
-                            {contracts?.totalPayment}
-                        </p>
-                        <p>
-                            <strong>Advance Payment</strong>:
-                            {contracts?.advancePayment}
-                        </p>
-                        <p>
-                            <strong>Discount Rate</strong>:
-                            {contracts?.discountRate}
-                        </p>
+                    <div className='row g-4 align-items-stretch details'>
+                        <div className='col-sm-6'>
+                            <div className='trans p-4 '>
+                                <h3 className='h4 fw-bold mb-3'>
+                                    Basic Information
+                                </h3>
+                                <div className='ms-3'>
+                                    <p className='mb-2'>
+                                        ID :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {contract?.id}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        Branch Name :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {contract?.branchName}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        District Name :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {branchInfo?.district}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        Region Name :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {branchInfo?.region}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        Contract Type:{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {contract?.contractType}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        Authorization:{' '}
+                                        <span
+                                            style={{
+                                                fontWeight: 'normal',
+                                                color: contract?.authorization
+                                                    ? ''
+                                                    : 'red',
+                                            }}
+                                        >
+                                            {contract?.authorization
+                                                ? 'Authorized'
+                                                : 'Unauthorized'}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        Registration Date :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {contract?.contractRegisteredDate}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        Start Date :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {contract?.contractStartDate}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        End Date :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {contract?.contractEndDate}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='col-sm-6 '>
+                            <div className='trans p-4 '>
+                                <h3 className='h4 fw-bold mb-3'>
+                                    Financial Information
+                                </h3>
+                                <div className='ms-3'>
+                                    <p className='mb-2'>
+                                        Advance Payment :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {numeral(
+                                                contract?.advancePayment
+                                            ).format('0,0.00')}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        Initial Direct Cost :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {numeral(
+                                                contract?.initialDirectCost
+                                            ).format('0,0.00')}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        Discount Rate :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {numeral(
+                                                contract?.discountRate
+                                            ).format('0,0.00')}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        Lease Incentive :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {numeral(
+                                                contract?.leaseIncentive
+                                            ).format('0,0.00')}
+                                        </span>
+                                    </p>
+                                    <p className='mb-2'>
+                                        Total Payment :{' '}
+                                        <span style={{ fontWeight: 'normal' }}>
+                                            {numeral(
+                                                contract?.totalPayment
+                                            ).format('0,0.00')}
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {installmentDetails && (
+                            <div className='col-sm-6 '>
+                                <div className='trans p-4 '>
+                                    <h3 className='h4 fw-bold mb-3'>
+                                        Installement Details
+                                    </h3>
+                                    <div className='ms-3'>
+                                        {Object.keys(installmentDetails).map(
+                                            (key) => (
+                                                <p className='mb-2' key={key}>
+                                                    {key} :{' '}
+                                                    <span
+                                                        style={{
+                                                            fontWeight:
+                                                                'normal',
+                                                        }}
+                                                    >
+                                                        {numeral(
+                                                            installmentDetails[
+                                                                key
+                                                            ]
+                                                        ).format('0,0.00')}
+                                                    </span>
+                                                </p>
+                                            )
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}

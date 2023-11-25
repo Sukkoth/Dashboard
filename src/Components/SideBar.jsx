@@ -1,8 +1,14 @@
 import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import avatar from '../assets/icon.png';
-
 import { LayoutContext } from '../Providers/LayoutProvider';
+import avatar from '../assets/icon.png';
+import dashboardIcon from '../assets/img/dashboard.png';
+import contractsListIcon from '../assets/img/check-list.png';
+import uploadIcon from '../assets/img/uploadd.png';
+import listContractsIcon from '../assets/img/list.png';
+import addContractIcon from '../assets/img/addContract.png';
+import expiredContractIcon from '../assets/img/expired.png';
+import activeContractIcon from '../assets/img/active.png';
 
 const SideBar = () => {
     const { sidebarToggle } = useContext(LayoutContext);
@@ -17,7 +23,7 @@ const SideBar = () => {
             >
                 <Link to='/' className='navbar-brand mx-4 mb-3'>
                     <h1
-                        className='h1 text-header text-lg'
+                        className='h1 text-header icon-pink text-lg'
                         style={{ fontWeight: 'bolder' }}
                     >
                         <i
@@ -51,7 +57,11 @@ const SideBar = () => {
                 </div>
                 <div className='navbar-nav w-100 mt-4'>
                     <NavLink to='/' className='nav-item nav-link'>
-                        <i className='fa fa-tachometer-alt me-2'></i>
+                        <img
+                            src={dashboardIcon}
+                            alt=''
+                            className='sidebar-icon'
+                        />
                         Dashboard
                     </NavLink>
                     <div className='nav-item dropdown'>
@@ -60,35 +70,56 @@ const SideBar = () => {
                             className='nav-link dropdown-toggle'
                             data-bs-toggle='dropdown'
                         >
-                            <i className='fa fa-laptop me-2'></i>Contracts
+                            <img
+                                src={contractsListIcon}
+                                alt=''
+                                className='sidebar-icon'
+                            />
+                            Contracts
                         </Link>
                         <div className='dropdown-menu bg-transparent border-0'>
                             <NavLink
                                 to='/add-contract'
                                 className='dropdown-item mb-1 mx-4 '
                             >
-                                <i className='fa fa-plus me-2 text-dark'></i>
+                                <img
+                                    src={addContractIcon}
+                                    alt=''
+                                    className='sidebar-icon'
+                                />
                                 Add
                             </NavLink>
                             <NavLink
                                 to='/list-contracts/all'
                                 className='dropdown-item mb-1 mx-4'
                             >
-                                <i className='fa fa-list me-2 text-dark'></i>
+                                <img
+                                    src={listContractsIcon}
+                                    alt=''
+                                    className='sidebar-icon'
+                                />
                                 List All
                             </NavLink>
                             <NavLink
                                 to='/list-contracts/active'
                                 className='dropdown-item mb-1 mx-4'
                             >
-                                <i className='fas fa-file-contract me-2 text-dark'></i>
+                                <img
+                                    src={activeContractIcon}
+                                    alt=''
+                                    className='sidebar-icon'
+                                />
                                 Active Contracts
                             </NavLink>
                             <NavLink
                                 to='/list-contracts/ended'
                                 className='dropdown-item mx-4'
                             >
-                                <i className='fas fa-exclamation-circle me-2 text-dark'></i>
+                                <img
+                                    src={expiredContractIcon}
+                                    alt=''
+                                    className='sidebar-icon'
+                                />
                                 Ended Contracts
                             </NavLink>
                         </div>
@@ -100,8 +131,8 @@ const SideBar = () => {
                         <i className='fa fa-scroll me-2'></i>Generate Report
                     </NavLink> */}
                     <NavLink className='nav-item nav-link' to={'/export'}>
-                        <i className='fas fa-upload me-2'></i>Generate for
-                        Upload
+                        <img src={uploadIcon} alt='' className='sidebar-icon' />
+                        Generate for Upload
                     </NavLink>
                 </div>
             </nav>

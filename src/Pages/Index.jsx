@@ -12,7 +12,7 @@ const Index = () => {
                 <div className='row g-4'>
                     <div className='col-sm-6 col-xl-3'>
                         <div className='trans  d-flex align-items-center justify-content-between p-4 '>
-                            <i className='fa fa fa-chart-pie fa-3x text-white'></i>
+                            <i className='fa fa fa-chart-pie fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Contracts</p>
                                 <h6 className='mb-0'>{data?.totalContracts}</h6>
@@ -21,7 +21,7 @@ const Index = () => {
                     </div>
                     <div className='col-sm-6 col-xl-3'>
                         <div className='trans d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-line fa-3x text-white'></i>
+                            <i className='fa fa-chart-line fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Active Contracts</p>
                                 <h6 className='mb-0'>
@@ -32,7 +32,7 @@ const Index = () => {
                     </div>
                     <div className='col-sm-6 col-xl-3'>
                         <div className='trans d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-area fa-3x text-white'></i>
+                            <i className='fa fa-chart-area fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Expired Contracts</p>
                                 <h6 className='mb-0'>
@@ -43,7 +43,7 @@ const Index = () => {
                     </div>
                     <div className='col-sm-6 col-xl-3'>
                         <div className='trans d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-bar fa-3x text-white'></i>
+                            <i className='fa fa-chart-bar fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Amount</p>
                                 <h6 className='mb-0'>1234</h6>
@@ -62,9 +62,9 @@ const Index = () => {
                             <div className='d-flex align-items-center justify-content-between mb-4'>
                                 <h6 className='mb-0'>Active Contracts</h6>
                                 <Link
+                                    className='text-pink'
                                     to='/list-contracts/active'
                                     style={{
-                                        color: 'white',
                                         textDecoration: 'underline',
                                     }}
                                 >
@@ -81,7 +81,6 @@ const Index = () => {
                                 <Link
                                     to='/list-contracts/ended'
                                     style={{
-                                        color: 'white',
                                         textDecoration: 'underline',
                                     }}
                                 >

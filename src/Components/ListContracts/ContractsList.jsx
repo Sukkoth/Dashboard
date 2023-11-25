@@ -1,15 +1,20 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { forwardRef, useState } from 'react';
-
+import { forwardRef, useContext, useState } from 'react';
+import BranchCell from './RSuiteComponents/BranchCell';
+import AuthButton from './RSuiteComponents/AuthButton';
+import ActionCell from './RSuiteComponents/ActionCell';
 //table starts
+import { getData } from '../../utils/getData';
 import { Table, Pagination, Dropdown } from 'rsuite';
+import { DataContext } from '../../Providers/DataProvider';
 const { Column, HeaderCell, Cell } = Table;
 //table ends
 
 const ContractsList = ({ contractsData, setTobeDeleted }) => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const { branches } = useContext(DataContext);
     //table starts
 
     const [limit, setLimit] = useState(10);
@@ -57,96 +62,6 @@ const ContractsList = ({ contractsData, setTobeDeleted }) => {
         });
     }
 
-    /**
-     * @description  Sort the given filtered data and then paginate them
-     * @returns {object}
-     */
-
-    const getData = () => {
-        if (sortColumn && sortType) {
-            return filteredData
-                .sort((a, b) => {
-                    let x = a[sortColumn];
-                    let y = b[sortColumn];
-                    if (typeof x === 'string') {
-                        /**
-                         * This confition checks if the given string is a date
-                         * e.g. 01-01-2023 length = 10, when you split using - it's length is 3 hence a date
-                         * Then sort using the date
-                         */
-                        if (x.length === 10 && x.split('-').length === 3) {
-                            const dateA = new Date(x);
-                            const dateB = new Date(y);
-                            return sortType === 'asc'
-                                ? dateA - dateB
-                                : dateB - dateA;
-                        }
-                        x = x.charCodeAt();
-                    }
-                    if (typeof y === 'string') {
-                        y = y.charCodeAt();
-                    }
-                    if (sortType === 'asc') {
-                        return x - y;
-                    } else {
-                        return y - x;
-                    }
-                })
-                .filter((v, i) => {
-                    const start = limit * (page - 1);
-                    const end = start + limit;
-                    return i >= start && i < end;
-                });
-        }
-        return filteredData.filter((v, i) => {
-            const start = limit * (page - 1);
-            const end = start + limit;
-            return i >= start && i < end;
-        });
-    };
-
-    const AuthButton = ({ rowData, dataKey, ...props }) => (
-        <Cell
-            {...props}
-            style={{
-                padding: '0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-        >
-            <button
-                className={`btn ${
-                    rowData[dataKey]
-                        ? 'btn-outline-primary p-2 px-4 m-2'
-                        : 'btn-outline-warning p-2 px-4 m-2'
-                }`}
-                // style={{ padding: '0.3rem 1rem', marginTop: '0' }}
-            >
-                {rowData[dataKey] ? 'Authorized' : 'Unauthorized'}
-            </button>
-        </Cell>
-    );
-
-    const ActionCell = ({ rowData, dataKey, text, link, type, ...props }) => (
-        <Cell
-            {...props}
-            style={{
-                padding: '0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-        >
-            <Link
-                className={`btn btn-${type || 'primary p-2 px-4 m-2'}`}
-                to={`/${link}/${rowData[dataKey]}`}
-            >
-                {text}
-            </Link>
-        </Cell>
-    );
-
     return (
         <div className='container-fluid take-screen p-3 pb-3'>
             <form action=''>
@@ -178,7 +93,7 @@ const ContractsList = ({ contractsData, setTobeDeleted }) => {
             <Table
                 cellBordered
                 height={520}
-                data={getData()}
+                data={getData(sortColumn, sortType, filteredData, limit, page)}
                 autoHeight={true}
                 className='bg-white p-1 pb-3'
                 sortColumn={sortColumn}
@@ -191,16 +106,21 @@ const ContractsList = ({ contractsData, setTobeDeleted }) => {
                     <Cell dataKey='id' />
                 </Column>
 
-                <Column flexGrow={3} sortable resizable>
+                <Column flexGrow={3} resizable sortable>
+                    <HeaderCell>Branch</HeaderCell>
+                    <BranchCell dataKey='branchName' />
+                </Column>
+
+                <Column width={150} sortable resizable>
                     <HeaderCell>Registered Date</HeaderCell>
                     <Cell dataKey='contractRegisteredDate' />
                 </Column>
-                <Column flexGrow={3} sortable>
+                <Column width={115} sortable>
                     <HeaderCell>Start Date</HeaderCell>
                     <Cell dataKey='contractStartDate' />
                 </Column>
 
-                <Column flexGrow={3} sortable>
+                <Column width={115} sortable>
                     <HeaderCell>End Date</HeaderCell>
                     <Cell dataKey='contractEndDate' />
                 </Column>
@@ -208,8 +128,8 @@ const ContractsList = ({ contractsData, setTobeDeleted }) => {
                     <HeaderCell>Advance Payment</HeaderCell>
                     <Cell dataKey='advancePayment' />
                 </Column>
-                <Column flexGrow={3} sortable>
-                    <HeaderCell>Contract Type</HeaderCell>
+                <Column flexGrow={2} sortable>
+                    <HeaderCell>Type</HeaderCell>
                     <Cell dataKey='contractType' defaultValue={0} />
                 </Column>
                 <Column flexGrow={3}>
@@ -221,8 +141,8 @@ const ContractsList = ({ contractsData, setTobeDeleted }) => {
                     <HeaderCell>Total Payment</HeaderCell>
                     <Cell dataKey='totalPayment' />
                 </Column>
-                <Column flexGrow={3} sortable>
-                    <HeaderCell>Authorization</HeaderCell>
+                <Column flexGrow={2} sortable>
+                    <HeaderCell align='center'>Auth</HeaderCell>
                     <AuthButton dataKey='authorization' />
                 </Column>
                 <Column flexGrow={2}>
