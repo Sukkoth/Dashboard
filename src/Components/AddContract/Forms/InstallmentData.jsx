@@ -93,8 +93,7 @@ const InstallmentData = ({ installmentData, setInstallmentData }) => {
                             </div>
                             <div className='mb-3 col-2 d-flex justify-content-center align-items-center mt-4'>
                                 <button
-                                    className='btn btn-danger fomr-control'
-                                    style={{ height: '2rem', width: '2rem' }}
+                                    className='btn btn-danger'
                                     type='button'
                                     onClick={() => removeInstallmentData(index)}
                                 >

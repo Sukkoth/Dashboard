@@ -16,17 +16,37 @@ import ContractDuration from '../Components/AddContract/Forms/ContractDuration';
 import ContractDetails from '../Components/AddContract/Forms/ContractDetails';
 import BranchInfo from '../Components/AddContract/Forms/BranchInfo';
 
-const AddContract = () => {
+const UpdateLease = () => {
     const navigate = useNavigate();
     const { regionsData } = useContext(DataContext);
     const [installmentData, setInstallmentData] = useState([]);
 
+    const sampleData = {
+        discountRate: 0.02152,
+        branchId: 26,
+        leaseIncentive: 32.0,
+        contractStartDate: '2008-12-05',
+        contractType: null,
+        contractEndDate: '2019-09-15',
+        branchName: 'Koka Branch',
+        installmentDetails: null,
+        contractRegisteredDate: '2023-12-07',
+        authorization: true,
+        totalPayment: 16.0,
+        numberOfInstallments: 0,
+        advancePayment: 61.0,
+        id: 3,
+        initialDirectCost: 2.0,
+    };
     const {
         register,
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm({ resolver: yupResolver(contractSchema) });
+    } = useForm({
+        resolver: yupResolver(contractSchema),
+        defaultValues: sampleData,
+    });
 
     const {
         data: contractData,
@@ -39,7 +59,7 @@ const AddContract = () => {
         if (!isLoading && contractData?.id) {
             reset();
             setTimeout(() => {
-                navigate('/list-contracts/all');
+                navigate(`/leases/${sampleData?.id}`);
             }, 1500);
         }
     }, [contractData, isLoading, navigate, reset]);
@@ -54,12 +74,12 @@ const AddContract = () => {
             district: regionsData[data.region].districts[data.district].name,
             branchName:
                 regionsData[data.region].districts[data.district].branches[
-                    data.branchName
+                    data.district
                 ].name,
             branch: {
                 branchId:
                     regionsData[data.region].districts[data.district].branches[
-                        data.branchName
+                        data.district
                     ].BranchId,
             },
         };
@@ -82,13 +102,6 @@ const AddContract = () => {
                 installmentDetails: formattedInstallmentData,
             },
         });
-
-        console.log(
-            updatedLocation,
-            data.region,
-            data.district,
-            data.branchName
-        );
     };
 
     return (
@@ -118,4 +131,4 @@ const AddContract = () => {
     );
 };
 
-export default AddContract;
+export default UpdateLease;

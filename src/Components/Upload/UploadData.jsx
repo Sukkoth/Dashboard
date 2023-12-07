@@ -3,6 +3,7 @@ import useApiFetch from '../../API/useApiFetch';
 import FullLoader from '../Loaders/FullLoader';
 import LargeAlert from '../ListContracts/Alerts/LargeAlert';
 import PropTypes from 'prop-types';
+import BackButton from '../BackButton';
 
 const monthsInYear = [
     'January',
@@ -113,6 +114,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     if (branchDataError?.message) {
         return (
             <LargeAlert
+                backButton={<BackButton back={1} />}
                 isLoading={branchDataIsLoading}
                 message={branchDataError?.message || 'Error While fetching'}
             />
@@ -122,19 +124,27 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     if (reportError?.message) {
         return (
             <LargeAlert
-                isLoading={reportIsLoading}
+                backButton={<BackButton back={1} />}
                 message={reportError?.message || 'Error While fetching'}
             />
         );
     }
 
     if (!branches?.length) {
-        return <LargeAlert message='No branch data found' />;
+        return (
+            <LargeAlert
+                backButton={<BackButton back={1} />}
+                message='No branch data found'
+            />
+        );
     }
 
     if (!reports?.length) {
         return (
-            <LargeAlert message={`No report data found ${reports.length}`} />
+            <LargeAlert
+                backButton={<BackButton back={1} />}
+                message={`No report data found`}
+            />
         );
     }
 
@@ -202,6 +212,14 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
         }
     });
 
+    if (extractedReports.length <= 0)
+        return (
+            <LargeAlert
+                message='No report found for given dates'
+                backButton={<BackButton back={1} />}
+            />
+        );
+
     return (
         <div className='container-fluid pt-4 px-4 take-screen'>
             <div className='bg-white rounded mx-0 p-5'>
@@ -226,7 +244,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
                     )}
                 </div>
 
-                {extractedReports.length > 0 ? (
+                {extractedReports.length > 0 && (
                     <table
                         className='table table-responsive table-bordered'
                         id='myTable'
@@ -289,8 +307,6 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
                             ))}
                         </tbody>
                     </table>
-                ) : (
-                    <LargeAlert message='No report found for given dates' />
                 )}
             </div>
         </div>
@@ -298,7 +314,6 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
 };
 
 function ReportRow({ row, selectedMonth, selectedYear }) {
-    console.log('MONTH', selectedMonth, 'year', row?.year);
     return (
         <tr>
             <td>01</td>

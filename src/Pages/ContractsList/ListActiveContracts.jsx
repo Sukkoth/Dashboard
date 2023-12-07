@@ -11,9 +11,14 @@ const ListActiveContracts = () => {
         data: contractsData,
         isLoading,
         errors,
+        fetchData,
     } = useApiFetch({
         url: '/leases/activeContracts',
         method: 'get',
+        params: {
+            page: 1,
+            size: 3,
+        },
     });
 
     return (
@@ -21,12 +26,13 @@ const ListActiveContracts = () => {
             <FullLoader isLoading={isLoading} />
             {!isLoading &&
                 !errors?.message &&
-                (contractsData.length > 0 ? (
+                (contractsData?.leases?.length > 0 ? (
                     <>
                         <ConfirmationModal tobeDeleted={tobeDeleted} />
                         <ContractsList
                             contractsData={contractsData}
                             setTobeDeleted={setTobeDeleted}
+                            fetchData={fetchData}
                         />
                     </>
                 ) : (

@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 
-const LargeAlert = ({ isLoading, message }) => {
+const LargeAlert = ({ isLoading, message, backButton }) => {
     return (
         !isLoading &&
         message && (
-            <div className='container-fluid  take-screen p-4'>
+            <div
+                className='container-fluid  take-screen p-4'
+                style={{ position: 'relative' }}
+            >
                 <div
                     className='row bg-white rounded align-items-center justify-content-center mx-0'
                     style={{ minHeight: '80vh', boxShadow: 'none' }}
                 >
+                    {backButton}
                     <div className='col-md-6 text-center'>
                         <div
                             className='alert alert-secondary d-flex align-items-center justify-content-center'

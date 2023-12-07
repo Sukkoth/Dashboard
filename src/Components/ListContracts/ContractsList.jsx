@@ -1,190 +1,180 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { forwardRef, useContext, useState } from 'react';
-import BranchCell from './RSuiteComponents/BranchCell';
-import AuthButton from './RSuiteComponents/AuthButton';
-import ActionCell from './RSuiteComponents/ActionCell';
-//table starts
-import { getData } from '../../utils/getData';
-import { Table, Pagination, Dropdown } from 'rsuite';
-import { DataContext } from '../../Providers/DataProvider';
-const { Column, HeaderCell, Cell } = Table;
-//table ends
+import Pagination from '../Pagination/Pagination';
+import numeral from 'numeral';
 
-const ContractsList = ({ contractsData, setTobeDeleted }) => {
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-    const { branches } = useContext(DataContext);
-    //table starts
-
-    const [limit, setLimit] = useState(10);
-    const [page, setPage] = useState(1);
-
-    const [sortColumn, setSortColumn] = useState();
-    const [sortType, setSortType] = useState();
-    const [loading, setLoading] = useState(false);
-
-    const handleSortColumn = (sortColumn, sortType) => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-            setSortColumn(sortColumn);
-            setSortType(sortType);
-        }, 500);
-    };
-
-    const handleChangeLimit = (dataKey) => {
-        setPage(1);
-        setLimit(dataKey);
-    };
-
-    let filteredData = contractsData;
-
-    if (startDate.length === 4) {
-        const filterStartDate = new Date(`01/01/${startDate}`);
-        filteredData = filteredData.filter((data) => {
-            const contractStartDate = new Date(
-                data.contractRegisteredDate
-            ).getFullYear();
-            if (filterStartDate.getFullYear() === contractStartDate)
-                return true;
-        });
-    }
-
-    //filter based on end date
-    if (endDate.length === 4) {
-        const filterEndDate = new Date(`01/01/${endDate}`);
-        filteredData = filteredData.filter((data) => {
-            const contractEndDate = new Date(
-                data.contractEndDate
-            ).getFullYear();
-            if (filterEndDate.getFullYear() === contractEndDate) return true;
-        });
-    }
-
+const ContractsList = ({ contractsData, setTobeDeleted, fetchData }) => {
     return (
         <div className='container-fluid take-screen p-3 pb-3'>
-            <form action=''>
-                <div className='row my-3'>
-                    <div className='col-2'>
-                        <label htmlFor='regionName mt-2'>
-                            Contract Registration Date
-                        </label>
-                        <input
-                            type='text'
-                            className='form-control'
-                            value={startDate}
-                            onChange={(e) => setStartDate(e.target.value)}
-                        />
-                    </div>
-                    <div className='col-2'>
-                        <label htmlFor='regionName mt-2'>
-                            Contract End Date
-                        </label>
-                        <input
-                            type='text'
-                            className='form-control'
-                            value={endDate}
-                            onChange={(e) => setEndDate(e.target.value)}
+            <div className='row g-4 ' style={{ minHeight: '500px' }}>
+                <div className='col-12'>
+                    <div
+                        className='bg-white rounded h-100 p-4'
+                        style={{ minHeight: '80vh' }}
+                    >
+                        <h6 className='h3 fw-bold mb-4'>Contracts List</h6>
+                        <div className='table-responsive mb-3'>
+                            <table className='table list-table table-bordered '>
+                                <thead>
+                                    <tr>
+                                        <th scope='col'>ID</th>
+                                        <th scope='col'>Branch Name</th>
+                                        <th scope='col'>Registered Date</th>
+                                        <th scope='col'>Start Date</th>
+                                        <th scope='col'>End Date</th>
+                                        <th scope='col'>Advance Payment</th>
+                                        <th scope='col'>
+                                            Initial Directive Cost
+                                        </th>
+                                        <th scope='col'>Lease Incentive</th>
+                                        <th scope='col'>Total Payament</th>
+                                        <th scope='col'>Authorization</th>
+                                        <th scope='col'>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {contractsData.leases.map(
+                                        (contract, index) => (
+                                            <tr key={contract.id}>
+                                                <th>{index + 1}</th>
+                                                <td>{contract.branchName}</td>
+                                                <td>
+                                                    {
+                                                        contract?.contractRegisteredDate
+                                                    }
+                                                </td>
+                                                <td>
+                                                    {
+                                                        contract?.contractStartDate
+                                                    }
+                                                </td>
+                                                <td>
+                                                    {contract?.contractEndDate}
+                                                </td>
+                                                <td>
+                                                    {numeral(
+                                                        contract?.advancePayment
+                                                    ).format('0,0.00')}
+                                                </td>
+                                                <td>
+                                                    {numeral(
+                                                        contract?.initalDirectCost
+                                                    ).format('0,0.00')}
+                                                </td>
+                                                <td>
+                                                    {numeral(
+                                                        contract?.leaseIncentive
+                                                    ).format('0,0.00')}
+                                                </td>
+                                                <td>
+                                                    {numeral(
+                                                        contract?.totalPayment
+                                                    ).format('0,0.00')}
+                                                </td>
+                                                <td>
+                                                    <button
+                                                        className={`btn mx-auto ${
+                                                            contract.authorization
+                                                                ? 'btn-outline-primary mx-auto'
+                                                                : 'btn-outline-warning'
+                                                        }`}
+                                                    >
+                                                        {contract.authorization
+                                                            ? 'Authorized'
+                                                            : 'Unauthorized'}
+                                                    </button>
+                                                </td>
+                                                <td className='d-flex align-items-center justify-content-center'>
+                                                    <div className='dropdown dropstart'>
+                                                        <button
+                                                            className='btn btn-primary dropdown-toggle'
+                                                            type='button'
+                                                            id='dropdownMenuButton2'
+                                                            data-bs-toggle='dropdown'
+                                                            aria-expanded='false'
+                                                        >
+                                                            Action
+                                                        </button>
+
+                                                        <ul
+                                                            style={{
+                                                                zIndex: '9',
+                                                            }}
+                                                            className='dropdown-menu dropdown-menu-dark'
+                                                            aria-labelledby='dropdownMenuButton2'
+                                                        >
+                                                            <li>
+                                                                <Link
+                                                                    to={`/leases/${contract?.id}`}
+                                                                    className='dropdown-item'
+                                                                >
+                                                                    <i className='fa fa-info-circle me-2'></i>
+                                                                    View Details
+                                                                </Link>
+                                                            </li>
+                                                            <li>
+                                                                <Link
+                                                                    to={`/report/${contract?.id}`}
+                                                                    className='dropdown-item'
+                                                                >
+                                                                    <i className='fa fa-scroll me-2'></i>
+                                                                    View Report
+                                                                </Link>
+                                                            </li>
+
+                                                            {/* <li>
+                                                            <a
+                                                                className='dropdown-item'
+                                                                href='#'
+                                                            >
+                                                                <i className='fa fa-edit me-2'></i>
+                                                                Update
+                                                            </a>
+                                                        </li> */}
+
+                                                            <li>
+                                                                <hr className='dropdown-divider' />
+                                                            </li>
+                                                            {/* <li>
+                                                                <a
+                                                                    className='dropdown-item'
+                                                                    href='#'
+                                                                    data-bs-toggle='modal'
+                                                                    data-bs-target='#modal'
+                                                                    onClick={() =>
+                                                                        setTobeDeleted(
+                                                                            contract?.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <i className='fa fa-trash me-2'></i>{' '}
+                                                                    Delete
+                                                                </a>
+                                                            </li> */}
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                        <Pagination
+                            fetchData={fetchData}
+                            pagination={contractsData?.pagination}
                         />
                     </div>
                 </div>
-            </form>
-            <Table
-                cellBordered
-                height={520}
-                data={getData(sortColumn, sortType, filteredData, limit, page)}
-                autoHeight={true}
-                className='bg-white p-1 pb-3'
-                sortColumn={sortColumn}
-                sortType={sortType}
-                onSortColumn={handleSortColumn}
-                loading={loading}
-            >
-                <Column flexGrow={1} align='center' fixed>
-                    <HeaderCell>ID</HeaderCell>
-                    <Cell dataKey='id' />
-                </Column>
-
-                <Column flexGrow={3} resizable sortable>
-                    <HeaderCell>Branch</HeaderCell>
-                    <BranchCell dataKey='branchName' />
-                </Column>
-
-                <Column width={150} sortable resizable>
-                    <HeaderCell>Registered Date</HeaderCell>
-                    <Cell dataKey='contractRegisteredDate' />
-                </Column>
-                <Column width={115} sortable>
-                    <HeaderCell>Start Date</HeaderCell>
-                    <Cell dataKey='contractStartDate' />
-                </Column>
-
-                <Column width={115} sortable>
-                    <HeaderCell>End Date</HeaderCell>
-                    <Cell dataKey='contractEndDate' />
-                </Column>
-                <Column flexGrow={3} resizable>
-                    <HeaderCell>Advance Payment</HeaderCell>
-                    <Cell dataKey='advancePayment' />
-                </Column>
-                <Column flexGrow={2} sortable>
-                    <HeaderCell>Type</HeaderCell>
-                    <Cell dataKey='contractType' defaultValue={0} />
-                </Column>
-                <Column flexGrow={3}>
-                    <HeaderCell>Lease Incentive</HeaderCell>
-                    <Cell dataKey='leaseIncentive' defaultValue={0} />
-                </Column>
-
-                <Column flexGrow={3} resizable>
-                    <HeaderCell>Total Payment</HeaderCell>
-                    <Cell dataKey='totalPayment' />
-                </Column>
-                <Column flexGrow={2} sortable>
-                    <HeaderCell align='center'>Auth</HeaderCell>
-                    <AuthButton dataKey='authorization' />
-                </Column>
-                <Column flexGrow={2}>
-                    <HeaderCell>Report</HeaderCell>
-                    <ActionCell dataKey='id' link='report' text='Report' />
-                </Column>
-                <Column flexGrow={2}>
-                    <HeaderCell>Action</HeaderCell>
-                    <ActionCell
-                        dataKey='id'
-                        link='leases'
-                        text='Details'
-                        type='warning'
-                    />
-                </Column>
-            </Table>
-            <div className='container-fluid pt-4 px-4'>
-                <Pagination
-                    prev
-                    next
-                    first
-                    last
-                    ellipsis
-                    boundaryLinks
-                    maxButtons={5}
-                    size='lg'
-                    layout={['total', '-', 'limit', '|', 'pager', 'skip']}
-                    total={filteredData.length}
-                    limitOptions={[5, 10, 30, 50]}
-                    limit={limit}
-                    activePage={page}
-                    onChangePage={setPage}
-                    onChangeLimit={handleChangeLimit}
-                />
             </div>
         </div>
     );
 };
 
 ContractsList.propTypes = {
-    contractsData: PropTypes.array,
+    contractsData: PropTypes.object,
     setTobeDeleted: PropTypes.func,
+    fetchData: PropTypes.func,
 };
 
 export default ContractsList;

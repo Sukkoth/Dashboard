@@ -11,6 +11,8 @@ import ExportForUpload from './Pages/ExportForUpload';
 import EndedContracts from './Pages/ContractsList/EndedContracts';
 import ListActiveContracts from './Pages/ContractsList/ListActiveContracts';
 import './App.css';
+import Hierarchy from './Pages/Hierarchy';
+import UpdateLease from './Pages/UpdateLease';
 
 function App() {
     return (
@@ -37,6 +39,10 @@ function App() {
                         Component={ShowContract}
                     />
                     <Route
+                        path='/leases/:contractId/update'
+                        Component={UpdateLease}
+                    />
+                    <Route
                         path='/report/:contractId'
                         Component={SingleContractReport}
                     />
@@ -45,6 +51,7 @@ function App() {
                         Component={GenerateReportPage}
                     /> */}
                     <Route path='/export' Component={ExportForUpload} />
+                    <Route path='/hierarchy' Component={Hierarchy} />
                 </Route>
             </Routes>
         </div>

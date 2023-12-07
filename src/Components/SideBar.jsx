@@ -9,6 +9,7 @@ import listContractsIcon from '../assets/img/list.png';
 import addContractIcon from '../assets/img/addContract.png';
 import expiredContractIcon from '../assets/img/expired.png';
 import activeContractIcon from '../assets/img/active.png';
+import bankIcon from '../assets/img/bank.png';
 
 const SideBar = () => {
     const { sidebarToggle } = useContext(LayoutContext);
@@ -133,6 +134,10 @@ const SideBar = () => {
                     <NavLink className='nav-item nav-link' to={'/export'}>
                         <img src={uploadIcon} alt='' className='sidebar-icon' />
                         Generate for Upload
+                    </NavLink>
+                    <NavLink className='nav-item nav-link' to={'/hierarchy'}>
+                        <img src={bankIcon} alt='' className='sidebar-icon' />
+                        Manage Hierarchy
                     </NavLink>
                 </div>
             </nav>

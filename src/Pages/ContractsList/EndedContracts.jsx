@@ -8,10 +8,15 @@ const EndedContracts = () => {
         data: contractsData,
         isLoading,
         errors,
+        fetchData,
     } = useApiFetch(
         {
             url: '/leases/expiredLeases',
             method: 'get',
+            params: {
+                page: 1,
+                size: 3,
+            },
         },
         true
     );
@@ -21,9 +26,12 @@ const EndedContracts = () => {
             <FullLoader isLoading={isLoading} />
             {!isLoading &&
                 !errors?.message &&
-                (contractsData.length > 0 ? (
+                (contractsData?.leases?.length > 0 ? (
                     <>
-                        <ContractsList contractsData={contractsData} />
+                        <ContractsList
+                            contractsData={contractsData}
+                            fetchData={fetchData}
+                        />
                     </>
                 ) : (
                     <LargeAlert

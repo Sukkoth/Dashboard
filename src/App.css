@@ -379,6 +379,7 @@ a:hover {
 
 .icon-pink {
     background: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -394,4 +395,37 @@ a:hover {
 .details span {
     font-weight: bolder;
     margin-left: 0.2rem;
+}
+
+.list-table td {
+    padding: 3px;
+    vertical-align: middle;
+}
+
+.list-table tbody tr:hover {
+    background: linear-gradient(to right, #ed6ea11f 0%, #ec8c6917 1%);
+}
+
+.pagination-btn {
+    padding-inline: 1rem;
+    padding-block: 0.8rem;
+}
+
+input[type='file'] {
+    cursor: pointer;
+}
+
+input[type='file']::file-selector-button {
+    margin-right: 20px;
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+
+input[type='file']::file-selector-button:hover {
+    /* background: #0d45a5; */
 }

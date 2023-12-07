@@ -5,6 +5,11 @@ const contractSchema = yup.object().shape({
     contractType: yup.string().required('Contract Type is required'),
     district: yup.string().required('District is required'),
     region: yup.string().required('Region is required'),
+    fileName: yup
+        .string()
+        .required(
+            'File is required, upload it before submitting the whole information'
+        ),
     advancePayment: yup
         .number()
         .required('Advance Payment is required')

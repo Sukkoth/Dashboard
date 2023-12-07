@@ -1,5 +1,5 @@
 import useApiFetch from '../API/useApiFetch';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FullLoader from '../Components/Loaders/FullLoader';
 import getContracttatus from '../utils/getContractstatus';
 import AlertError from '../Components/ListContracts/Alerts/LargeAlert';
@@ -8,6 +8,7 @@ import { DataContext } from '../Providers/DataProvider';
 import numeral from 'numeral';
 
 const ShowContract = () => {
+    const navigate = useNavigate();
     const { contractId } = useParams();
     const { findBranchInfo } = useContext(DataContext);
 
@@ -206,6 +207,12 @@ const ShowContract = () => {
                             </div>
                         )}
                     </div>
+                    <button
+                        className='btn btn-primary  mt-5'
+                        onClick={() => navigate(`/leases/${contractId}/update`)}
+                    >
+                        Update
+                    </button>
                 </div>
             )}
         </>
