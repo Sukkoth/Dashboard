@@ -6,38 +6,21 @@ import { DataContext } from '../Providers/DataProvider';
 
 import contractSchema from '../yupSchemas/contractSchema';
 import useApiFetch from '../API/useApiFetch';
-import FormContainer from '../Components/AddContract/Forms/FormContainer';
-import SubmitButton from '../Components/AddContract/Forms/SubmitButton';
-import NewContractAdded from '../Components/AddContract/Alerts/NewContractAdded';
-import BackEndError from '../Components/AddContract/Alerts/BackEndError';
-import ContractReason from '../Components/AddContract/Forms/ContractReason';
-import InstallmentData from '../Components/AddContract/Forms/InstallmentData';
-import ContractDuration from '../Components/AddContract/Forms/ContractDuration';
-import ContractDetails from '../Components/AddContract/Forms/ContractDetails';
-import BranchInfo from '../Components/AddContract/Forms/BranchInfo';
+import FormContainer from '../Components/UpdateContract/Forms/FormContainer';
+import SubmitButton from '../Components/UpdateContract/Forms/SubmitButton';
+import NewContractAdded from '../Components/UpdateContract/Alerts/NewContractAdded';
+import BackEndError from '../Components/UpdateContract/Alerts/BackEndError';
+import ContractReason from '../Components/UpdateContract/Forms/ContractReason';
+import InstallmentData from '../Components/UpdateContract/Forms/InstallmentData';
+import ContractDuration from '../Components/UpdateContract/Forms/ContractDuration';
+import ContractDetails from '../Components/UpdateContract/Forms/ContractDetails';
+import BranchInfo from '../Components/UpdateContract/Forms/BranchInfo';
 
-const UpdateLease = () => {
+const UpdateContract = () => {
     const navigate = useNavigate();
     const { regionsData } = useContext(DataContext);
     const [installmentData, setInstallmentData] = useState([]);
 
-    const sampleData = {
-        discountRate: 0.02152,
-        branchId: 26,
-        leaseIncentive: 32.0,
-        contractStartDate: '2008-12-05',
-        contractType: null,
-        contractEndDate: '2019-09-15',
-        branchName: 'Koka Branch',
-        installmentDetails: null,
-        contractRegisteredDate: '2023-12-07',
-        authorization: true,
-        totalPayment: 16.0,
-        numberOfInstallments: 0,
-        advancePayment: 61.0,
-        id: 3,
-        initialDirectCost: 2.0,
-    };
     const {
         register,
         handleSubmit,
@@ -45,7 +28,6 @@ const UpdateLease = () => {
         reset,
     } = useForm({
         resolver: yupResolver(contractSchema),
-        defaultValues: sampleData,
     });
 
     const {
@@ -55,14 +37,14 @@ const UpdateLease = () => {
         fetchData: makeRequest,
     } = useApiFetch({ url: '/leases', method: 'POST' }, false);
 
-    useEffect(() => {
-        if (!isLoading && contractData?.id) {
-            reset();
-            setTimeout(() => {
-                navigate(`/leases/${sampleData?.id}`);
-            }, 1500);
-        }
-    }, [contractData, isLoading, navigate, reset]);
+    // useEffect(() => {
+    //     if (!isLoading && contractData?.id) {
+    //         reset();
+    //         setTimeout(() => {
+    //             navigate(`/leases/${sampleData?.id}`);
+    //         }, 1500);
+    //     }
+    // }, [contractData, isLoading, navigate, reset]);
 
     /**
      * @desc Send the request the save lease information
@@ -131,4 +113,4 @@ const UpdateLease = () => {
     );
 };
 
-export default UpdateLease;
+export default UpdateContract;

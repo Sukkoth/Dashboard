@@ -18,8 +18,11 @@ const DataProvider = ({ children }) => {
                 if (branch) {
                     return {
                         region: region.region.trim(),
+                        regionId: region.regionId,
                         district: district.name.trim(),
+                        districtId: district.districtId,
                         branch: branch.name.trim(),
+                        branchId: branch.BranchId,
                         branchCode: branch.branchCode.trim(),
                     };
                 }

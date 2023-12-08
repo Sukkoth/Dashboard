@@ -25,11 +25,10 @@ function AddDistrict() {
     } = useForm({ resolver: yupResolver(districtSchema) });
 
     const onSubmitHandler = async (data) => {
-        console.log(regionsData[data.region].regionId);
         await addDistrict({
             data: {
                 districtName: data.districtName,
-                regionId: regionsData[data.region].id,
+                regionId: regionsData[data.region].regionId,
             },
         });
 

@@ -5,14 +5,14 @@ import AddContract from './Pages/AddContract';
 import Index from './Pages/Index';
 import ListContracts from './Pages/ContractsList/ListContracts';
 import ShowContract from './Pages/ShowContract';
-// import GenerateReportPage from './Pages/GenerateReportPage';
 import SingleContractReport from './Pages/SingleContractReport';
 import ExportForUpload from './Pages/ExportForUpload';
 import EndedContracts from './Pages/ContractsList/EndedContracts';
 import ListActiveContracts from './Pages/ContractsList/ListActiveContracts';
 import './App.css';
 import Hierarchy from './Pages/Hierarchy';
-import UpdateLease from './Pages/UpdateLease';
+import UpdateContract from './Pages/UpdateContract';
+import UpdateProvider from './Providers/UpdateProvider';
 
 function App() {
     return (
@@ -40,7 +40,11 @@ function App() {
                     />
                     <Route
                         path='/leases/:contractId/update'
-                        Component={UpdateLease}
+                        element={
+                            <UpdateProvider>
+                                <UpdateContract />
+                            </UpdateProvider>
+                        }
                     />
                     <Route
                         path='/report/:contractId'
