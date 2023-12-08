@@ -15,10 +15,17 @@ import InstallmentData from '../Components/UpdateContract/Forms/InstallmentData'
 import ContractDuration from '../Components/UpdateContract/Forms/ContractDuration';
 import ContractDetails from '../Components/UpdateContract/Forms/ContractDetails';
 import BranchInfo from '../Components/UpdateContract/Forms/BranchInfo';
+import { UpdateContext } from '../Providers/UpdateProvider';
 
 const UpdateContract = () => {
     const navigate = useNavigate();
     const { regionsData } = useContext(DataContext);
+    const {
+        contractData,
+        isLoading,
+        error: backEndError,
+        fetchData: makeRequest,
+    } = useContext(UpdateContext);
     const [installmentData, setInstallmentData] = useState([]);
 
     const {
@@ -29,22 +36,6 @@ const UpdateContract = () => {
     } = useForm({
         resolver: yupResolver(contractSchema),
     });
-
-    const {
-        data: contractData,
-        isLoading,
-        errors: backEndError,
-        fetchData: makeRequest,
-    } = useApiFetch({ url: '/leases', method: 'POST' }, false);
-
-    // useEffect(() => {
-    //     if (!isLoading && contractData?.id) {
-    //         reset();
-    //         setTimeout(() => {
-    //             navigate(`/leases/${sampleData?.id}`);
-    //         }, 1500);
-    //     }
-    // }, [contractData, isLoading, navigate, reset]);
 
     /**
      * @desc Send the request the save lease information
@@ -76,15 +67,25 @@ const UpdateContract = () => {
             installmentData.length > 0
                 ? JSON.stringify(formattedInstallmentData).replace(/\\/g, '')
                 : null;
-
-        await makeRequest({
-            data: {
-                ...data,
-                ...updatedLocation,
-                installmentDetails: formattedInstallmentData,
-            },
+        console.log('SCREAM', {
+            ...data,
+            ...updatedLocation,
+            installmentDetails: formattedInstallmentData,
         });
+        // await makeRequest({
+        //     data: {
+        //         ...data,
+        //         ...updatedLocation,
+        //         installmentDetails: formattedInstallmentData,
+        //     },
+        // });
     };
+
+    useEffect(() => {
+        if (contractData?.id) {
+            reset(contractData);
+        }
+    }, [reset, contractData?.id]);
 
     return (
         <FormContainer>
@@ -101,7 +102,7 @@ const UpdateContract = () => {
                     {!isLoading && backEndError?.message && (
                         <BackEndError message={backEndError?.message} />
                     )}
-                    {!isLoading && contractData?.id && <NewContractAdded />}
+                    {/* {!isLoading && contractData?.id && <NewContractAdded />} */}
                     <SubmitButton
                         handleSubmit={handleSubmit}
                         onSubmitHandler={onSubmitHandler}

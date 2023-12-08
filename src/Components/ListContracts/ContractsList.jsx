@@ -28,7 +28,7 @@ const ContractsList = ({ contractsData, setTobeDeleted, fetchData }) => {
                                         </th>
                                         <th scope='col'>Lease Incentive</th>
                                         <th scope='col'>Total Payament</th>
-                                        <th scope='col'>Authorization</th>
+                                        <th scope='col'>Status</th>
                                         <th scope='col'>Action</th>
                                     </tr>
                                 </thead>

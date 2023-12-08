@@ -41,14 +41,14 @@ const ContractReason = ({ register, errors }) => {
                             className='form-control'
                             placeholder='Leave contract reason here'
                             id='reason'
-                            name='reason'
+                            name='contractReason'
                             style={{ height: '200px' }}
-                            {...register('reason')}
+                            {...register('contractReason')}
                         ></textarea>
                     </div>
-                    {errors?.reason && (
+                    {errors?.contractReason && (
                         <div className='form-text text-danger'>
-                            {errors?.reason?.message}
+                            {errors?.contractReason?.message}
                         </div>
                     )}
 

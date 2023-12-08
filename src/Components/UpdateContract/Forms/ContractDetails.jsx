@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UpdateContext } from '../../../Providers/UpdateProvider';
 
 const ContractDetails = ({ register, errors }) => {
     return (

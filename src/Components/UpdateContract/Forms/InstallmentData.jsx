@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
+import { UpdateContext } from '../../../Providers/UpdateProvider';
 const InstallmentData = ({ installmentData, setInstallmentData }) => {
+    const { contractData } = useContext(UpdateContext);
+    const [usedData, setUsedData] = useState(false);
+
+    let installmentDetails = null;
+    if (contractData.installmentDetails) {
+        installmentDetails = JSON.parse(contractData?.installmentDetails);
+    }
+
     function handleAddInstallmentData() {
         setInstallmentData((prev) => [
             ...prev,
@@ -28,6 +36,23 @@ const InstallmentData = ({ installmentData, setInstallmentData }) => {
             )
         );
     }
+
+    useEffect(() => {
+        if (
+            !usedData &&
+            installmentDetails !== null &&
+            installmentData?.length === 0
+        ) {
+            setInstallmentData(
+                Object.entries(installmentDetails).map(([date, value]) => ({
+                    installmentDate: date,
+                    amount: value,
+                }))
+            );
+            setUsedData(true);
+        }
+    }, [installmentDetails, usedData]);
+
     return (
         <div className='col-sm-12 col-xl-6'>
             <div className='bg-white rounded h-100 p-4'>

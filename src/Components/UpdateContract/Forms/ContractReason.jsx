@@ -1,8 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import CircleLoader from 'react-spinners/BeatLoader';
 import useApiFetch from '../../../API/useApiFetch';
+import { UpdateContext } from '../../../Providers/UpdateProvider';
 
 const ContractReason = ({ register, errors }) => {
+    const { contractData } = useContext(UpdateContext);
+    //!! TODO YOU ARE HERE,
+    /** USE useEffect to sync the file name from the backend
+     *
+     */
     return (
         <div className='col-sm-12 col-xl-8'>
             <div className='bg-white rounded h-100 p-4'>
@@ -41,14 +47,14 @@ const ContractReason = ({ register, errors }) => {
                             className='form-control'
                             placeholder='Leave contract reason here'
                             id='reason'
-                            name='reason'
+                            name='contractReason'
                             style={{ height: '200px' }}
-                            {...register('reason')}
+                            {...register('contractReason')}
                         ></textarea>
                     </div>
-                    {errors?.reason && (
+                    {errors?.contractReason && (
                         <div className='form-text text-danger'>
-                            {errors?.reason?.message}
+                            {errors?.contractReason?.message}
                         </div>
                     )}
 
@@ -68,7 +74,6 @@ const ContractReason = ({ register, errors }) => {
 };
 
 function AddFile({ register, error }) {
-    const fileRef = useRef(null);
     const [file, setFile] = useState('');
     const {
         data: fileData,
@@ -109,7 +114,6 @@ function AddFile({ register, error }) {
                     name='leaseContract'
                     id='leaseContract'
                     onChange={(e) => setFile(e.target.files[0])}
-                    required
                 />
             )}
             <button

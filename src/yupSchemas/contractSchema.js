@@ -35,7 +35,7 @@ const contractSchema = yup.object().shape({
         .typeError('Total Payment is required'),
     contractStartDate: yup.string().required('Contract start date required'),
     contractEndDate: yup.string().required('Contract end date required'),
-    reason: yup.string().required('Contract reason required'),
+    contractReason: yup.string().required('Contract reason required'),
 });
 
 export default contractSchema;

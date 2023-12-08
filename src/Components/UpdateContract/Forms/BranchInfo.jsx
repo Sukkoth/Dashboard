@@ -15,35 +15,6 @@ const BranchInfo = ({ register, errors }) => {
         branch: '',
     });
 
-    // //region
-    // console.log(
-    //     regionsData?.find((region) => region.regionId === selectedIndex.region)
-    // );
-
-    // //district
-    // console.log(
-    //     regionsData
-    //         ?.find((region) => region.regionId === selectedIndex.region)
-    //         ?.districts?.find(
-    //             (district) => district.districtId === selectedIndex.district
-    //         )
-    // );
-
-    // //branch
-    // console.log(
-    //     regionsData
-    //         ?.find((region) => region.regionId === selectedIndex.region)
-    //         ?.districts?.find(
-    //             (district) => district.districtId === selectedIndex.district
-    //         )
-    //         ?.branches?.find(
-    //             (branch) => branch.BranchId === selectedIndex.branch
-    //         )?.name
-    // );
-
-    console.log('index', selectedIndex);
-    console.log('Hierarchy', hierarchyData);
-
     useEffect(() => {
         if (
             selectedIndex.region === '' &&
@@ -58,7 +29,6 @@ const BranchInfo = ({ register, errors }) => {
                 district: hierarchyData?.districtId,
                 branch: contractData?.branchId,
             });
-            console.log('SETTTTTTT');
         }
     }, [
         selectedIndex.region,
