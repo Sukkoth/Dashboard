@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import CircleLoader from 'react-spinners/BeatLoader';
 import useApiFetch from '../../../API/useApiFetch';
 
-const ContractReason = ({ register, errors }) => {
+const ContractReason = ({ register, errors, setValue }) => {
     return (
         <div className='col-sm-12 col-xl-8'>
             <div className='bg-white rounded h-100 p-4'>
@@ -59,6 +59,7 @@ const ContractReason = ({ register, errors }) => {
                         <AddFile
                             register={register}
                             error={errors?.fileName?.message}
+                            setValue={setValue}
                         />
                     </div>
                 </div>
@@ -67,7 +68,7 @@ const ContractReason = ({ register, errors }) => {
     );
 };
 
-function AddFile({ register, error }) {
+function AddFile({ register, error, setValue }) {
     const fileRef = useRef(null);
     const [file, setFile] = useState('');
     const {
@@ -90,6 +91,7 @@ function AddFile({ register, error }) {
         uploadFile({
             data: formData,
         });
+        setValue('branchId', fileData?.fileName);
     }
 
     return (

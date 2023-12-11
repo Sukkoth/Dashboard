@@ -90,7 +90,7 @@ const BranchInfo = ({ register, errors }) => {
                         setSelectedIndex({
                             ...selectedIndex,
                             district: Number(e.target.value),
-                            branch: null,
+                            branch: '',
                         })
                     }
                 >
@@ -121,7 +121,7 @@ const BranchInfo = ({ register, errors }) => {
                     id='branchName'
                     name='branchName'
                     value={selectedIndex?.branch}
-                    {...register('branchName')}
+                    {...register('branchId')}
                     onChange={(e) =>
                         setSelectedIndex({
                             ...selectedIndex,

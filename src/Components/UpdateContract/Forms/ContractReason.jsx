@@ -3,12 +3,10 @@ import CircleLoader from 'react-spinners/BeatLoader';
 import useApiFetch from '../../../API/useApiFetch';
 import { UpdateContext } from '../../../Providers/UpdateProvider';
 
-const ContractReason = ({ register, errors }) => {
+const ContractReason = ({ register, errors, setValue }) => {
     const { contractData } = useContext(UpdateContext);
-    //!! TODO YOU ARE HERE,
-    /** USE useEffect to sync the file name from the backend
-     *
-     */
+    const [changeFile, setFileChange] = useState(false);
+
     return (
         <div className='col-sm-12 col-xl-8'>
             <div className='bg-white rounded h-100 p-4'>
@@ -61,11 +59,32 @@ const ContractReason = ({ register, errors }) => {
                     <div className='mb-3'>
                         <label htmlFor='reason' className='mb-2'>
                             Lease agreement File
+                            {!changeFile && (
+                                <span className='text-primary'>
+                                    📂 {contractData.fileName}
+                                </span>
+                            )}
+                            <span>
+                                <button
+                                    className='btn btn-outline-warning mx-3'
+                                    type='button'
+                                    onClick={() =>
+                                        setFileChange((prev) => !prev)
+                                    }
+                                >
+                                    {changeFile
+                                        ? 'Cancel changing file'
+                                        : 'Change file'}
+                                </button>
+                            </span>
                         </label>
-                        <AddFile
-                            register={register}
-                            error={errors?.fileName?.message}
-                        />
+                        {changeFile && (
+                            <AddFile
+                                register={register}
+                                error={errors?.fileName?.message}
+                                setValue={setValue}
+                            />
+                        )}
                     </div>
                 </div>
             </div>
@@ -73,7 +92,7 @@ const ContractReason = ({ register, errors }) => {
     );
 };
 
-function AddFile({ register, error }) {
+function AddFile({ register, error, setValue }) {
     const [file, setFile] = useState('');
     const {
         data: fileData,
@@ -88,25 +107,19 @@ function AddFile({ register, error }) {
         false
     );
 
-    function handleUpload() {
+    async function handleUpload() {
         if (fileData?.fileName) return;
         const formData = new FormData();
         formData.append('file', file);
-        uploadFile({
+        await uploadFile({
             data: formData,
         });
     }
-
+    useEffect(() => {
+        setValue('fileName', fileData.fileName);
+    }, [fileData.fileName]);
     return (
         <div>
-            {fileData?.fileName && (
-                <input
-                    type='hidden'
-                    name='fileName'
-                    value={fileData?.fileName}
-                    {...register('fileName')}
-                />
-            )}
             {!fileData?.fileName && (
                 <input
                     className='mx-2 border-primary'

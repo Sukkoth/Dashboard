@@ -4,6 +4,7 @@ import FullLoader from '../Loaders/FullLoader';
 import LargeAlert from '../ListContracts/Alerts/LargeAlert';
 import PropTypes from 'prop-types';
 import BackButton from '../BackButton';
+import numeral from 'numeral';
 
 const monthsInYear = [
     'January',
@@ -174,12 +175,13 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
             //find the reports which have deprecationExpense,
             //If they do not have it, you need it in the list
             if (row?.deprecationExp) {
-                const branchName = branches.find(
+                const branch = branches.find(
                     (branch) => branch.BranchId === report.detail[0].BranchId
-                )?.name;
+                );
+
                 extractedReports.push({
                     ...row,
-                    branchName,
+                    branch,
                     type: report?.detail?.[0].contractType,
                     year: report?.year,
                 });
@@ -187,28 +189,32 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
         }
     });
 
-    //Finally sort the reports based on branchName
-    extractedReports?.sort((a, b) =>
-        a?.branchName?.toUpperCase() < b?.branchName?.toUpperCase() ? -1 : 1
-    );
-
     //Contains the list of ammortization report to be viewed
     let extractedAmmortization = [];
 
     reports.forEach((report) => {
         if (report?.ammortization?.length) {
             const row = report?.ammortization.find(
-                (report) => report?.year === Number(selectedYear)
+                (report) =>
+                    report.year.split('-')[0] === `${selectedYear}` &&
+                    report.year.split('-')[1] ===
+                        `${
+                            selectedMonth < 10
+                                ? `0${selectedMonth}`
+                                : `${selectedMonth}`
+                        }`
             );
 
-            const branchName = branches.find(
-                (branch) => branch.BranchId === report.detail[0].BranchId
-            )?.name;
+            if (row?.interestExpence) {
+                const branch = branches.find(
+                    (branch) => branch.BranchId === report.detail[0].BranchId
+                );
 
-            extractedAmmortization.push({
-                ...row,
-                branchName,
-            });
+                extractedAmmortization.push({
+                    ...row,
+                    branch,
+                });
+            }
         }
     });
 
@@ -219,6 +225,23 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
                 backButton={<BackButton back={1} />}
             />
         );
+    if (extractedAmmortization.length <= 0)
+        return (
+            <LargeAlert
+                message='No ammortization report found for given dates'
+                backButton={<BackButton back={1} />}
+            />
+        );
+
+    // Finally sort extractedReports based on branchName
+    extractedReports?.sort((a, b) =>
+        a?.branch?.name?.toUpperCase() < b?.branch?.name?.toUpperCase() ? -1 : 1
+    );
+
+    // Finally sort the extractedAmmortization based on branchName
+    extractedAmmortization?.sort((a, b) =>
+        a?.branch?.name?.toUpperCase() < b?.branch?.name?.toUpperCase() ? -1 : 1
+    );
 
     return (
         <div className='container-fluid pt-4 px-4 take-screen'>
@@ -251,17 +274,65 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
                     >
                         <tbody className=''>
                             <tr>
-                                <th>A</th>
-                                <th>B</th>
-                                <th>C</th>
-                                <th>D</th>
-                                <th>E</th>
-                                <th>F</th>
-                                <th>G</th>
-                                <th>H</th>
-                                <th>I</th>
-                                <th>J</th>
-                                <th>K</th>
+                                <th>Org</th>
+                                <th>Location</th>
+                                <th>Cost Center</th>
+                                <th>Account</th>
+                                <th>Sector</th>
+                                <th>Product</th>
+                                <th>Future 1</th>
+                                <th>Future 2</th>
+                                <th>Debit</th>
+                                <th>Credit</th>
+                                <th>Central Region</th>
+                            </tr>
+                            <tr>
+                                <td>01</td>
+                                <td>0000</td>
+                                <td>0000</td>
+                                <td>231025</td>
+                                <td>00000</td>
+                                <td>00000</td>
+                                <td>00000</td>
+                                <td>00000</td>
+                                <td></td>
+                                <td>
+                                    {numeral(
+                                        extractedReports?.reduce(
+                                            (acc, curr) => {
+                                                return (
+                                                    acc + curr?.deprecationExp
+                                                );
+                                            },
+                                            0
+                                        )
+                                    ).format('0,0.00')}
+                                </td>
+                                <td>Accumulated Depreciation</td>
+                            </tr>
+                            <tr>
+                                <td>01</td>
+                                <td>0101</td>
+                                <td>0797</td>
+                                <td>221162</td>
+                                <td>00000</td>
+                                <td>00000</td>
+                                <td>00000</td>
+                                <td>00000</td>
+                                <td></td>
+                                <td>
+                                    {numeral(
+                                        extractedAmmortization?.reduce(
+                                            (acc, curr) => {
+                                                return (
+                                                    acc + curr?.interestExpence
+                                                );
+                                            },
+                                            0
+                                        )
+                                    ).format('0,0.00')}
+                                </td>
+                                <td> Lease liability</td>
                             </tr>
                             {extractedReports.map((row, key) => (
                                 <ReportRow
@@ -297,12 +368,14 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
                                 <td className='text-light'>-</td>
                                 <td></td>
                             </tr>
+
                             {extractedAmmortization.map((row, key) => (
                                 <ReportRow
                                     key={key}
                                     selectedYear={selectedYear}
                                     selectedMonth={selectedMonth}
                                     row={row}
+                                    type='ammortization'
                                 />
                             ))}
                         </tbody>
@@ -313,22 +386,26 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     );
 };
 
-function ReportRow({ row, selectedMonth, selectedYear }) {
+function ReportRow({ row, selectedMonth, selectedYear, type }) {
     return (
         <tr>
             <td>01</td>
-            <td>0000</td>
-            <td>0000</td>
-            <td>231025</td>
+            <td>{row?.branch?.location}</td>
+            <td>{row?.branch?.costCenter}</td>
+            <td>{type === 'ammortization' ? '561083' : '511025'}</td>
             <td>00000</td>
             <td>00000</td>
             <td>00000</td>
             <td>00000</td>
-            <td>{row?.deprecationExp}</td>
+            <td>
+                {type === 'ammortization'
+                    ? row?.interestExpence
+                    : row?.deprecationExp}
+            </td>
             <td>-</td>
             <td>
-                {row?.branchName} {row?.type} Depr. Expense- Right of Use Asset
-                for the month of {monthsInYear[selectedMonth - 1]}{' '}
+                {row?.branch?.name} {row?.type} Depr. Expense- Right of Use
+                Asset for the month of {monthsInYear[selectedMonth - 1]}{' '}
                 {selectedYear}
             </td>
         </tr>

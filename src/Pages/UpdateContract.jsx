@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { DataContext } from '../Providers/DataProvider';
 
@@ -24,7 +24,11 @@ const UpdateContract = () => {
         contractData,
         isLoading,
         error: backEndError,
-        fetchData: makeRequest,
+
+        updatedData,
+        isUpdating,
+        updatingError,
+        updateContract,
     } = useContext(UpdateContext);
     const [installmentData, setInstallmentData] = useState([]);
 
@@ -33,8 +37,17 @@ const UpdateContract = () => {
         handleSubmit,
         formState: { errors },
         reset,
+        setValue,
+        control,
     } = useForm({
         resolver: yupResolver(contractSchema),
+    });
+
+    //watch for fileName change
+    useWatch({
+        name: 'fileName', // Replace with your actual field name
+        defaultValue: contractData?.fileName,
+        control,
     });
 
     /**
@@ -42,21 +55,6 @@ const UpdateContract = () => {
      * @param {*} data - this comes from formHandler. It is information of the lease
      */
     const onSubmitHandler = async (data) => {
-        const updatedLocation = {
-            region: regionsData[data.region].region,
-            district: regionsData[data.region].districts[data.district].name,
-            branchName:
-                regionsData[data.region].districts[data.district].branches[
-                    data.district
-                ].name,
-            branch: {
-                branchId:
-                    regionsData[data.region].districts[data.district].branches[
-                        data.district
-                    ].BranchId,
-            },
-        };
-
         //the backend requires the installement data to be formatted into stringfied JSON
         let formattedInstallmentData = installmentData.reduce((acc, data) => {
             acc[`${data.installmentDate}`] = Number(data.amount);
@@ -67,25 +65,44 @@ const UpdateContract = () => {
             installmentData.length > 0
                 ? JSON.stringify(formattedInstallmentData).replace(/\\/g, '')
                 : null;
+
+        delete data['region'];
+        delete data['district'];
+        delete data['branchName'];
+        data['branch'] = {
+            branchId: Number(data.branchId),
+        };
+
         console.log('SCREAM', {
             ...data,
-            ...updatedLocation,
             installmentDetails: formattedInstallmentData,
         });
-        // await makeRequest({
-        //     data: {
-        //         ...data,
-        //         ...updatedLocation,
-        //         installmentDetails: formattedInstallmentData,
-        //     },
-        // });
+
+        await updateContract({
+            data: {
+                ...data,
+                installmentDetails: formattedInstallmentData,
+            },
+        });
     };
 
     useEffect(() => {
         if (contractData?.id) {
             reset(contractData);
         }
+        return () => {
+            reset();
+        };
     }, [reset, contractData?.id]);
+
+    useEffect(() => {
+        if (!isUpdating && updatedData?.id) {
+            reset();
+            setTimeout(() => {
+                navigate(`/leases/${updatedData?.id}`);
+            }, 1500);
+        }
+    }, [updatedData, isUpdating, navigate, reset]);
 
     return (
         <FormContainer>
@@ -98,15 +115,22 @@ const UpdateContract = () => {
                         installmentData={installmentData}
                         setInstallmentData={setInstallmentData}
                     />
-                    <ContractReason register={register} errors={errors} />
-                    {!isLoading && backEndError?.message && (
+                    <ContractReason
+                        register={register}
+                        errors={errors}
+                        setValue={setValue}
+                    />
+                    {(!isLoading || !isUpdating) && backEndError?.message && (
                         <BackEndError message={backEndError?.message} />
                     )}
-                    {/* {!isLoading && contractData?.id && <NewContractAdded />} */}
+                    {!isUpdating && updatedData?.id && (
+                        <NewContractAdded text='Contract Updated !!! ' />
+                    )}
                     <SubmitButton
                         handleSubmit={handleSubmit}
                         onSubmitHandler={onSubmitHandler}
-                        isLoading={isLoading}
+                        isLoading={isLoading || isUpdating}
+                        text='Update Contract'
                     />
                 </div>
             </form>

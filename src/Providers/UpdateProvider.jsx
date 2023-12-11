@@ -17,13 +17,30 @@ const UpdateProvider = ({ children }) => {
         method: 'GET',
     });
 
+    const {
+        data: updatedData,
+        isLoading: isUpdating,
+        errors: updatingError,
+        fetchData: updateContract,
+    } = useApiFetch(
+        {
+            url: `/leases/${contractId}`,
+            method: 'PUT',
+        },
+        false
+    );
+
     return (
         <UpdateContext.Provider
             value={{
                 contractData,
                 contractLoading,
                 backEndError,
-                fetchData,
+
+                updatedData,
+                isUpdating,
+                updatingError,
+                updateContract,
             }}
         >
             {children}
