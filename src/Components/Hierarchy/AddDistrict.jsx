@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../Providers/DataProvider';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -25,30 +25,42 @@ function AddDistrict() {
     } = useForm({ resolver: yupResolver(districtSchema) });
 
     const onSubmitHandler = async (data) => {
+        // console.log({
+        //     districtName: data.districtName,
+        //     region: { regionId: data.region },
+        // });
+
         await addDistrict({
             data: {
                 districtName: data.districtName,
-                regionId: regionsData[data.region].regionId,
+                region: { regionId: data.region },
             },
         });
-
         reset();
         setSelectedRegion('');
     };
+
+    useEffect(() => {
+        if (!addingDistrict && districtData?.districtId) {
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        }
+    }, [districtData, addingDistrict]);
 
     console.log(districtData);
     return (
         <div className='col-sm-12 col-xl-4 '>
             <div className='bg-white rounded p-4'>
                 <h6 className='h4 mb-4'>Add District</h6>
-                {/* {districtData && (
-                    <Alert message='Success! Branch has been added successfuly' />
+                {districtData?.districtId && (
+                    <Alert message='Success! District has been added successfuly' />
                 )}
                 {backEndError?.message && (
                     <Alert
                         message={backEndError?.message || 'Error adding data'}
                     />
-                )} */}
+                )}
                 <form onSubmit={handleSubmit(onSubmitHandler)}>
                     <label htmlFor='districtName' className='mt-3'>
                         District Name
@@ -75,16 +87,14 @@ function AddDistrict() {
                         id='region'
                         name='region'
                         className='form-select mt-2'
-                        onChange={(e) =>
-                            setSelectedRegion(Number(e.target.value))
-                        }
+                        defaultValue={selectedRegion}
                         {...register('region')}
                     >
                         <option value='' disabled>
                             Select Region Name
                         </option>
                         {regionsData?.map((region, index) => (
-                            <option value={index} key={index}>
+                            <option value={region.regionId} key={index}>
                                 {region?.region}
                             </option>
                         ))}

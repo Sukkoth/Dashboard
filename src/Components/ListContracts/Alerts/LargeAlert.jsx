@@ -15,7 +15,7 @@ const LargeAlert = ({ isLoading, message, backButton }) => {
                     {backButton}
                     <div className='col-md-6 text-center'>
                         <div
-                            className='alert alert-secondary d-flex align-items-center justify-content-center'
+                            className='alert alert-primary d-flex align-items-center justify-content-center'
                             role='alert'
                         >
                             <svg

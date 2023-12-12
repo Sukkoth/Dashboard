@@ -4,20 +4,20 @@ const branchSchema = yup.object().shape({
     branchName: yup.string().required('Branch Name is required'),
     branchCode: yup.string().required('Branch Code is required'),
     location: yup
-        .number()
+        .string()
         .required('Location is required')
-        .typeError('Location is required and must be a number'),
+        .typeError('Location is required'),
     costCenter: yup
-        .number()
+        .string()
         .typeError('Cost Center is required')
-        .required('Cost Center is required and must be a number'),
+        .required('Cost Center is required'),
     district: yup
         .string()
-        .typeError('District is required and must be a number')
+        .typeError('District is required')
         .required('District is required'),
     region: yup
         .string()
-        .typeError('Region is required and must be a number')
+        .typeError('Region is required')
         .required('Region  is required'),
     // politicalRegion: yup.object().shape({
     //     // Define the schema for the PoliticalRegion if it's an object

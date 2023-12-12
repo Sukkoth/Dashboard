@@ -92,7 +92,7 @@ const ShowContract = () => {
                                         </span>
                                     </p>
                                     <p className='mb-2'>
-                                        Authorization:{' '}
+                                        Status:{' '}
                                         <span
                                             style={{
                                                 fontWeight: 'normal',

@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import branchSchema from '../../yupSchemas/branchSchema';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../Providers/DataProvider';
 import useApiFetch from '../../API/useApiFetch';
 import Alert from './Alert';
@@ -33,39 +33,40 @@ function AddBranch() {
     }
 
     const onSubmitHandler = async (data) => {
-        const formattedName = {
-            region: regionsData[data.region].region,
-            district:
-                regionsData[data.region].districts[data.district].districtId,
-        };
-
         delete data['region'];
-        delete data['district'];
-
-        let transformData = {
-            ...data,
-            districtId: formattedName.district,
+        data['district'] = {
+            districtId: Number(data.district),
         };
+
+        console.log('branch', data);
 
         await addBranch({
-            data: transformData,
+            data: data,
         });
 
         handleResetForm();
     };
 
+    useEffect(() => {
+        if (!addingBranch && branchData?.branchId) {
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        }
+    }, [branchData, addingBranch]);
+
     return (
         <div className='col-sm-12 col-xl-4 '>
             <div className='bg-white rounded p-4'>
                 <h6 className='h4 mb-4'>Add Branch</h6>
-                {/* {branchData.id && (
+                {branchData.branchId && (
                     <Alert message='Success! Branch has been added successfuly' />
                 )}
                 {backEndError?.message && (
                     <Alert
                         message={backEndError?.message || 'Error adding data'}
                     />
-                )} */}
+                )}
                 <form onSubmit={handleSubmit(onSubmitHandler)}>
                     <label htmlFor='branchName'>Branch Name</label>
                     <input
@@ -101,7 +102,7 @@ function AddBranch() {
                         Location
                     </label>
                     <input
-                        type='number'
+                        type='text'
                         id='location'
                         name='location'
                         className='form-control mt-2'
@@ -116,7 +117,7 @@ function AddBranch() {
                         Cost center
                     </label>
                     <input
-                        type='number'
+                        type='text'
                         id='costCenter'
                         name='costCenter'
                         className='form-control mt-2'
@@ -150,7 +151,7 @@ function AddBranch() {
                             Select Region Name
                         </option>
                         {regionsData?.map((region, index) => (
-                            <option value={index} key={index}>
+                            <option value={region.regionId} key={index}>
                                 {region.region}
                             </option>
                         ))}
@@ -170,25 +171,21 @@ function AddBranch() {
                         id='district'
                         name='district'
                         className='form-select mt-2'
-                        value={selectedIndex.district}
                         {...register('district')}
-                        onChange={(e) =>
-                            setSelectedIndex({
-                                ...selectedIndex,
-                                district: Number(e.target.value),
-                            })
-                        }
                     >
                         <option value='' disabled>
                             Select District Name
                         </option>
-                        {regionsData[selectedIndex.region]?.districts.map(
-                            (district, index) => (
-                                <option value={index} key={index}>
+                        {regionsData
+                            ?.find(
+                                (region) =>
+                                    region.regionId === selectedIndex.region
+                            )
+                            ?.districts.map((district, index) => (
+                                <option value={district.districtId} key={index}>
                                     {district.name}
                                 </option>
-                            )
-                        )}
+                            ))}
                     </select>
                     {errors?.districtId && (
                         <div className='form-text text-danger'>

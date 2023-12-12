@@ -53,7 +53,7 @@ const useApiFetch = (
                 error?.response?.status <= 499
             ) {
                 setErrors({
-                    message: 'Bad Request here',
+                    message: 'Bad Request',
                     details: error,
                 });
             } else if (
