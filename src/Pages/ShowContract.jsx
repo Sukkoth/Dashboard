@@ -20,29 +20,9 @@ const ShowContract = () => {
         url: `/leases/${contractId}`,
         method: 'GET',
     });
+
     const branchInfo = findBranchInfo(contract.branchId);
 
-    // sample
-    // const isLoading = false;
-    // const errors = { message: null };
-    // const contract = {
-    //     advancePayment: 9566870,
-    //     authorization: true,
-    //     branchId: 3,
-    //     branchName: 'Bahir Dar Branch',
-    //     contractEndDate: '2027-07-21',
-    //     contractRegisteredDate: '2022-07-22',
-    //     contractStartDate: '2022-07-22',
-    //     contractType: 'ATM',
-    //     discountRate: 0.0465,
-    //     id: 26,
-    //     initialDirectCost: 0,
-    //     installmentDetails: null,
-    //     leaseIncentive: 0,
-    //     numberOfInstallments: 0,
-    //     totalPayment: 9566870,
-    // };
-    // const branchInfo = { district: 'Central', region: 'North East' };
     let installmentDetails = null;
     if (contract.installmentDetails) {
         installmentDetails = JSON.parse(contract?.installmentDetails);

@@ -15,7 +15,7 @@ const EndedContracts = () => {
             method: 'get',
             params: {
                 page: 1,
-                size: 3,
+                size: 25,
             },
         },
         true

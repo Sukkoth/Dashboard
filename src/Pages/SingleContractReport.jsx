@@ -5,6 +5,7 @@ import YearlyReportTable from '../Components/ShowContract/YearlyReportTable';
 import Journal from '../Components/ShowContract/Journals/Journal';
 import FullLoader from '../Components/Loaders/FullLoader';
 import useApiFetch from '../API/useApiFetch';
+import AmmortizationTable from '../Components/ShowContract/AmmortizationTable';
 
 const SingleContractReport = () => {
     const { contractId } = useParams();
@@ -108,6 +109,9 @@ const SingleContractReport = () => {
                                                     <ReportTable
                                                         contracts={report}
                                                     />
+                                                    <AmmortizationTable
+                                                        contracts={report}
+                                                    />
                                                     <Journal
                                                         contracts={report}
                                                     />
@@ -115,6 +119,9 @@ const SingleContractReport = () => {
                                             ) : (
                                                 <>
                                                     <YearlyReportTable
+                                                        contracts={report}
+                                                    />
+                                                    <AmmortizationTable
                                                         contracts={report}
                                                     />
                                                     <Journal

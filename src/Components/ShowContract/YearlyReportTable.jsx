@@ -15,6 +15,16 @@ const YearlyReportTable = ({ contracts }) => {
                     <thead>
                         <tr>
                             <th scope='col' colSpan='3'>
+                                Contract Year
+                            </th>
+                            <th scope='col'>
+                                {contracts.length &&
+                                    contracts[0]?.detail[0]?.contractYear}{' '}
+                                Years
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope='col' colSpan='3'>
                                 DEPRECIATION PER YEAR
                             </th>
                             <th scope='col'>

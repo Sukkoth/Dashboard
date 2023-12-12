@@ -23,13 +23,13 @@ const AmmortizationTable = ({ contracts }) => {
                                         <td>{ammortization?.year}</td>
                                         <td>
                                             {numeral(
-                                                ammortization?.payment
+                                                ammortization?.leasePayment
                                             ).format('0,0.00')}
                                         </td>
 
                                         <td>
                                             {numeral(
-                                                ammortization?.interest
+                                                ammortization?.interestExpence
                                             ).format('0,0.00')}
                                         </td>
                                         <td>

@@ -14,16 +14,21 @@ const ReportTable = ({ contracts }) => {
                 >
                     <thead>
                         <tr>
-                            {/* <th scope='col' colSpan='2'>
+                            <th scope='col' colSpan='2'>
                                 Contract Months
-                            </th> */}
-                            {/* <th scope='col'>60 Months</th> */}
+                            </th>
+                            <th scope='col'>
+                                {contracts.length &&
+                                    contracts[0]?.detail[0]?.contractMonth}{' '}
+                                Months
+                            </th>
                         </tr>
                         <tr>
                             <th scope='col' colSpan='2'>
                                 DEPRECIATION PER MONTH
                             </th>
                             <th scope='col'>
+                                {' '}
                                 {numeral(
                                     contracts[0]?.detail[0]
                                         ?.depreciationPerMonth

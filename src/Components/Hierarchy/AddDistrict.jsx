@@ -25,8 +25,16 @@ function AddDistrict() {
     } = useForm({ resolver: yupResolver(districtSchema) });
 
     const onSubmitHandler = async (data) => {
+        console.log({
+            leaseLiabilityAccount: data.leaseLiabilityAccount,
+            rouAccount: data.rouAccount,
+            districtName: data.districtName,
+            region: { regionId: data.region },
+        });
         await addDistrict({
             data: {
+                leaseLiabilityAccount: data.leaseLiabilityAccount,
+                rouAccount: data.rouAccount,
                 districtName: data.districtName,
                 region: { regionId: data.region },
             },
@@ -71,6 +79,36 @@ function AddDistrict() {
                             {errors?.districtName?.message}
                         </div>
                     )}
+                    <label htmlFor='leaseLiabilityAccount' className='mt-3'>
+                        LeaseLiablity Account
+                    </label>
+                    <input
+                        id='leaseLiabilityAccount'
+                        name='leaseLiabilityAccount'
+                        className='form-control mt-2'
+                        {...register('leaseLiabilityAccount')}
+                    />
+
+                    {errors?.leaseLiabilityAccount && (
+                        <div className='form-text text-danger'>
+                            {errors?.leaseLiabilityAccount?.message}
+                        </div>
+                    )}
+                    <label htmlFor='rouAccount' className='mt-3'>
+                        ROU Account
+                    </label>
+                    <input
+                        id='rouAccount'
+                        name='rouAccount'
+                        className='form-control mt-2'
+                        {...register('rouAccount')}
+                    />
+
+                    {errors?.rouAccount && (
+                        <div className='form-text text-danger'>
+                            {errors?.rouAccount?.message}
+                        </div>
+                    )}
 
                     {/* REGION */}
 
@@ -93,9 +131,9 @@ function AddDistrict() {
                             </option>
                         ))}
                     </select>
-                    {errors?.regionId && (
+                    {errors?.region && (
                         <div className='form-text text-danger '>
-                            {errors?.regionId?.message}
+                            {errors?.region?.message}
                         </div>
                     )}
 

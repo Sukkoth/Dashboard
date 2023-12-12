@@ -26,6 +26,7 @@ const AddContract = () => {
         handleSubmit,
         formState: { errors },
         reset,
+        control,
     } = useForm({ resolver: yupResolver(contractSchema) });
 
     const {
@@ -90,7 +91,11 @@ const AddContract = () => {
                 <div className='row g-4'>
                     <BranchInfo register={register} errors={errors} />
                     <ContractDetails register={register} errors={errors} />
-                    <ContractDuration register={register} errors={errors} />
+                    <ContractDuration
+                        register={register}
+                        errors={errors}
+                        control={control}
+                    />
                     <InstallmentData
                         installmentData={installmentData}
                         setInstallmentData={setInstallmentData}

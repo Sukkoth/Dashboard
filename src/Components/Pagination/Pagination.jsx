@@ -33,8 +33,6 @@ function Pagination({ fetchData, pagination }) {
                     onChange={(e) => handleSizeChange(Number(e.target.value))}
                     value={pagination?.pageSize}
                 >
-                    <option value='1'>1/page</option>
-                    <option value='3'>3/page</option>
                     <option value='10'>10/page</option>
                     <option value='25'>25/page</option>
                     <option value='50'>50/page</option>

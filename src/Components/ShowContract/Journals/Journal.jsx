@@ -114,7 +114,11 @@ const Journal = ({ contracts }) => {
 
                             <tr>
                                 <td>{numeral(sum).format('0,0.00')}</td>
-                                <td> {contracts[0].detail[0].rightOfUse}</td>
+                                <td>
+                                    {numeral(
+                                        contracts[0].detail[0].rightOfUse
+                                    ).format('0,0.00')}
+                                </td>
                             </tr>
                         </tbody>
                     </table>

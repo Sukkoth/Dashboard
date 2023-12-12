@@ -68,13 +68,13 @@ const BranchInfo = ({ register, errors }) => {
                     <option value='' disabled>
                         Select District Name
                     </option>
-                    {regionsData[selectedIndex.region]?.districts.map(
-                        (district, index) => (
+                    {regionsData[selectedIndex.region]?.districts
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .map((district, index) => (
                             <option value={index} key={index}>
                                 {district.name}
                             </option>
-                        )
-                    )}
+                        ))}
                 </select>
                 {errors?.district && (
                     <div className='form-text text-danger mb-4'>
@@ -103,11 +103,13 @@ const BranchInfo = ({ register, errors }) => {
                     </option>
                     {regionsData[selectedIndex.region]?.districts[
                         selectedIndex.district
-                    ]?.branches.map((branch, index) => (
-                        <option value={index} key={index}>
-                            {branch.name}
-                        </option>
-                    ))}
+                    ]?.branches
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .map((branch, index) => (
+                            <option value={index} key={index}>
+                                {branch.name}
+                            </option>
+                        ))}
                 </select>
                 {errors?.branchName && (
                     <div className='form-text text-danger mb-4'>

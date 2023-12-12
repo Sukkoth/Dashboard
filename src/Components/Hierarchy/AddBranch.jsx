@@ -95,7 +95,21 @@ function AddBranch() {
                             {errors?.branchCode?.message}
                         </div>
                     )}
+                    <label htmlFor='claimAccount' className='mt-3'>
+                        Claim Account
+                    </label>
+                    <input
+                        id='claimAccount'
+                        name='claimAccount'
+                        className='form-control mt-2'
+                        {...register('claimAccount')}
+                    />
 
+                    {errors?.claimAccount && (
+                        <div className='form-text text-danger'>
+                            {errors?.claimAccount?.message}
+                        </div>
+                    )}
                     <label htmlFor='location' className='mt-3'>
                         Location
                     </label>
@@ -179,7 +193,10 @@ function AddBranch() {
                                 (region) =>
                                     region.regionId === selectedIndex.region
                             )
-                            ?.districts.map((district, index) => (
+                            ?.districts.sort((a, b) =>
+                                a.name.localeCompare(b.name)
+                            )
+                            .map((district, index) => (
                                 <option value={district.districtId} key={index}>
                                     {district.name}
                                 </option>
