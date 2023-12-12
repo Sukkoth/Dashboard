@@ -82,13 +82,6 @@ const AddContract = () => {
                 installmentDetails: formattedInstallmentData,
             },
         });
-
-        console.log(
-            updatedLocation,
-            data.region,
-            data.district,
-            data.branchName
-        );
     };
 
     return (

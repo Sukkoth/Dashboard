@@ -73,11 +73,6 @@ const UpdateContract = () => {
             branchId: Number(data.branchId),
         };
 
-        console.log('SCREAM', {
-            ...data,
-            installmentDetails: formattedInstallmentData,
-        });
-
         await updateContract({
             data: {
                 ...data,

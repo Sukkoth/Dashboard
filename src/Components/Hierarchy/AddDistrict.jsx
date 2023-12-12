@@ -25,11 +25,6 @@ function AddDistrict() {
     } = useForm({ resolver: yupResolver(districtSchema) });
 
     const onSubmitHandler = async (data) => {
-        // console.log({
-        //     districtName: data.districtName,
-        //     region: { regionId: data.region },
-        // });
-
         await addDistrict({
             data: {
                 districtName: data.districtName,
@@ -48,7 +43,6 @@ function AddDistrict() {
         }
     }, [districtData, addingDistrict]);
 
-    console.log(districtData);
     return (
         <div className='col-sm-12 col-xl-4 '>
             <div className='bg-white rounded p-4'>

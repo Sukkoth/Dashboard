@@ -38,8 +38,6 @@ function AddBranch() {
             districtId: Number(data.district),
         };
 
-        console.log('branch', data);
-
         await addBranch({
             data: data,
         });
