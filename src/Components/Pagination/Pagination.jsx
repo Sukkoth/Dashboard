@@ -1,11 +1,17 @@
 import PropTypes from 'prop-types';
+import { useSearchParams } from 'react-router-dom';
 
 function Pagination({ fetchData, pagination }) {
+    let [searchParams, setSearchParams] = useSearchParams();
+    const path = window.location.pathname.split('/');
+
     function handlePageChange(page) {
         fetchData({
             params: {
                 page: page,
                 size: pagination.pageSize,
+                startYear: searchParams.get('startYear'),
+                endYear: searchParams.get('endYear'),
             },
         });
     }
@@ -15,9 +21,13 @@ function Pagination({ fetchData, pagination }) {
             params: {
                 page: 1,
                 size: pageSize,
+                startYear: searchParams.get('startYear'),
+                endYear: searchParams.get('endYear'),
             },
         });
     }
+
+    if (path[path.length - 1] === 'search') return; //you won't need this on search results
 
     return (
         <div className='d-flex flex-row justify-content-between mx-5 align-items-center'>

@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import useApiFetch from '../../API/useApiFetch';
 import FullLoader from '../../Components/Loaders/FullLoader';
 import LargeAlert from '../../Components/ListContracts/Alerts/LargeAlert';
-import ConfirmationModal from '../../Components/ListContracts/ConfirmationModal';
+// import ConfirmationModal from '../../Components/ListContracts/ConfirmationModal';
 import ContractsList from '../../Components/ListContracts/ContractsList';
+import { useSearchParams } from 'react-router-dom';
 
 const ListContracts = () => {
     const [tobeDeleted, setTobeDeleted] = useState(false);
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+
+    let [searchParams, setSearchParams] = useSearchParams();
 
     const {
         data: contractsData,
@@ -32,6 +35,7 @@ const ListContracts = () => {
                 (startDate.length === 4 || startDate.length === 0)) ||
             (startDate.length === 0 && endDate.length === 0)
         ) {
+            setSearchParams({ startYear: startDate, endYear: endDate });
             fetchData({
                 params: {
                     startYear: startDate,

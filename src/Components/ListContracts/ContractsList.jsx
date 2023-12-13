@@ -2,29 +2,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Pagination from '../Pagination/Pagination';
 import numeral from 'numeral';
-import { useEffect, useRef, useState } from 'react';
 import LargeAlert from './Alerts/LargeAlert';
 
 const ContractsList = ({ contractsData, fetchData }) => {
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
-
-    useEffect(() => {
-        if (startDate.length === 4 && endDate.length === 4) {
-            fetchData({
-                params: {
-                    startYear: startDate,
-                    endYear: endDate,
-                    page: 1,
-                    size: 25,
-                },
-            });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [startDate, endDate]);
-
     if (contractsData?.leases?.length === 0) {
-        console.log('here');
         return (
             <LargeAlert isLoading={false} message={'No Contracts data found'} />
         );

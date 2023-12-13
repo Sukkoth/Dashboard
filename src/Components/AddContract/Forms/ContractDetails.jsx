@@ -8,7 +8,7 @@ const ContractDetails = ({ register, errors }) => {
                 <div>
                     <div className='mb-3'>
                         <label htmlFor='totalPayment' className='form-label'>
-                            Total Payment
+                            Total Contract Price
                             <span className='text-danger'>*</span>
                         </label>
                         <input

@@ -1,6 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useWatch } from 'react-hook-form';
 
-const ContractDuration = ({ register, errors }) => {
+const ContractDuration = ({ register, errors, control }) => {
+    const [difference, setDifference] = useState('');
+    const monthDifference = (d1, d2) => {
+        const diffTime = Math.abs(d1 - d2);
+        const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        return (days / 365) * 12;
+    };
+
+    //read from useForm
+    const startDate = useWatch({
+        control,
+        name: 'contractStartDate',
+    });
+    const endDate = useWatch({
+        control,
+        name: 'contractEndDate',
+    });
+
+    useEffect(() => {
+        if (startDate && endDate) {
+            setDifference(
+                monthDifference(new Date(startDate), new Date(endDate))
+            );
+        }
+    }, [startDate, endDate]);
     return (
         <div className='col-sm-12 col-xl-4'>
             <div className='bg-white rounded h-100 p-4'>
@@ -49,6 +74,7 @@ const ContractDuration = ({ register, errors }) => {
                                 {errors?.contractEndDate?.message}
                             </div>
                         )}
+                        <p className='my-3 text-danger'>{difference}</p>
                     </div>
                 </div>
             </div>

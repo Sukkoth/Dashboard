@@ -42,6 +42,7 @@ const LargeAlert = ({ isLoading, message, backButton }) => {
 LargeAlert.propTypes = {
     isLoading: PropTypes.bool,
     message: PropTypes.string,
+    backButton: PropTypes.node,
 };
 
 export default LargeAlert;

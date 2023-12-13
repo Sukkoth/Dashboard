@@ -38,7 +38,7 @@ const Index = () => {
                     </div>
                     <div className='col-sm-6 col-xl-3'>
                         <div className='trans d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-line fa-3x icon-pink'></i>
+                            <i className='fab fa-creative-commons-sampling fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Active Contracts</p>
                                 <h6 className='mb-0'>
@@ -49,7 +49,7 @@ const Index = () => {
                     </div>
                     <div className='col-sm-6 col-xl-3'>
                         <div className='trans d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-area fa-3x icon-pink'></i>
+                            <i className='fas fa-stopwatch fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Expired Contracts</p>
                                 <h6 className='mb-0'>
@@ -60,7 +60,7 @@ const Index = () => {
                     </div>
                     <div className='col-sm-6 col-xl-3'>
                         <div className='trans d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-bar fa-3x icon-pink'></i>
+                            <i className='fas fa-globe fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Regions</p>
                                 <h6 className='mb-0'>{regionsData.length}</h6>
@@ -69,7 +69,7 @@ const Index = () => {
                     </div>
                     <div className='col-sm-6 col-xl-3'>
                         <div className='trans d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-bar fa-3x icon-pink'></i>
+                            <i className='fas fa-briefcase fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Districts</p>
                                 <h6 className='mb-0'>{totalDistricts}</h6>
@@ -78,7 +78,7 @@ const Index = () => {
                     </div>
                     <div className='col-sm-6 col-xl-3'>
                         <div className='trans d-flex align-items-center justify-content-between p-4'>
-                            <i className='fa fa-chart-bar fa-3x icon-pink'></i>
+                            <i className='fas fa-university fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Branches</p>
                                 <h6 className='mb-0'>{totalBranches}</h6>

@@ -10,6 +10,7 @@ import addContractIcon from '../assets/img/addContract.png';
 import expiredContractIcon from '../assets/img/expired.png';
 import activeContractIcon from '../assets/img/active.png';
 import bankIcon from '../assets/img/bank.png';
+import searchIcon from '../assets/img/search.png';
 
 const SideBar = () => {
     const { sidebarToggle } = useContext(LayoutContext);
@@ -43,7 +44,6 @@ const SideBar = () => {
                         <img
                             className='rounded-circle'
                             src={avatar}
-                            alt=''
                             style={{
                                 width: '40px',
                                 height: '40px',
@@ -58,11 +58,7 @@ const SideBar = () => {
                 </div>
                 <div className='navbar-nav w-100 mt-4'>
                     <NavLink to='/' className='nav-item nav-link'>
-                        <img
-                            src={dashboardIcon}
-                            alt=''
-                            className='sidebar-icon'
-                        />
+                        <img src={dashboardIcon} className='sidebar-icon' />
                         Dashboard
                     </NavLink>
                     <div className='nav-item dropdown'>
@@ -73,7 +69,6 @@ const SideBar = () => {
                         >
                             <img
                                 src={contractsListIcon}
-                                alt=''
                                 className='sidebar-icon'
                             />
                             Contracts
@@ -85,7 +80,6 @@ const SideBar = () => {
                             >
                                 <img
                                     src={addContractIcon}
-                                    alt=''
                                     className='sidebar-icon'
                                 />
                                 Add
@@ -96,7 +90,6 @@ const SideBar = () => {
                             >
                                 <img
                                     src={listContractsIcon}
-                                    alt=''
                                     className='sidebar-icon'
                                 />
                                 List All
@@ -107,21 +100,29 @@ const SideBar = () => {
                             >
                                 <img
                                     src={activeContractIcon}
-                                    alt=''
                                     className='sidebar-icon'
                                 />
                                 Active Contracts
                             </NavLink>
                             <NavLink
                                 to='/list-contracts/ended'
-                                className='dropdown-item mx-4'
+                                className='dropdown-item mb-1 mx-4'
                             >
                                 <img
                                     src={expiredContractIcon}
-                                    alt=''
                                     className='sidebar-icon'
                                 />
-                                Ended Contracts
+                                Expired Contracts
+                            </NavLink>
+                            <NavLink
+                                to='/list-contracts/search'
+                                className='dropdown-item mx-4'
+                            >
+                                <img
+                                    src={searchIcon}
+                                    className='sidebar-icon'
+                                />
+                                Search
                             </NavLink>
                         </div>
                     </div>
@@ -132,11 +133,11 @@ const SideBar = () => {
                         <i className='fa fa-scroll me-2'></i>Generate Report
                     </NavLink> */}
                     <NavLink className='nav-item nav-link' to={'/export'}>
-                        <img src={uploadIcon} alt='' className='sidebar-icon' />
-                        Generate for Upload
+                        <img src={uploadIcon} className='sidebar-icon' />
+                        Generate Report
                     </NavLink>
                     <NavLink className='nav-item nav-link' to={'/hierarchy'}>
-                        <img src={bankIcon} alt='' className='sidebar-icon' />
+                        <img src={bankIcon} className='sidebar-icon' />
                         Manage Hierarchy
                     </NavLink>
                 </div>

@@ -13,6 +13,7 @@ import './App.css';
 import Hierarchy from './Pages/Hierarchy';
 import UpdateContract from './Pages/UpdateContract';
 import UpdateProvider from './Providers/UpdateProvider';
+import Search from './Pages/ContractsList/Search';
 
 function App() {
     return (
@@ -34,6 +35,7 @@ function App() {
                         path='/list-contracts/active'
                         Component={ListActiveContracts}
                     />
+                    <Route path='/list-contracts/search' Component={Search} />
                     <Route
                         path='/leases/:contractId'
                         Component={ShowContract}

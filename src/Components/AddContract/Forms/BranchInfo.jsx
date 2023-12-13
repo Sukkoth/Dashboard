@@ -21,7 +21,6 @@ const BranchInfo = ({ register, errors }) => {
                     id='region'
                     name='region'
                     className='form-select my-2'
-                    aria-label='Default select example'
                     defaultValue={''}
                     {...register('region')}
                     onChange={(e) =>
@@ -54,7 +53,6 @@ const BranchInfo = ({ register, errors }) => {
                     id='district'
                     name='district'
                     className='form-select my-2'
-                    aria-label='Default select example'
                     defaultValue={''}
                     {...register('district')}
                     onChange={(e) =>
