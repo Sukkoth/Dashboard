@@ -56,14 +56,14 @@ const UpdateContract = () => {
      */
     const onSubmitHandler = async (data) => {
         //the backend requires the installement data to be formatted into stringfied JSON
-        let formattedInstallmentData = installmentData.reduce((acc, data) => {
+        let formattedInstallmentData = installmentData?.reduce((acc, data) => {
             acc[`${data.installmentDate}`] = Number(data.amount);
             return acc;
         }, {});
 
         formattedInstallmentData =
-            installmentData.length > 0
-                ? JSON.stringify(formattedInstallmentData).replace(/\\/g, '')
+            installmentData?.length > 0
+                ? JSON.stringify(formattedInstallmentData)?.replace(/\\/g, '')
                 : null;
 
         delete data['region'];

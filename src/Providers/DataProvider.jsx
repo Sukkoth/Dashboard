@@ -10,6 +10,7 @@ const DataProvider = ({ children }) => {
     );
 
     const findBranchInfo = (branchId) => {
+        if (!regionsData?.length) return {};
         for (const region of regionsData) {
             for (const district of region.districts) {
                 const branch = district.branches.find(
@@ -32,14 +33,14 @@ const DataProvider = ({ children }) => {
         return null;
     };
 
-    const branches = regionsData.flatMap((region) =>
+    const branches = regionsData?.flatMap((region) =>
         region.districts.flatMap((district) => district.branches)
     );
 
     return (
         <DataContext.Provider
             value={{
-                regionsData: regionsData || [],
+                regionsData: regionsData,
                 branches,
                 findBranchInfo,
             }}

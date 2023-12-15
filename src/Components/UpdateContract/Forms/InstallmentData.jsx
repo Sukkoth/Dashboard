@@ -5,7 +5,7 @@ const InstallmentData = ({ installmentData, setInstallmentData }) => {
     const [usedData, setUsedData] = useState(false);
 
     let installmentDetails = null;
-    if (contractData.installmentDetails) {
+    if (contractData?.installmentDetails) {
         installmentDetails = JSON.parse(contractData?.installmentDetails);
     }
 

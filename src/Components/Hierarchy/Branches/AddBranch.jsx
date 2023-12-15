@@ -57,7 +57,7 @@ function AddBranch() {
         <div className='col-sm-12 col-xl-4 '>
             <div className='bg-white rounded p-4'>
                 <h6 className='h4 mb-4'>Add Branch</h6>
-                {branchData.branchId && (
+                {branchData?.branchId && (
                     <Alert message='Success! Branch has been added successfuly' />
                 )}
                 {backEndError?.message && (
@@ -196,7 +196,7 @@ function AddBranch() {
                             ?.districts.sort((a, b) =>
                                 a.name.localeCompare(b.name)
                             )
-                            .map((district, index) => (
+                            ?.map((district, index) => (
                                 <option value={district.districtId} key={index}>
                                     {district.name}
                                 </option>

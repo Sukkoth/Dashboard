@@ -59,7 +59,7 @@ const ListContracts = () => {
                             <div className='row my-3 mx-2'>
                                 <div className='col-2'>
                                     <label htmlFor='regionName mt-2'>
-                                        Contract Registration Date
+                                        Contract Registration Year
                                     </label>
                                     <input
                                         type='text'
@@ -72,7 +72,7 @@ const ListContracts = () => {
                                 </div>
                                 <div className='col-2'>
                                     <label htmlFor='regionName mt-2'>
-                                        Contract End Date
+                                        Contract End Year
                                     </label>
                                     <input
                                         type='text'

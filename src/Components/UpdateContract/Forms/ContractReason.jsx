@@ -6,7 +6,7 @@ import { UpdateContext } from '../../../Providers/UpdateProvider';
 const ContractReason = ({ register, errors, setValue }) => {
     const { contractData } = useContext(UpdateContext);
     const [changeFile, setFileChange] = useState(false);
-
+    if (!contractData) return;
     return (
         <div className='col-sm-12 col-xl-8'>
             <div className='bg-white rounded h-100 p-4'>

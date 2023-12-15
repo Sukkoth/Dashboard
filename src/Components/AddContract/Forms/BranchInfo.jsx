@@ -66,9 +66,9 @@ const BranchInfo = ({ register, errors }) => {
                     <option value='' disabled>
                         Select District Name
                     </option>
-                    {regionsData[selectedIndex.region]?.districts
-                        .sort((a, b) => a.name.localeCompare(b.name))
-                        .map((district, index) => (
+                    {regionsData?.[selectedIndex.region]?.districts
+                        ?.sort((a, b) => a.name.localeCompare(b.name))
+                        ?.map((district, index) => (
                             <option value={index} key={index}>
                                 {district.name}
                             </option>
@@ -99,7 +99,7 @@ const BranchInfo = ({ register, errors }) => {
                     <option value='' disabled>
                         Select Branch Name
                     </option>
-                    {regionsData[selectedIndex.region]?.districts[
+                    {regionsData?.[selectedIndex.region]?.districts[
                         selectedIndex.district
                     ]?.branches
                         .sort((a, b) => a.name.localeCompare(b.name))

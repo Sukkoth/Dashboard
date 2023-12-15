@@ -47,7 +47,7 @@ const Search = () => {
             (district) => Number(district.districtId) === selectedDistrict
         )?.branches;
     else
-        regionsData.forEach((region) => {
+        regionsData?.forEach((region) => {
             region.districts.forEach((district) => {
                 if (district?.branches?.length)
                     branches.push(...district.branches);

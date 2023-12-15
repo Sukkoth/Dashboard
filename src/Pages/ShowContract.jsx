@@ -21,10 +21,10 @@ const ShowContract = () => {
         method: 'GET',
     });
 
-    const branchInfo = findBranchInfo(contract.branchId);
+    const branchInfo = findBranchInfo(contract?.branchId);
 
     let installmentDetails = null;
-    if (contract.installmentDetails) {
+    if (contract?.installmentDetails) {
         installmentDetails = JSON.parse(contract?.installmentDetails);
     }
     return (

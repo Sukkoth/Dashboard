@@ -13,7 +13,7 @@ const useApiFetch = (
 ) => {
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState({});
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
     const [requestConfig] = useState(requestConfigParam);
 
     const fetchData = useCallback(async (request) => {

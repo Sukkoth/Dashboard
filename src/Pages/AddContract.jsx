@@ -51,17 +51,16 @@ const AddContract = () => {
      */
     const onSubmitHandler = async (data) => {
         const updatedLocation = {
-            region: regionsData[data.region].region,
-            district: regionsData[data.region].districts[data.district].name,
+            region: regionsData?.[data.region].region,
+            district: regionsData?.[data.region].districts[data.district].name,
             branchName:
-                regionsData[data.region].districts[data.district].branches[
+                regionsData?.[data.region].districts[data.district].branches[
                     data.branchName
                 ].name,
             branch: {
                 branchId:
-                    regionsData[data.region].districts[data.district].branches[
-                        data.branchName
-                    ].BranchId,
+                    regionsData?.[data.region].districts[data.district]
+                        .branches[data.branchName].BranchId,
             },
         };
 

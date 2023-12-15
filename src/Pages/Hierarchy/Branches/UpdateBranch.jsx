@@ -58,7 +58,7 @@ function UpdateBranch() {
             <div className='col-sm-12 col-xl-4 '>
                 <div className='bg-white rounded p-4'>
                     <h6 className='h4 mb-4'>Update Branch</h6>
-                    {branchData.branchId && (
+                    {branchData?.branchId && (
                         <Alert message='Success! Branch has been added Updated' />
                     )}
                     {backEndError?.message && (

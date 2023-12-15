@@ -63,7 +63,7 @@ const Index = () => {
                             <i className='fas fa-globe fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Regions</p>
-                                <h6 className='mb-0'>{regionsData.length}</h6>
+                                <h6 className='mb-0'>{regionsData?.length}</h6>
                             </div>
                         </div>
                     </div>

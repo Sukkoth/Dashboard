@@ -42,16 +42,16 @@ const GenerateReport = (props) => {
     const { regionsData } = useContext(DataContext);
 
     //get total options for each//
-    let regionOptions = regionsData.map((region) => region.region);
+    let regionOptions = regionsData?.map((region) => region.region);
     let districtOptions = [];
     selectedRegions.forEach((region) => {
-        let regions = regionsData.find((reg) => reg.region === region);
+        let regions = regionsData?.find((reg) => reg.region === region);
         regions.districts.map((dist) => districtOptions.push(dist.name));
     });
 
     let branchOptions = [];
     selectedRegions.forEach((region) => {
-        let regions = regionsData.find((reg) => reg.region === region);
+        let regions = regionsData?.find((reg) => reg.region === region);
         regions.districts.forEach((district) => {
             if (selectedDistricts.includes(district.name))
                 return district.branches.map((br) =>
@@ -70,7 +70,7 @@ const GenerateReport = (props) => {
             );
 
             //illiminate all of it's districts
-            let districtsToBeRemoved = regionsData.find(
+            let districtsToBeRemoved = regionsData?.find(
                 (region) => region.region === regionName
             ).districts;
 
@@ -106,7 +106,7 @@ const GenerateReport = (props) => {
 
     const handleDistrictChange = (districtName) => {
         let districtsToBeRemoved = null;
-        regionsData.forEach((region) => {
+        regionsData?.forEach((region) => {
             const foundDistrict = region.districts.find(
                 (district) => district.name === districtName
             );
@@ -165,7 +165,7 @@ const GenerateReport = (props) => {
                 setSelectedDistricts([]);
                 setSelectedBranches([]);
             } else {
-                setSelectedRegions(regionsData.map((region) => region.region));
+                setSelectedRegions(regionsData?.map((region) => region.region));
             }
         } else if (name === 'Select All Districts') {
             if (selectedDistricts.length === districtOptions.length) {

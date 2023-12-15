@@ -90,7 +90,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     });
 
     //extract all branches from hierarchy
-    const branches = BranchData.flatMap((region) =>
+    const branches = BranchData?.flatMap((region) =>
         region.districts.flatMap((district) => district.branches)
     );
 
