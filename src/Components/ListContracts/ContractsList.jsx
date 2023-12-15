@@ -33,6 +33,7 @@ const ContractsList = ({ contractsData, fetchData }) => {
                                                 Initial Directive Cost
                                             </th>
                                             <th scope='col'>Lease Incentive</th>
+                                            <th scope='col'>Lease Liability</th>
                                             <th scope='col'>Total Payament</th>
                                             <th scope='col'>Status</th>
                                             <th scope='col'>Action</th>
@@ -74,6 +75,11 @@ const ContractsList = ({ contractsData, fetchData }) => {
                                                     <td>
                                                         {numeral(
                                                             contract?.leaseIncentive
+                                                        ).format('0,0.00')}
+                                                    </td>
+                                                    <td>
+                                                        {numeral(
+                                                            contract?.leaseLiability
                                                         ).format('0,0.00')}
                                                     </td>
                                                     <td>

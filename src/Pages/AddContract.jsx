@@ -90,7 +90,11 @@ const AddContract = () => {
             <form onSubmit={handleSubmit(onSubmitHandler)}>
                 <div className='row g-4'>
                     <BranchInfo register={register} errors={errors} />
-                    <ContractDetails register={register} errors={errors} />
+                    <ContractDetails
+                        register={register}
+                        errors={errors}
+                        control={control}
+                    />
                     <ContractDuration
                         register={register}
                         errors={errors}

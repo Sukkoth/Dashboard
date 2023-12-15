@@ -1,6 +1,19 @@
 import React from 'react';
+import { useWatch } from 'react-hook-form';
 
-const ContractDetails = ({ register, errors }) => {
+const ContractDetails = ({ register, errors, control }) => {
+    const totalPayment = useWatch({
+        control,
+        name: 'totalPayment',
+    });
+
+    const advancePayment = useWatch({
+        control,
+        name: 'advancePayment',
+    });
+
+    const difference = totalPayment - advancePayment || 0;
+
     return (
         <div className='col-sm-12 col-xl-6'>
             <div className='bg-white rounded h-100 p-4'>
@@ -109,6 +122,10 @@ const ContractDetails = ({ register, errors }) => {
                             </div>
                         )}
                     </div>
+
+                    <p className='text-danger'>
+                        Total Payment - Advance Payment = {difference}
+                    </p>
                 </div>
             </div>
         </div>

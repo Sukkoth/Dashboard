@@ -28,18 +28,19 @@ const DataProvider = ({ children }) => {
                 }
             }
         }
-
         // If the branchId is not found
         return null;
     };
+
+    const branches = regionsData.flatMap((region) =>
+        region.districts.flatMap((district) => district.branches)
+    );
 
     return (
         <DataContext.Provider
             value={{
                 regionsData: regionsData || [],
-                branches: regionsData.flatMap((region) =>
-                    region.districts.flatMap((district) => district.branches)
-                ),
+                branches,
                 findBranchInfo,
             }}
         >
