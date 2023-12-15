@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { LayoutContext } from '../Providers/LayoutProvider';
 import avatar from '../assets/icon.png';
 import dashboardIcon from '../assets/img/dashboard.png';
@@ -10,10 +10,14 @@ import addContractIcon from '../assets/img/addContract.png';
 import expiredContractIcon from '../assets/img/expired.png';
 import activeContractIcon from '../assets/img/active.png';
 import bankIcon from '../assets/img/bank.png';
+import branchesIcon from '../assets/img/branches.png';
+import districtsIcon from '../assets/img/briefcase.png';
+import regionsIcon from '../assets/img/globe.png';
 import searchIcon from '../assets/img/search.png';
 
 const SideBar = () => {
     const { sidebarToggle } = useContext(LayoutContext);
+    const { pathname } = useLocation();
     return (
         <div
             className={`sidebar ${!sidebarToggle && 'open'} pe-4 pb-3`}
@@ -136,10 +140,61 @@ const SideBar = () => {
                         <img src={uploadIcon} className='sidebar-icon' />
                         Generate Report
                     </NavLink>
-                    <NavLink className='nav-item nav-link' to={'/hierarchy'}>
-                        <img src={bankIcon} className='sidebar-icon' />
-                        Manage Hierarchy
-                    </NavLink>
+
+                    <div className='nav-item dropdown'>
+                        <Link
+                            className='nav-link dropdown-toggle'
+                            data-bs-toggle='dropdown'
+                        >
+                            <img
+                                src={contractsListIcon}
+                                className='sidebar-icon'
+                            />
+                            Hierarchy
+                        </Link>
+                        <div className='dropdown-menu bg-transparent border-0'>
+                            <Link
+                                className={`dropdown-item mb-1 mx-4 ${
+                                    pathname === '/hierarchy' ? 'active' : ''
+                                }`}
+                                to={'/hierarchy'}
+                            >
+                                <img src={bankIcon} className='sidebar-icon' />
+                                Add
+                            </Link>
+
+                            <NavLink
+                                className='dropdown-item mb-1 mx-4 '
+                                to={'/hierarchy/branches'}
+                            >
+                                <img
+                                    src={branchesIcon}
+                                    className='sidebar-icon'
+                                />
+                                Branches
+                            </NavLink>
+                            <NavLink
+                                className='dropdown-item mb-1 mx-4 '
+                                to={'/hierarchy/districts'}
+                            >
+                                <img
+                                    src={districtsIcon}
+                                    className='sidebar-icon'
+                                />
+                                Districts
+                            </NavLink>
+                            <NavLink
+                                className='dropdown-item mb-1 mx-4 '
+                                to={'/hierarchy/regions'}
+                            >
+                                <img
+                                    src={regionsIcon}
+                                    className='sidebar-icon'
+                                />
+                                Regions
+                            </NavLink>
+                        </div>
+                    </div>
                 </div>
             </nav>
         </div>

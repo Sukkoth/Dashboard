@@ -10,10 +10,16 @@ import ExportForUpload from './Pages/ExportForUpload';
 import EndedContracts from './Pages/ContractsList/EndedContracts';
 import ListActiveContracts from './Pages/ContractsList/ListActiveContracts';
 import './App.css';
-import Hierarchy from './Pages/Hierarchy';
+import Hierarchy from './Pages/Hierarchy/Hierarchy';
 import UpdateContract from './Pages/UpdateContract';
 import UpdateProvider from './Providers/UpdateProvider';
 import Search from './Pages/ContractsList/Search';
+import ListBranches from './Pages/Hierarchy/Branches/ListBranches';
+import ListDistricts from './Pages/Hierarchy/District/ListDistricts';
+import ListRegions from './Pages/Hierarchy/Regions/ListRegions';
+import UpdateRegion from './Pages/Hierarchy/Regions/UpdateRegion';
+import UpdateDistrict from './Pages/Hierarchy/District/UpdateDistrict';
+import UpdateBranch from './Pages/Hierarchy/Branches/UpdateBranch';
 
 function App() {
     return (
@@ -56,8 +62,30 @@ function App() {
                         path='/generate-report'
                         Component={GenerateReportPage}
                     /> */}
+
                     <Route path='/export' Component={ExportForUpload} />
                     <Route path='/hierarchy' Component={Hierarchy} />
+                    <Route
+                        path='/hierarchy/branches'
+                        Component={ListBranches}
+                    />
+                    <Route
+                        path='/hierarchy/districts'
+                        Component={ListDistricts}
+                    />
+                    <Route path='/hierarchy/regions' Component={ListRegions} />
+                    <Route
+                        path='/hierarchy/branches/:branchId'
+                        Component={UpdateBranch}
+                    />
+                    <Route
+                        path='/hierarchy/districts/:districtId'
+                        Component={UpdateDistrict}
+                    />
+                    <Route
+                        path='/hierarchy/regions/:regionId'
+                        Component={UpdateRegion}
+                    />
                 </Route>
             </Routes>
         </div>

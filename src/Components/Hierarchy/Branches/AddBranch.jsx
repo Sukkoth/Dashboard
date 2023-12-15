@@ -1,10 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import branchSchema from '../../yupSchemas/branchSchema';
+import branchSchema from '../../../yupSchemas/branchSchema';
 import { useContext, useEffect, useState } from 'react';
-import { DataContext } from '../../Providers/DataProvider';
-import useApiFetch from '../../API/useApiFetch';
-import Alert from './Alert';
+import { DataContext } from '../../../Providers/DataProvider';
+import useApiFetch from '../../../API/useApiFetch';
+import Alert from '../Alert';
 
 function AddBranch() {
     const { regionsData } = useContext(DataContext);

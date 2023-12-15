@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { DataContext } from '../../Providers/DataProvider';
+import { DataContext } from '../../../Providers/DataProvider';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import districtSchema from '../../yupSchemas/districtSchema';
-import useApiFetch from '../../API/useApiFetch';
-import Alert from './Alert';
+import districtSchema from '../../../yupSchemas/districtSchema';
+import useApiFetch from '../../../API/useApiFetch';
+import Alert from '../Alert';
 
 function AddDistrict() {
     const { regionsData } = useContext(DataContext);

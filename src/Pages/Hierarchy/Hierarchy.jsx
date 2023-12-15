@@ -1,6 +1,6 @@
-import AddBranch from '../Components/Hierarchy/AddBranch';
-import AddDistrict from '../Components/Hierarchy/AddDistrict';
-import AddRegion from '../Components/Hierarchy/AddRegion';
+import AddBranch from '../../Components/Hierarchy/Branches/AddBranch';
+import AddDistrict from '../../Components/Hierarchy/Districts/AddDistrict';
+import AddRegion from '../../Components/Hierarchy/Regions/AddRegion';
 
 function Hierarchy() {
     return (

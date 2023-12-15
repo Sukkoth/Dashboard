@@ -90,7 +90,7 @@ const Search = () => {
                                         </option>
                                         {districts
                                             .sort((a, b) =>
-                                                a.name.localeCompare(b.name)
+                                                a?.name?.localeCompare(b.name)
                                             )
                                             .map((district) => (
                                                 <option
@@ -125,7 +125,7 @@ const Search = () => {
                                         </option>
                                         {branches
                                             ?.sort((a, b) =>
-                                                a.name.localeCompare(b.name)
+                                                a?.name?.localeCompare(b.name)
                                             )
                                             .map((branch) => (
                                                 <option

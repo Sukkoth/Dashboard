@@ -11,6 +11,10 @@ const branchSchema = yup.object().shape({
         .string()
         .typeError('Cost Center is required')
         .required('Cost Center is required'),
+    claimAccount: yup
+        .string()
+        .typeError('Claim Account is required')
+        .required('Claim Account is required'),
     district: yup
         .string()
         .typeError('District is required')

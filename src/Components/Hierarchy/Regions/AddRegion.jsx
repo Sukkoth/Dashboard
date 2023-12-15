@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import useApiFetch from '../../API/useApiFetch';
-import Alert from './Alert';
+import useApiFetch from '../../../API/useApiFetch';
+import Alert from '../Alert';
 
 function AddRegion() {
     const {
