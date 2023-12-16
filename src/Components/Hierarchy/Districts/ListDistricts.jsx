@@ -24,7 +24,12 @@ const ListDistricts = ({ districtData, fetchData }) => {
                                         <tr>
                                             <th scope='col'>ID</th>
                                             <th scope='col'>District Name</th>
-                                            <th scope='col'>District Name</th>
+                                            <th scope='col'>Region Name</th>
+                                            <th scope='col'>
+                                                Lease Liability Account
+                                            </th>
+                                            <th scope='col'>ROU Account</th>
+                                            <th scope='col'>Branches</th>
                                             <th scope='col'>Action</th>
                                         </tr>
                                     </thead>
@@ -36,12 +41,22 @@ const ListDistricts = ({ districtData, fetchData }) => {
                                                     <td>
                                                         {district.districtName}
                                                     </td>
-
                                                     <td>
                                                         {
                                                             district?.region
                                                                 ?.regionName
                                                         }
+                                                    </td>
+                                                    <td>
+                                                        {
+                                                            district?.leaseLiabilityAccount
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        {district?.rouAccount}
+                                                    </td>
+                                                    <td>
+                                                        {district?.branchCount}
                                                     </td>
 
                                                     {/* <td>

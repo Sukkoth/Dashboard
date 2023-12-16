@@ -5,18 +5,29 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import districtSchema from '../../../yupSchemas/districtSchema';
 import useApiFetch from '../../../API/useApiFetch';
 import Alert from '../../../Components/Hierarchy/Alert';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ScaleLoader } from 'react-spinners';
 
 function UpdateDistrict() {
+    const { districtId } = useParams();
+    const navigate = useNavigate();
+
     const { regionsData } = useContext(DataContext);
     const [selectedRegion, setSelectedRegion] = useState('');
 
     const {
         data: districtData,
+        isLoading: loadingDistrict,
+        errors: errorLoadingDistrict,
+    } = useApiFetch({ url: `/districts/${districtId}`, method: 'GET' });
+
+    const {
+        data: updateDistrictData,
         isLoading: updatingDistrict,
         errors: backEndError,
         fetchData: UpdateDistrict,
     } = useApiFetch(
-        { url: '/districts/UpdateDistrict', method: 'POST' },
+        { url: `/districts/updateDistrict/${districtId}`, method: 'PUT' },
         false
     );
 
@@ -42,28 +53,58 @@ function UpdateDistrict() {
                 region: { regionId: data.region },
             },
         });
-        reset();
         setSelectedRegion('');
+        reset();
     };
 
     useEffect(() => {
-        if (!updatingDistrict && districtData?.districtId) {
+        if (districtData?.district?.districtId) {
+            reset({
+                ...districtData.district,
+                region: districtData.district.region.regionId,
+            });
+        }
+    }, [districtData, reset]);
+
+    useEffect(() => {
+        if (!updatingDistrict && updateDistrictData?.district?.districtId) {
             setTimeout(() => {
-                window.location.reload();
+                navigate('/hierarchy/districts');
             }, 1500);
         }
-    }, [districtData, updatingDistrict]);
+    }, [updateDistrictData, updatingDistrict, navigate]);
 
     return (
         <div className='container-fluid pt-4 px-4 take-screen row'>
             <div className='col-sm-12 col-xl-4 '>
-                <div className='bg-white rounded p-4'>
-                    <h6 className='h4 mb-4'>Add District</h6>
-                    {districtData?.districtId && (
-                        <Alert message='Success! District has been updated successfuly' />
+                <div className='bg-white rounded p-4 position-relative'>
+                    {(loadingDistrict || errorLoadingDistrict?.message) && (
+                        <div className='update-loader'>
+                            {!errorLoadingDistrict?.message ? (
+                                <ScaleLoader color='#d30fa9' />
+                            ) : (
+                                <Alert
+                                    type='danger'
+                                    message={
+                                        errorLoadingDistrict?.message || 'Error'
+                                    }
+                                    action='redirect'
+                                    link='/hierarchy/districts'
+                                />
+                            )}
+                        </div>
+                    )}
+
+                    <h6 className='h4 mb-4'>Update District</h6>
+                    {updateDistrictData?.district?.districtId && (
+                        <Alert
+                            message='Success! District updated, redirecting . . .'
+                            type='info'
+                        />
                     )}
                     {backEndError?.message && (
                         <Alert
+                            type='danger'
                             message={
                                 backEndError?.message ||
                                 'Error updating district'

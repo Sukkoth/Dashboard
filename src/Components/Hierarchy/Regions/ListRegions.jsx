@@ -24,6 +24,7 @@ const ListRegions = ({ regionsData, fetchData }) => {
                                         <tr>
                                             <th scope='col'>ID</th>
                                             <th scope='col'>Region Name</th>
+                                            <th scope='col'>Districts</th>
                                             <th scope='col'>Action</th>
                                         </tr>
                                     </thead>
@@ -34,6 +35,9 @@ const ListRegions = ({ regionsData, fetchData }) => {
                                                     <th>{index + 1}</th>
 
                                                     <td>{region.regionName}</td>
+                                                    <td>
+                                                        {region.districtCount}
+                                                    </td>
 
                                                     {/* <td>
                                                         <button

@@ -5,35 +5,45 @@ import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../../Providers/DataProvider';
 import useApiFetch from '../../../API/useApiFetch';
 import Alert from '../../../Components/Hierarchy/Alert';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ScaleLoader } from 'react-spinners';
 
 function UpdateBranch() {
+    const { branchId } = useParams();
+    const navigate = useNavigate();
+
     const { regionsData } = useContext(DataContext);
+
     const {
         data: branchData,
+        isLoading: fetchingBranch,
+        errors: errorFetchingBranch,
+    } = useApiFetch({ url: `/branch/${branchId}`, method: 'GET' });
+
+    const {
+        data: updatedBranchData,
         isLoading: updatingBranch,
         errors: backEndError,
         fetchData: addBranch,
     } = useApiFetch({ url: '/branch/addBranch', method: 'POST' }, false);
 
+    //track the selected region to filter out it's districts
     const [selectedIndex, setSelectedIndex] = useState({
         region: '',
         district: '',
     });
 
+    //useForm init
     const {
         register,
         handleSubmit,
         formState: { errors },
-        reset,
+        reset: resetForm,
     } = useForm({ resolver: yupResolver(branchSchema) });
 
-    function handleResetForm() {
-        reset();
-        setSelectedIndex({ region: '', district: '' });
-    }
-
+    //handle form submit
     const onSubmitHandler = async (data) => {
-        delete data['region'];
+        delete data['region']; //backend will not need this
         data['district'] = {
             districtId: Number(data.district),
         };
@@ -41,24 +51,58 @@ function UpdateBranch() {
         await addBranch({
             data: data,
         });
-
-        handleResetForm();
     };
 
+    //this effect sets default values for the form after fetching the data from api
     useEffect(() => {
-        if (!updatingBranch && branchData?.branchId) {
+        if (branchData?.branch?.branchId) {
+            //put district here to update the form
+            //do not add region in here
+            resetForm({
+                ...branchData?.branch,
+                district: branchData?.branch?.district?.districtId,
+            });
+            //put the region in index to update the form
+            //do not add district in here
+            setSelectedIndex({
+                region: branchData?.branch?.district.region.regionId,
+                district: 0,
+            });
+        }
+    }, [branchData, resetForm]);
+
+    //redirect to branch list after it is updated
+    useEffect(() => {
+        if (!updatingBranch && updatedBranchData?.branchId) {
             setTimeout(() => {
-                window.location.reload();
+                navigate('/hierarchy/branches');
             }, 1500);
         }
-    }, [branchData, updatingBranch]);
+    }, [updatedBranchData, updatingBranch, navigate]);
 
     return (
         <div className='container-fluid pt-4 px-4 take-screen row'>
             <div className='col-sm-12 col-xl-4 '>
-                <div className='bg-white rounded p-4'>
+                <div className='bg-white rounded p-4 position-relative'>
+                    {(fetchingBranch || errorFetchingBranch?.message) && (
+                        <div className='update-loader'>
+                            {!errorFetchingBranch?.message ? (
+                                <ScaleLoader color='#d30fa9' />
+                            ) : (
+                                <Alert
+                                    type='danger'
+                                    message={
+                                        errorFetchingBranch?.message || 'Error'
+                                    }
+                                    action='redirect'
+                                    link='/hierarchy/districts'
+                                />
+                            )}
+                        </div>
+                    )}
+
                     <h6 className='h4 mb-4'>Update Branch</h6>
-                    {branchData?.branchId && (
+                    {updatedBranchData?.branchId && (
                         <Alert message='Success! Branch has been added Updated' />
                     )}
                     {backEndError?.message && (

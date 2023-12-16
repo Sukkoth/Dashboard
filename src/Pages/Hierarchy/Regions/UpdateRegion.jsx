@@ -2,14 +2,28 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import useApiFetch from '../../../API/useApiFetch';
 import Alert from '../../../Components/Hierarchy/Alert';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ScaleLoader } from 'react-spinners';
 
 function UpdateRegion() {
+    const { regionId } = useParams();
+    const navigate = useNavigate();
+
     const {
         data: regionData,
-        isLoading: addingRegion,
-        errors: backEndError,
+        isLoading: fetchingRegion,
+        errors: errorFetchingData,
+    } = useApiFetch({ url: `/region/${regionId}`, method: 'GET' });
+
+    const {
+        data: updatedRegionData,
+        isLoading: updatingRegion,
+        errors: errorUpdatingRegion,
         fetchData: UpdateRegion,
-    } = useApiFetch({ url: '/region', method: 'POST' }, false);
+    } = useApiFetch(
+        { url: `/region/updateRegion/${regionId}`, method: 'PUT' },
+        false
+    );
 
     const {
         register,
@@ -27,27 +41,55 @@ function UpdateRegion() {
     };
 
     useEffect(() => {
-        if (!addingRegion && regionData?.regionId) {
+        if (regionData?.region?.regionId) {
+            reset({
+                regionName: regionData?.region?.regionName,
+            });
+        }
+    }, [reset, regionId, regionData]);
+
+    useEffect(() => {
+        if (!updatingRegion && updatedRegionData?.region?.regionId) {
             reset();
             setTimeout(() => {
-                window.location.reload();
+                navigate('/hierarchy/regions');
             }, 1500);
         }
-    }, [regionData, addingRegion, reset]);
+    }, [updatedRegionData, updatingRegion, reset, navigate]);
 
     return (
         <div className='container-fluid pt-4 px-4 take-screen row'>
             <div className='col-sm-12 col-xl-4 '>
-                <div className='bg-white rounded p-4'>
-                    <h6 className='h4 mb-4'>Update Region</h6>
-                    {regionData?.regionId && (
-                        <Alert message='Success! Region has been updated successfuly' />
+                <div className='bg-white rounded p-4 position-relative '>
+                    {(fetchingRegion || errorFetchingData?.message) && (
+                        <div className='update-loader'>
+                            {!errorFetchingData?.message ? (
+                                <ScaleLoader color='#d30fa9' />
+                            ) : (
+                                <Alert
+                                    type='danger'
+                                    message={
+                                        errorFetchingData?.message || 'Error'
+                                    }
+                                    action='redirect'
+                                    link='/hierarchy/regions'
+                                />
+                            )}
+                        </div>
                     )}
-                    {backEndError?.message && (
+                    <h6 className='h4 mb-4'>Update Region here</h6>
+                    {updatedRegionData?.region?.regionId && (
                         <Alert
+                            message='Success! Region updated, redirecting back. . .'
+                            type='info'
+                        />
+                    )}
+                    {errorUpdatingRegion?.message && (
+                        <Alert
+                            type='danger'
                             message={
-                                backEndError?.message ||
-                                'Error updateing region'
+                                errorUpdatingRegion?.message ||
+                                'Error updating region'
                             }
                         />
                     )}
@@ -56,6 +98,7 @@ function UpdateRegion() {
                             Region Name
                         </label>
                         <input
+                            type='text'
                             id='regionName'
                             name='regionName'
                             className='form-control mt-2'
@@ -72,9 +115,9 @@ function UpdateRegion() {
                         <div className='d-flex'>
                             <button
                                 className='btn btn-primary mx-auto mt-4'
-                                disabled={addingRegion}
+                                disabled={updatingRegion}
                             >
-                                {!addingRegion ? 'Update Region' : 'Updating'}
+                                {!updatingRegion ? 'Update Region' : 'Updating'}
                             </button>
                         </div>
                     </form>

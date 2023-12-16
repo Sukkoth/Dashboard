@@ -426,6 +426,14 @@ input[type='file']::file-selector-button {
     transition: background 0.2s ease-in-out;
 }
 
-input[type='file']::file-selector-button:hover {
-    /* background: #0d45a5; */
+.update-loader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -34,7 +34,7 @@ const useApiFetch = (
                 setErrors({ message: 'Unauthorized', details: error });
             } else if (error?.response?.status === 404) {
                 setErrors({
-                    message: 'Backend URL not found on server',
+                    message: 'URL not found on server',
                     details: error,
                 });
             } else if (error?.response?.status === 422) {

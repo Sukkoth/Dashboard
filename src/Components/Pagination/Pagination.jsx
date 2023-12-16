@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useSearchParams } from 'react-router-dom';
 
 function Pagination({ fetchData, pagination }) {
-    let [searchParams, setSearchParams] = useSearchParams();
+    let [searchParams] = useSearchParams();
     const path = window.location.pathname.split('/');
 
     function handlePageChange(page) {
@@ -33,7 +33,7 @@ function Pagination({ fetchData, pagination }) {
         <div className='d-flex flex-row justify-content-between mx-5 align-items-center'>
             <div>
                 <p className='fw-bold'>
-                    Total Contracts: {pagination?.totalResults}
+                    Total Results: {pagination?.totalResults}
                 </p>
             </div>
             <div className='d-flex align-items-center' style={{ gap: '2rem' }}>
