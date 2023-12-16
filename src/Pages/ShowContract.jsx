@@ -1,11 +1,12 @@
 import useApiFetch from '../API/useApiFetch';
 import { useNavigate, useParams } from 'react-router-dom';
 import FullLoader from '../Components/Loaders/FullLoader';
-import getContracttatus from '../utils/getContractstatus';
 import AlertError from '../Components/ListContracts/Alerts/LargeAlert';
 import { useContext } from 'react';
 import { DataContext } from '../Providers/DataProvider';
 import numeral from 'numeral';
+
+import pdfFile from '../../public/pdfcoffee.com_toolbox-2-pdf-free.pdf';
 
 const ShowContract = () => {
     const navigate = useNavigate();
@@ -156,6 +157,7 @@ const ShowContract = () => {
                                 </div>
                             </div>
                         </div>
+
                         {installmentDetails && (
                             <div className='col-sm-6 '>
                                 <div className='trans p-4 '>

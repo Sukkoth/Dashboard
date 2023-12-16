@@ -11,7 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-
+/public/pdfcoffee.com_toolbox-2-pdf-free.pdf
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

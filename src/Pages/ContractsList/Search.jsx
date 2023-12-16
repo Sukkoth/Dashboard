@@ -9,6 +9,7 @@ const Search = () => {
     const { regionsData } = useContext(DataContext);
     const [selectedDistrict, setSelectedDistrict] = useState('');
     const [selectedBranch, setSelectedBranch] = useState('');
+    const [startDate, setStartDate] = useState('');
 
     const {
         data: contractsData,
@@ -23,18 +24,30 @@ const Search = () => {
     );
 
     useEffect(() => {
-        if (selectedDistrict)
+        if (
+            selectedDistrict &&
+            (startDate.length === 4 || startDate.length === 0)
+        )
             fetchData({
                 url: `/leases/byDistrictId/${selectedDistrict}`,
+                params: {
+                    startYear: startDate,
+                },
             });
-    }, [selectedDistrict, fetchData]);
+    }, [selectedDistrict, fetchData, startDate]);
 
     useEffect(() => {
-        if (selectedBranch)
+        if (
+            selectedBranch &&
+            (startDate.length === 4 || startDate.length === 0)
+        )
             fetchData({
                 url: `/leases/byBranchId/${selectedBranch}`,
+                params: {
+                    startYear: startDate,
+                },
             });
-    }, [selectedBranch, fetchData]);
+    }, [selectedBranch, fetchData, startDate]);
 
     let districts = [];
     regionsData?.forEach((region) => {
@@ -136,6 +149,23 @@ const Search = () => {
                                                 </option>
                                             ))}
                                     </select>
+                                </div>
+
+                                <div className='col-2'>
+                                    <label
+                                        htmlFor='regionName'
+                                        className='mb-2'
+                                    >
+                                        Contract Registration Year
+                                    </label>
+                                    <input
+                                        type='text'
+                                        className='form-control'
+                                        value={startDate}
+                                        onChange={(e) =>
+                                            setStartDate(e.target.value)
+                                        }
+                                    />
                                 </div>
                             </div>
                             <div></div>

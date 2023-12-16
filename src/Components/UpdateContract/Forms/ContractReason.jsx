@@ -116,8 +116,8 @@ function AddFile({ register, error, setValue }) {
         });
     }
     useEffect(() => {
-        setValue('fileName', fileData.fileName);
-    }, [fileData.fileName]);
+        setValue('fileName', fileData?.fileName);
+    }, [fileData?.fileName]);
     return (
         <div>
             {!fileData?.fileName && (
