@@ -2,11 +2,17 @@ import useApiFetch from '../API/useApiFetch';
 import { useNavigate, useParams } from 'react-router-dom';
 import FullLoader from '../Components/Loaders/FullLoader';
 import AlertError from '../Components/ListContracts/Alerts/LargeAlert';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../Providers/DataProvider';
 import numeral from 'numeral';
+import { Document, Page, pdfjs } from 'react-pdf';
 
 import pdfFile from '../../public/pdfcoffee.com_toolbox-2-pdf-free.pdf';
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+    'pdfjs-dist/build/pdf.worker.min.js',
+    import.meta.url
+).toString();
 
 const ShowContract = () => {
     const navigate = useNavigate();
@@ -157,6 +163,7 @@ const ShowContract = () => {
                                 </div>
                             </div>
                         </div>
+                        <ViewFile />
 
                         {installmentDetails && (
                             <div className='col-sm-6 '>
@@ -200,5 +207,36 @@ const ShowContract = () => {
         </>
     );
 };
+
+function ViewFile({ fileName = 'pdfcoffee.com_toolbox-2-pdf-free.pdf' }) {
+    const {
+        data: file,
+        isLoading,
+        fetchData: downloadFile,
+    } = useApiFetch({}, false);
+
+    const pdfUrl = `http://10.14.214.207:8080/leases/file/${fileName}`;
+
+    async function handleDownload() {
+        await downloadFile({
+            url: pdfUrl,
+            method: 'GET',
+        });
+    }
+    return (
+        <div className='col-sm-6 '>
+            <div className='trans p-4 '>
+                <button
+                    className='btn btn-outline-primary'
+                    onClick={handleDownload}
+                >
+                    {!isLoading ? 'Download File' : 'Downloading. . .'}
+                </button>
+                <span className='text-primary ms-3'>{fileName}</span>
+                {/* <iframe src={file} frameBorder='0'></iframe> */}
+            </div>
+        </div>
+    );
+}
 
 export default ShowContract;

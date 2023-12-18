@@ -437,3 +437,13 @@ input[type='file']::file-selector-button {
     align-items: center;
     justify-content: center;
 }
+
+.hover-up {
+    cursor: pointer;
+    transition: all 200ms;
+}
+
+.hover-up:hover {
+    box-shadow: 0 0 10px 10px rgba(138, 172, 183, 0.259);
+    transform: scale(1.05);
+}

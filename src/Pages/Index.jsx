@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useApiFetch from '../API/useApiFetch';
 import { useContext } from 'react';
 import { DataContext } from '../Providers/DataProvider';
 
 const Index = () => {
+    const navigate = useNavigate();
     const { data, isLoading, errors } = useApiFetch({
         url: '/leases/static',
         method: 'GET',
@@ -27,8 +28,11 @@ const Index = () => {
         <div className='take-screen' style={{ backgroundColor: '#f2f7ff' }}>
             <div className='container-fluid pt-4 px-4'>
                 <div className='row g-4'>
-                    <div className='col-sm-6 col-xl-3'>
-                        <div className='trans  d-flex align-items-center justify-content-between p-4 '>
+                    <div className='col-sm-6 col-xl-3 '>
+                        <div
+                            className='trans  d-flex align-items-center justify-content-between p-4 hover-up '
+                            onClick={() => navigate('/list-contracts/all')}
+                        >
                             <i className='fa fa fa-chart-pie fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Contracts</p>
@@ -37,7 +41,10 @@ const Index = () => {
                         </div>
                     </div>
                     <div className='col-sm-6 col-xl-3'>
-                        <div className='trans d-flex align-items-center justify-content-between p-4'>
+                        <div
+                            className='trans d-flex align-items-center justify-content-between p-4 hover-up'
+                            onClick={() => navigate('/list-contracts/active')}
+                        >
                             <i className='fab fa-creative-commons-sampling fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Active Contracts</p>
@@ -48,7 +55,10 @@ const Index = () => {
                         </div>
                     </div>
                     <div className='col-sm-6 col-xl-3'>
-                        <div className='trans d-flex align-items-center justify-content-between p-4'>
+                        <div
+                            className='trans d-flex align-items-center justify-content-between p-4 hover-up'
+                            onClick={() => navigate('/list-contracts/ended')}
+                        >
                             <i className='fas fa-stopwatch fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Expired Contracts</p>
@@ -59,7 +69,10 @@ const Index = () => {
                         </div>
                     </div>
                     <div className='col-sm-6 col-xl-3'>
-                        <div className='trans d-flex align-items-center justify-content-between p-4'>
+                        <div
+                            className='trans d-flex align-items-center justify-content-between p-4 hover-up'
+                            onClick={() => navigate('/hierarchy/regions')}
+                        >
                             <i className='fas fa-globe fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Regions</p>
@@ -68,7 +81,10 @@ const Index = () => {
                         </div>
                     </div>
                     <div className='col-sm-6 col-xl-3'>
-                        <div className='trans d-flex align-items-center justify-content-between p-4'>
+                        <div
+                            className='trans d-flex align-items-center justify-content-between p-4 hover-up'
+                            onClick={() => navigate('/hierarchy/districts')}
+                        >
                             <i className='fas fa-briefcase fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Districts</p>
@@ -77,7 +93,10 @@ const Index = () => {
                         </div>
                     </div>
                     <div className='col-sm-6 col-xl-3'>
-                        <div className='trans d-flex align-items-center justify-content-between p-4'>
+                        <div
+                            className='trans d-flex align-items-center justify-content-between p-4 hover-up'
+                            onClick={() => navigate('/hierarchy/branches')}
+                        >
                             <i className='fas fa-university fa-3x icon-pink'></i>
                             <div className='ms-3'>
                                 <p className='mb-2'>Total Branches</p>
@@ -94,7 +113,7 @@ const Index = () => {
                 <div className='row g-4'>
                     <div className='col-sm-12 col-xl-6'>
                         <div className='trans items-center  p-4'>
-                            <div className='d-flex align-items-center justify-content-between mb-4'>
+                            <div className='d-flex align-items-center justify-content-between mb-4 '>
                                 <h6 className='mb-0'>Active Contracts</h6>
                                 <Link
                                     className='text-pink'

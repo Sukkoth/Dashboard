@@ -1,5 +1,13 @@
 import { useEffect, useState, useCallback } from 'react';
 import axios from './axios';
+
+/**
+ *@description This is a custom hook to manage API requests.
+ * @usage initialize it as a normal hook by giving it url, method or any other options you want
+ *          you can destructure the response object from it which contains, data, isLoading, error and fetchData
+ *          all exported values are clear except fetchData, it is used to refetch the data using the initial options you gave it
+ *          But you can override them by giving it config objects, (fetchData({options in here}))
+ */
 const useApiFetch = (
     requestConfigParam = {
         url: '',
