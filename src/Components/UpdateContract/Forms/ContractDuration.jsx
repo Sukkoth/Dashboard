@@ -26,11 +26,34 @@ const ContractDuration = ({ register, errors, control }) => {
             );
         }
     }, [startDate, endDate]);
+
     return (
         <div className='col-sm-12 col-xl-4'>
             <div className='bg-white rounded h-100 p-4'>
                 <h6 className='mb-4 h4'>Contract Duration</h6>
                 <div>
+                    <div className='mb-3'>
+                        <label
+                            htmlFor='contractRegisteredDate '
+                            className='form-label'
+                        >
+                            Contract Registration Date
+                            <span className='text-danger'>*</span>
+                        </label>
+                        <input
+                            type='date'
+                            className='form-control'
+                            id='contractRegisteredDate '
+                            min={0.0}
+                            name='contractRegisteredDate'
+                            {...register('contractRegisteredDate')}
+                        />
+                        {errors?.contractRegisteredDate && (
+                            <div className='form-text text-danger'>
+                                {errors?.contractRegisteredDate?.message}
+                            </div>
+                        )}
+                    </div>
                     <div className='mb-3'>
                         <label
                             htmlFor='contractStartDate '

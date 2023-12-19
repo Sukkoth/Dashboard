@@ -2,17 +2,11 @@ import useApiFetch from '../API/useApiFetch';
 import { useNavigate, useParams } from 'react-router-dom';
 import FullLoader from '../Components/Loaders/FullLoader';
 import AlertError from '../Components/ListContracts/Alerts/LargeAlert';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { DataContext } from '../Providers/DataProvider';
 import numeral from 'numeral';
-import { Document, Page, pdfjs } from 'react-pdf';
 
-import pdfFile from '../../public/pdfcoffee.com_toolbox-2-pdf-free.pdf';
-
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/build/pdf.worker.min.js',
-    import.meta.url
-).toString();
+import { Viewer, Worker } from '@react-pdf-viewer/core';
 
 const ShowContract = () => {
     const navigate = useNavigate();
@@ -163,7 +157,6 @@ const ShowContract = () => {
                                 </div>
                             </div>
                         </div>
-                        <ViewFile />
 
                         {installmentDetails && (
                             <div className='col-sm-6 '>
@@ -195,6 +188,20 @@ const ShowContract = () => {
                                 </div>
                             </div>
                         )}
+                        <div className='col-sm-8'>
+                            <div className='trans p-4'>
+                                {contract?.fileName && (
+                                    <>
+                                        <h3 className='h4 fw-bold'>
+                                            Contract File
+                                        </h3>
+                                        <ViewFile
+                                            fileName={contract?.fileName}
+                                        />{' '}
+                                    </>
+                                )}
+                            </div>
+                        </div>
                     </div>
                     <button
                         className='btn btn-primary  mt-5'
@@ -208,34 +215,52 @@ const ShowContract = () => {
     );
 };
 
-function ViewFile({ fileName = 'pdfcoffee.com_toolbox-2-pdf-free.pdf' }) {
-    const {
-        data: file,
-        isLoading,
-        fetchData: downloadFile,
-    } = useApiFetch({}, false);
-
+function ViewFile({ fileName }) {
+    const [error, setError] = useState('');
     const pdfUrl = `http://10.14.214.207:8080/leases/file/${fileName}`;
 
-    async function handleDownload() {
-        await downloadFile({
-            url: pdfUrl,
-            method: 'GET',
-        });
+    if (error) {
+        return <div className='text-danger'>{error}</div>;
     }
+
     return (
-        <div className='col-sm-6 '>
-            <div className='trans p-4 '>
-                <button
-                    className='btn btn-outline-primary'
-                    onClick={handleDownload}
+        <>
+            {!error && (
+                <p
+                    style={{
+                        fontStyle: 'italic',
+                        fontWeight: '500',
+                        marginBottom: '3rem',
+                    }}
                 >
-                    {!isLoading ? 'Download File' : 'Downloading. . .'}
-                </button>
-                <span className='text-primary ms-3'>{fileName}</span>
-                {/* <iframe src={file} frameBorder='0'></iframe> */}
+                    click{' '}
+                    <a
+                        href={`http://10.14.214.207:8080/leases/file/${fileName}`}
+                        target='_blank'
+                        rel='noreferrer'
+                    >
+                        here
+                    </a>{' '}
+                    to download file
+                </p>
+            )}
+
+            <div
+                className='mx-auto overflow-scroll'
+                style={{ maxHeight: '1100px' }}
+            >
+                <Worker workerUrl='https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js'>
+                    <Viewer
+                        fileUrl={pdfUrl}
+                        renderError={(error) =>
+                            setError(
+                                error?.message || 'File could not be rendered'
+                            )
+                        }
+                    />
+                </Worker>
             </div>
-        </div>
+        </>
     );
 }
 

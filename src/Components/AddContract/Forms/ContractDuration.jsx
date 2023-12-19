@@ -34,6 +34,28 @@ const ContractDuration = ({ register, errors, control }) => {
                 <div>
                     <div className='mb-3'>
                         <label
+                            htmlFor='contractRegisteredDate '
+                            className='form-label'
+                        >
+                            Contract Registration Date
+                            <span className='text-danger'>*</span>
+                        </label>
+                        <input
+                            type='date'
+                            className='form-control'
+                            id='contractRegisteredDate '
+                            min={0.0}
+                            name='contractRegisteredDate'
+                            {...register('contractRegisteredDate')}
+                        />
+                        {errors?.contractRegisteredDate && (
+                            <div className='form-text text-danger'>
+                                {errors?.contractRegisteredDate?.message}
+                            </div>
+                        )}
+                    </div>
+                    <div className='mb-3'>
+                        <label
                             htmlFor='contractStartDate '
                             className='form-label'
                         >

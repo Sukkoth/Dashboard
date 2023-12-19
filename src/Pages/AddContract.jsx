@@ -75,6 +75,12 @@ const AddContract = () => {
                 ? JSON.stringify(formattedInstallmentData).replace(/\\/g, '')
                 : null;
 
+        console.log({
+            ...data,
+            ...updatedLocation,
+            installmentDetails: formattedInstallmentData,
+        });
+
         await makeRequest({
             data: {
                 ...data,

@@ -33,8 +33,18 @@ const contractSchema = yup.object().shape({
         .number('Value must be a number')
         .required('Total Payment is required')
         .typeError('Total Payment is required'),
-    contractStartDate: yup.string().required('Contract start date required'),
-    contractEndDate: yup.string().required('Contract end date required'),
+    contractRegisteredDate: yup
+        .string()
+        .required('Contract registration date required')
+        .length(10),
+    contractStartDate: yup
+        .string()
+        .required('Contract start date required')
+        .length(10),
+    contractEndDate: yup
+        .string()
+        .required('Contract end date required')
+        .length(10),
     contractReason: yup.string().required('Contract reason required'),
 });
 

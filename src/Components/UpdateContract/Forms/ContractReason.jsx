@@ -107,6 +107,13 @@ function AddFile({ register, error, setValue }) {
         false
     );
 
+    function handleSetFile(e) {
+        setFile((prev) => '');
+        if (e.target?.files[0]?.type === 'application/pdf') {
+            setFile((prev) => e.target.files[0]);
+        }
+    }
+
     async function handleUpload() {
         if (fileData?.fileName) return;
         const formData = new FormData();
@@ -115,6 +122,7 @@ function AddFile({ register, error, setValue }) {
             data: formData,
         });
     }
+
     useEffect(() => {
         setValue('fileName', fileData?.fileName);
     }, [fileData?.fileName]);
@@ -124,9 +132,10 @@ function AddFile({ register, error, setValue }) {
                 <input
                     className='mx-2 border-primary'
                     type='file'
+                    accept='application/pdf'
                     name='leaseContract'
                     id='leaseContract'
-                    onChange={(e) => setFile(e.target.files[0])}
+                    onChange={handleSetFile}
                 />
             )}
             <button
@@ -134,7 +143,7 @@ function AddFile({ register, error, setValue }) {
                     fileData?.fileName ? 'btn-primary' : 'btn-outline-primary'
                 }`}
                 type='button'
-                disabled={fileUploading}
+                disabled={fileUploading || !file}
                 onClick={handleUpload}
             >
                 {fileData?.fileName
