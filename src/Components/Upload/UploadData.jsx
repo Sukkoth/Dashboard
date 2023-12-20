@@ -423,6 +423,7 @@ ReportRow.propTypes = {
     row: PropTypes.object,
     selectedMonth: PropTypes.number,
     selectedYear: PropTypes.number,
+    type: PropTypes.string,
 };
 
 export default UploadData;
