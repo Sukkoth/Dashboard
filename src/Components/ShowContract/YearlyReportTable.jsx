@@ -54,22 +54,14 @@ const YearlyReportTable = ({ contracts }) => {
                                     <td>
                                         {report?.balance === 0
                                             ? ' - '
-                                            : numeral(report?.balance).format(
-                                                  '0,0.00'
-                                              )}
+                                            : report?.balance}
                                     </td>
                                     <td>
                                         {report?.deprecationExp === 0
                                             ? '-'
-                                            : numeral(
-                                                  report?.deprecationExp
-                                              ).format('0,0.00')}
+                                            : report?.deprecationExp}
                                     </td>
-                                    <td>
-                                        {numeral(report?.months).format(
-                                            '0,0.00'
-                                        )}
-                                    </td>
+                                    <td>{report?.months}</td>
                                 </tr>
                             ))
                         )}

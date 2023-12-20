@@ -203,12 +203,22 @@ const ShowContract = () => {
                             </div>
                         </div>
                     </div>
-                    <button
-                        className='btn btn-primary  mt-5'
-                        onClick={() => navigate(`/leases/${contractId}/update`)}
-                    >
-                        Update
-                    </button>
+                    <div className='d-flex gap-3'>
+                        <button
+                            className='btn btn-primary  mt-5'
+                            onClick={() =>
+                                navigate(`/leases/${contractId}/update`)
+                            }
+                        >
+                            Update
+                        </button>
+                        <button
+                            className='btn btn-primary  mt-5'
+                            onClick={() => navigate(`/report/${contractId}/`)}
+                        >
+                            View Report
+                        </button>
+                    </div>
                 </div>
             )}
         </>
@@ -247,7 +257,7 @@ function ViewFile({ fileName }) {
 
             <div
                 className='mx-auto overflow-scroll'
-                style={{ maxHeight: '1100px' }}
+                style={{ maxHeight: '100vh' }}
             >
                 <Worker workerUrl='https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js'>
                     <Viewer

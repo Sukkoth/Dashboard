@@ -115,7 +115,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     if (branchDataError?.message) {
         return (
             <LargeAlert
-                backButton={<BackButton back={1} />}
+                backButton={<BackButton onClick={() => setShowReport(false)} />}
                 isLoading={branchDataIsLoading}
                 message={branchDataError?.message || 'Error While fetching'}
             />
@@ -125,7 +125,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     if (reportError?.message) {
         return (
             <LargeAlert
-                backButton={<BackButton back={1} />}
+                backButton={<BackButton onClick={() => setShowReport(false)} />}
                 message={reportError?.message || 'Error While fetching'}
             />
         );
@@ -134,7 +134,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     if (!branches?.length) {
         return (
             <LargeAlert
-                backButton={<BackButton back={1} />}
+                backButton={<BackButton onClick={() => setShowReport(false)} />}
                 message='No branch data found'
             />
         );
@@ -143,7 +143,7 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     if (!reports?.length) {
         return (
             <LargeAlert
-                backButton={<BackButton back={1} />}
+                backButton={<BackButton onClick={() => setShowReport(false)} />}
                 message={`No report data found`}
             />
         );
@@ -222,14 +222,14 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
         return (
             <LargeAlert
                 message='No report found for given dates'
-                backButton={<BackButton back={1} />}
+                backButton={<BackButton onClick={() => setShowReport(false)} />}
             />
         );
     if (extractedAmmortization.length <= 0)
         return (
             <LargeAlert
                 message='No ammortization report found for given dates'
-                backButton={<BackButton back={1} />}
+                backButton={<BackButton onClick={() => setShowReport(false)} />}
             />
         );
 

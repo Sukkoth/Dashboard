@@ -6,6 +6,8 @@ import Journal from '../Components/ShowContract/Journals/Journal';
 import FullLoader from '../Components/Loaders/FullLoader';
 import useApiFetch from '../API/useApiFetch';
 import AmmortizationTable from '../Components/ShowContract/AmmortizationTable';
+import SummaryTable from '../Components/ShowContract/SummartTable';
+import LargeAlert from '../Components/ListContracts/Alerts/LargeAlert';
 
 const SingleContractReport = () => {
     const { contractId } = useParams();
@@ -14,7 +16,7 @@ const SingleContractReport = () => {
     const {
         data: report,
         isLoading: reportLoading,
-        error: reportError,
+        errors: reportError,
         fetchData,
     } = useApiFetch({
         url: '/leases/report',
@@ -41,7 +43,7 @@ const SingleContractReport = () => {
         <div className='take-screen p-3'>
             <div className='container-fluid pt-4 px-4 bg-white'>
                 <div className='row rounded mx-0 py-4 px-5'>
-                    <div className='d-flexjustify-content-around'>
+                    <div className='d-flex'>
                         <div id='selectType'>
                             <p className='h5 px-2'>Report Type</p>
                             <div className='form-check'>
@@ -87,11 +89,14 @@ const SingleContractReport = () => {
                         className='row  rounded mx-0 d-flex justify-content-center align-items-center'
                         style={{ minHeight: '100vh', textAlign: 'center' }}
                     >
-                        {reportError && (
-                            <p className='h1'>
-                                {reportError?.message ||
-                                    'Error fetching report'}
-                            </p>
+                        {reportError?.message && (
+                            <LargeAlert
+                                contained={true}
+                                message={
+                                    reportError?.message ||
+                                    'Error fetching report'
+                                }
+                            />
                         )}
                         {report?.length > 0 && (
                             <div className='container-fluid pt-4 px-4'>
@@ -122,6 +127,9 @@ const SingleContractReport = () => {
                                                         contracts={report}
                                                     />
                                                     <AmmortizationTable
+                                                        contracts={report}
+                                                    />
+                                                    <SummaryTable
                                                         contracts={report}
                                                     />
                                                     <Journal
