@@ -20,6 +20,7 @@ import ListRegions from './Pages/Hierarchy/Regions/ListRegions';
 import UpdateRegion from './Pages/Hierarchy/Regions/UpdateRegion';
 import UpdateDistrict from './Pages/Hierarchy/District/UpdateDistrict';
 import UpdateBranch from './Pages/Hierarchy/Branches/UpdateBranch';
+import DistrictSummary from './Pages/Hierarchy/District/Summary/DistrictSummary';
 
 function App() {
     return (
@@ -58,11 +59,6 @@ function App() {
                         path='/report/:contractId'
                         Component={SingleContractReport}
                     />
-                    {/* <Route
-                        path='/generate-report'
-                        Component={GenerateReportPage}
-                    /> */}
-
                     <Route path='/export' Component={ExportForUpload} />
                     <Route path='/hierarchy' Component={Hierarchy} />
                     <Route
@@ -81,6 +77,10 @@ function App() {
                     <Route
                         path='/hierarchy/districts/:districtId'
                         Component={UpdateDistrict}
+                    />
+                    <Route
+                        path='/hierarchy/districts/:districtId/summary'
+                        Component={DistrictSummary}
                     />
                     <Route
                         path='/hierarchy/regions/:regionId'

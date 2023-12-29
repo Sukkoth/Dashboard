@@ -136,10 +136,41 @@ const SideBar = () => {
                     >
                         <i className='fa fa-scroll me-2'></i>Generate Report
                     </NavLink> */}
-                    <NavLink className='nav-item nav-link' to={'/export'}>
-                        <img src={uploadIcon} className='sidebar-icon' />
-                        Generate Report
-                    </NavLink>
+                    <div className='nav-item dropdown'>
+                        <Link
+                            href='#'
+                            className='nav-link dropdown-toggle'
+                            data-bs-toggle='dropdown'
+                        >
+                            <img
+                                src={contractsListIcon}
+                                className='sidebar-icon'
+                            />
+                            Reports
+                        </Link>
+                        <div className='dropdown-menu bg-transparent border-0'>
+                            <NavLink
+                                to='/hierarchy/districts/1/summary'
+                                className='dropdown-item mb-1 mx-4 '
+                            >
+                                <img
+                                    src={addContractIcon}
+                                    className='sidebar-icon'
+                                />
+                                District Summary
+                            </NavLink>
+                            <NavLink
+                                to='/add-contract'
+                                className='dropdown-item mb-1 mx-4 '
+                            >
+                                <img
+                                    src={uploadIcon}
+                                    className='sidebar-icon'
+                                />
+                                Generate Report
+                            </NavLink>
+                        </div>
+                    </div>
 
                     <div className='nav-item dropdown'>
                         <Link
