@@ -45,7 +45,7 @@ const SingleContractReport = () => {
                 <div className='row rounded mx-0 py-4 px-5'>
                     <div className='d-flex'>
                         <div id='selectType'>
-                            <p className='h5 px-2'>Report Type</p>
+                            <p className='h5 px-2'>Report Type ({report?.[0]?.detail?.[0]?.branchName})</p>
                             <div className='form-check'>
                                 <input
                                     className='form-check-input'
