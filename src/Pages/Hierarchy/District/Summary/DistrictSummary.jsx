@@ -1,13 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../../../Providers/DataProvider';
 import useApiFetch from '../../../../API/useApiFetch';
 import FullLoader from '../../../../Components/Loaders/FullLoader';
 import LargeAlert from '../../../../Components/ListContracts/Alerts/LargeAlert';
-import numeral from 'numeral';
+import extractSummaryData from '../../../../utils/extractSummaryInformation';
 
 function DistrictSummary() {
   const { regionsData } = useContext(DataContext);
   const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
 
   let districts = [];
   regionsData?.forEach((region) => {
@@ -21,7 +22,6 @@ function DistrictSummary() {
     fetchData: fetchSummaryData,
   } = useApiFetch(
     {
-      url: `/leases/reports/byDistrict/${selectedDistrict}`,
       method: 'POST',
       data: {
         type: 'single',
@@ -32,51 +32,23 @@ function DistrictSummary() {
   );
 
   useEffect(() => {
-    if (selectedDistrict) {
+    if (selectedDistrict && [0, 4].includes(selectedYear.length)) {
       fetchSummaryData({
-        url: `/leases/reports/byDistrict/${selectedDistrict}`,
+        url: `/leases/reports/byDistrict/${selectedDistrict}?selectedYear=${selectedYear}`,
       });
     }
-  }, [selectedDistrict, fetchSummaryData]);
+  }, [selectedDistrict, fetchSummaryData, selectedYear]);
 
-  const mainData = {
-    report: {},
-    ammortization: {},
-  };
+  const { mainData, years, extractedData } = extractSummaryData(summaryData);
 
-  const years = [];
-
-  summaryData?.forEach((data) => {
-    data?.summaryArray?.forEach((summary) => {
-      if (summary.year === '-') return;
-      if (summary?.deprecationExp !== undefined) {
-        if (!mainData.report[summary.year]) {
-          mainData.report[summary.year] = [];
-        }
-        mainData.report[summary.year].push({
-          ...summary,
-          branchName: data?.detail?.[0]?.branchName,
-        });
-      } else if (summary?.interestExpence !== undefined) {
-        if (!mainData.ammortization[summary.year]) {
-          mainData.ammortization[summary.year] = [];
-        }
-        mainData.ammortization[summary.year].push({
-          ...summary,
-          branchName: data?.detail?.[0]?.branchName,
-        });
-      }
-      if (!years.includes(summary.year)) years.push(summary.year);
-    });
-  });
-
+  console.log('DATA', extractedData);
   return (
     <div className='container-fluid take-screen p-3 pb-3'>
       <form action=''>
         <div className='row my-3 mx-2'>
           <div className='col-2'>
             <label className='mb-2' htmlFor='searchDistrict'>
-              Search By District {selectedDistrict}
+              Search By District
             </label>
             <select
               id='district'
@@ -90,7 +62,6 @@ function DistrictSummary() {
               <option value='' disabled>
                 Select District Name
               </option>
-              <option value=''>Clear Selection</option>
               {districts
                 .sort((a, b) => a?.name?.localeCompare(b.name))
                 .map((district) => (
@@ -100,14 +71,32 @@ function DistrictSummary() {
                 ))}
             </select>
           </div>
+          <div className='col-2'>
+            <label htmlFor='regionName' className='mb-2'>
+              Year
+            </label>
+            <input
+              type='text'
+              className='form-control'
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(e.target.value)}
+            />
+          </div>
         </div>
         <div></div>
       </form>
 
       <div className='col-12'>
-        <FullLoader isLoading={summaryLoading} />
         {/* WATCH OUT, IF THE BACKEND CHANGES THE DATA STRCUTURE HERE, THIS WILL CRASH */}
-        {summaryData === null || summaryData?.length <= 0 ? (
+        {summaryLoading ? (
+          <FullLoader isLoading={summaryLoading} />
+        ) : summaryErrors?.message ? (
+          <LargeAlert
+            message={summaryErrors?.message || 'Something Went Wrong'}
+          />
+        ) : selectedDistrict === '' ? (
+          <LargeAlert message={'Select District'} />
+        ) : summaryData === null || summaryData?.length <= 0 ? (
           <LargeAlert message={'No Summary data found'} />
         ) : (
           <div
@@ -134,56 +123,15 @@ function DistrictSummary() {
                     <th>Payment</th>
                   </tr>
 
-                  {years?.map((year) => {
+                  {Object.keys(extractedData)?.map((year) => {
                     return (
                       <tr key={year}>
                         <td>{year}</td>
-                        <td>
-                          {mainData.report[year]?.reduce((acc, data) => {
-                            return (
-                              acc +
-                              (data.balance === '-' ? 0 : data.balance || 0)
-                            );
-                          }, 0)}
-                        </td>
-                        <td>
-                          {mainData.ammortization[year]?.reduce((acc, data) => {
-                            return (
-                              acc +
-                              (data.balance === '-' ? 0 : data.balance || 0)
-                            );
-                          }, 0)}
-                        </td>
-                        <td>
-                          {mainData.report[year]?.reduce((acc, data) => {
-                            return (
-                              acc +
-                              (data.deprecationExp === '-'
-                                ? 0
-                                : data.deprecationExp || 0)
-                            );
-                          }, 0)}
-                        </td>
-                        <td>
-                          {mainData.ammortization[year]?.reduce((acc, data) => {
-                            return (
-                              acc +
-                              (data.interestExpence === '-'
-                                ? 0
-                                : data.interestExpence || 0)
-                            );
-                          }, 0)}
-                        </td>
-                        <td>
-                          {mainData.ammortization[year]?.reduce((acc, data) => {
-                            return (
-                              acc +
-                              (data.leasePayment === '-'
-                                ? 0
-                                : data.leasePayment || 0)
-                            );
-                          }, 0)}
-                        </td>
+                        <td>{extractedData[year].rou}</td>
+                        <td>{extractedData[year].leaseLiability}</td>
+                        <td>{extractedData[year].deprecationExp}</td>
+                        <td>{extractedData[year].financeCharge}</td>
+                        <td>{extractedData[year].payment}</td>
                       </tr>
                     );
                   })}
