@@ -39,9 +39,8 @@ function DistrictSummary() {
     }
   }, [selectedDistrict, fetchSummaryData, selectedYear]);
 
-  const { mainData, years, extractedData } = extractSummaryData(summaryData);
+  const { extractedData } = extractSummaryData(summaryData);
 
-  console.log('DATA', extractedData);
   return (
     <div className='container-fluid take-screen p-3 pb-3'>
       <form action=''>

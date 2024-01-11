@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { LayoutContext } from '../Providers/LayoutProvider';
 import avatar from '../assets/icon.png';
 import dashboardIcon from '../assets/img/dashboard.png';
-import contractsListIcon from '../assets/img/check-list.png';
+import contractsListIcon from '../assets/img/signature.png';
 import uploadIcon from '../assets/img/uploadd.png';
 import listContractsIcon from '../assets/img/list.png';
 import addContractIcon from '../assets/img/addContract.png';
@@ -14,13 +14,16 @@ import branchesIcon from '../assets/img/branches.png';
 import districtsIcon from '../assets/img/briefcase.png';
 import regionsIcon from '../assets/img/globe.png';
 import searchIcon from '../assets/img/search.png';
+import summaryIcon from '../assets/img/summary.png';
+import hierarchyIcon from '../assets/img/hierarchy.png';
+import reportsIcon from '../assets/img/graph.png';
 
 const SideBar = () => {
   const { sidebarToggle } = useContext(LayoutContext);
   const { pathname } = useLocation();
   return (
     <div
-      className={`sidebar ${!sidebarToggle && 'open'} pe-4 pb-3`}
+      className={`sidebar ${!sidebarToggle && 'open'} pe-1 pb-3`}
       style={{ backgroundColor: 'white' }}
     >
       <nav className='navbar navbar-dark' style={{ backgroundColor: 'white' }}>
@@ -103,19 +106,13 @@ const SideBar = () => {
               </NavLink>
             </div>
           </div>
-          {/* <NavLink
-                        className='nav-item nav-link'
-                        to={'/generate-report'}
-                    >
-                        <i className='fa fa-scroll me-2'></i>Generate Report
-                    </NavLink> */}
           <div className='nav-item dropdown'>
             <Link
               href='#'
               className='nav-link dropdown-toggle'
               data-bs-toggle='dropdown'
             >
-              <img src={contractsListIcon} className='sidebar-icon' />
+              <img src={reportsIcon} className='sidebar-icon' />
               Reports
             </Link>
             <div className='dropdown-menu bg-transparent border-0'>
@@ -123,7 +120,7 @@ const SideBar = () => {
                 to='/hierarchy/districts/1/summary'
                 className='dropdown-item mb-1 mx-4 '
               >
-                <img src={addContractIcon} className='sidebar-icon' />
+                <img src={summaryIcon} className='sidebar-icon' />
                 District Summary
               </NavLink>
               <NavLink to='/export' className='dropdown-item mb-1 mx-4 '>
@@ -138,7 +135,7 @@ const SideBar = () => {
               className='nav-link dropdown-toggle'
               data-bs-toggle='dropdown'
             >
-              <img src={contractsListIcon} className='sidebar-icon' />
+              <img src={hierarchyIcon} className='sidebar-icon' />
               Hierarchy
             </Link>
             <div className='dropdown-menu bg-transparent border-0'>
