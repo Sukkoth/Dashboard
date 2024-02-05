@@ -9,8 +9,6 @@ import numeral from 'numeral';
 
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 
-import * as pdfWorkerUrl from '../../public/asset/pdfWorker';
-
 const ShowContract = () => {
   const navigate = useNavigate();
   const { contractId } = useParams();
@@ -224,7 +222,7 @@ function ViewFile({ fileName }) {
       )}
 
       <div className='mx-auto overflow-scroll' style={{ maxHeight: '100vh' }}>
-        <Worker workerUrl={pdfWorkerUrl}>
+        <Worker workerUrl={'/asset/pdf.worker.min.js'}>
           <Viewer
             fileUrl={pdfUrl}
             renderError={(error) =>
