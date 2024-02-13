@@ -44,8 +44,8 @@ function DistrictSummary() {
   return (
     <div className='container-fluid take-screen p-3 pb-3'>
       <form action=''>
-        <div className='row my-3 mx-2'>
-          <div className='col-2'>
+        <div className='row gap-3 gap-md-0 my-3 mx-2'>
+          <div className='col-12 col-md-6 col-lg-3'>
             <label className='mb-2' htmlFor='searchDistrict'>
               Search By District
             </label>
@@ -70,7 +70,7 @@ function DistrictSummary() {
                 ))}
             </select>
           </div>
-          <div className='col-2'>
+          <div className='col-12 col-md-6 col-lg-3'>
             <label htmlFor='regionName' className='mb-2'>
               Year
             </label>

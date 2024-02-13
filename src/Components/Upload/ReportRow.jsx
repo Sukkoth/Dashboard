@@ -21,7 +21,10 @@ function ReportRow({ row, selectedMonth, selectedYear, type }) {
       </td>
       <td>-</td>
       <td>
-        {row?.branch?.name} for ({row?.type}) Depr. Expense- Right of Use Asset
+        {row?.branch?.name} for ({row?.type}) Depr. Expense-{' '}
+        {type === 'ammortization'
+          ? ' Finance charge lease '
+          : 'Right of Use Asset'}
         for the month of {MONTHS_IN_YEAR[selectedMonth - 1]} {selectedYear}
       </td>
     </tr>

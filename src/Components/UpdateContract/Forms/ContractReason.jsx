@@ -130,7 +130,7 @@ function AddFile({ register, error, setValue }) {
     setValue('fileName', fileData?.fileName);
   }, [fileData?.fileName, setValue]);
   return (
-    <div>
+    <div className='d-flex align-items-center flex-column flex-sm-row justify-content-center justify-content-md-start gap-4 p-3'>
       {!fileData?.fileName && (
         <input
           className='mx-2 border-primary'

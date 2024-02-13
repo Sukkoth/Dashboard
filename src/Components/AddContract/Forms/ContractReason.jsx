@@ -52,7 +52,7 @@ const ContractReason = ({ register, errors }) => {
             </div>
           )}
 
-          <div className='mb-3'>
+          <div className='row'>
             <label htmlFor='reason' className='mb-2'>
               Lease agreement File
             </label>
@@ -105,7 +105,7 @@ function AddFile({ register, error }) {
   }
 
   return (
-    <div>
+    <div className='d-flex align-items-center flex-column flex-sm-row justify-content-center justify-content-md-start gap-4 p-3'>
       {fileData?.fileName && (
         <input
           type='hidden'
