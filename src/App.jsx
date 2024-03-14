@@ -20,6 +20,7 @@ import UpdateRegion from './Pages/Hierarchy/Regions/UpdateRegion';
 import UpdateDistrict from './Pages/Hierarchy/District/UpdateDistrict';
 import UpdateBranch from './Pages/Hierarchy/Branches/UpdateBranch';
 import DistrictSummary from './Pages/Hierarchy/District/Summary/DistrictSummary';
+import NotFound from './Pages/NotFound';
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
             Component={DistrictSummary}
           />
           <Route path='/hierarchy/regions/:regionId' Component={UpdateRegion} />
+          <Route path='*' Component={NotFound} />
         </Route>
       </Routes>
     </div>

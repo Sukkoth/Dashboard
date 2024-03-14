@@ -22,6 +22,8 @@ for (let year = 1990; year <= Number(new Date().getFullYear()) + 10; year++) {
 
 const GenerateForUpload = ({
   setShowReport,
+  selectedRegistrationDate,
+  setSelectedRegistrationDate,
   selectedYear,
   selectedMonth,
   setSelectedYear,
@@ -33,6 +35,19 @@ const GenerateForUpload = ({
       style={{ backgroundColor: '#f2f7ff' }}
     >
       <div className='row bg-white rounded mx-0 p-5 align-text-center justify-content-center'>
+        <div className='bg-white rounded col-12 col-md-5 col-lg-3 '>
+          <h2 style={{ fontSize: '17px' }}>
+            <label htmlFor='year'>Registration Date</label>
+            <input
+              type='date'
+              name='date'
+              id='date'
+              className='form-select mt-1'
+              value={selectedRegistrationDate}
+              onChange={(e) => setSelectedRegistrationDate(e.target.value)}
+            />
+          </h2>
+        </div>
         <div className='bg-white rounded col-12 col-md-5 col-lg-3 '>
           <h2 style={{ fontSize: '17px' }}>
             <label htmlFor='year'>Select Year</label>
@@ -149,5 +164,7 @@ GenerateForUpload.propTypes = {
   setShowReport: PropTypes.func,
   setSelectedYear: PropTypes.func,
   setSelectedMonth: PropTypes.func,
+  selectedRegistrationDate: PropTypes.string,
+  setSelectedRegistrationDate: PropTypes.func,
 };
 export default GenerateForUpload;

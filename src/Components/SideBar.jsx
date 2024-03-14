@@ -77,7 +77,7 @@ const SideBar = () => {
                 Add
               </NavLink>
               <NavLink
-                to='/list-contracts/all'
+                to='/list-contracts/all?sortBy=contractRegisteredDate&sortOrder=desc&size=25&page=1'
                 className='dropdown-item mb-1 mx-4'
               >
                 <img src={listContractsIcon} className='sidebar-icon' />

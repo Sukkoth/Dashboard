@@ -7,25 +7,26 @@ import ContractsList from '../../Components/ListContracts/ContractsList';
 import { useSearchParams } from 'react-router-dom';
 
 const ListContracts = () => {
-  const [tobeDeleted, setTobeDeleted] = useState(false);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [tobeDeleted, setTobeDeleted] = useState(false);
+  const [startDate, setStartDate] = useState(
+    searchParams.get('startYear') || ''
+  );
+  const [endDate, setEndDate] = useState(searchParams.get('endYear') || '');
 
   const {
     data: contractsData,
     isLoading,
     errors,
     fetchData,
-  } = useApiFetch({
-    url: '/leases',
-    method: 'get',
-    params: {
-      page: 1,
-      size: 25,
+  } = useApiFetch(
+    {
+      url: '/leases',
+      method: 'get',
     },
-  });
+    false
+  );
 
   useEffect(() => {
     if (
@@ -35,15 +36,24 @@ const ListContracts = () => {
         (startDate.length === 4 || startDate.length === 0)) ||
       (startDate.length === 0 && endDate.length === 0)
     ) {
-      setSearchParams({ startYear: startDate, endYear: endDate });
-      fetchData({
-        params: {
-          startYear: startDate,
-          endYear: endDate,
-          page: 1,
-          size: 25,
-        },
-      });
+      //set params used to fetch data
+
+      let params = {
+        sortBy: searchParams.get('sortBy') || 'contractRegisteredDate',
+        sortOrder: searchParams.get('sortOrder') || 'desc',
+        size: searchParams.get('size') || 25,
+        page: searchParams.get('page') || 1,
+        startYear: startDate.length === 4 ? startDate : null,
+        endYear: endDate.length === 4 ? endDate : null,
+      };
+
+      //filter null valued params
+      params = Object.fromEntries(
+        Object.entries(params).filter(([, value]) => value !== null)
+      );
+
+      setSearchParams(params);
+      fetchData({ params });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startDate, endDate]);
@@ -64,7 +74,15 @@ const ListContracts = () => {
                     type='text'
                     className='form-control'
                     value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
+                    onChange={(e) => {
+                      setStartDate(e.target.value);
+                      if (e.target.value.length === 0) {
+                        setSearchParams((prev) => {
+                          prev.delete('startYear');
+                          return prev;
+                        });
+                      }
+                    }}
                   />
                 </div>
                 <div className='col-12 col-md-6 col-lg-4 col-xl-4 col-xxl-3'>
@@ -75,7 +93,15 @@ const ListContracts = () => {
                     type='text'
                     className='form-control'
                     value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
+                    onChange={(e) => {
+                      setEndDate(e.target.value);
+                      if (e.target.value === 0) {
+                        setSearchParams((prev) => {
+                          prev.delete('endYear');
+                          return prev;
+                        });
+                      }
+                    }}
                   />
                 </div>
               </div>

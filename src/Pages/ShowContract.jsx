@@ -8,6 +8,7 @@ import { DataContext } from '../Providers/DataProvider';
 import numeral from 'numeral';
 
 import { Viewer, Worker } from '@react-pdf-viewer/core';
+import { calculateDaysLeft } from '../utils/calculateDaysLeft';
 
 const ShowContract = () => {
   const navigate = useNavigate();
@@ -96,6 +97,28 @@ const ShowContract = () => {
                     End Date :{' '}
                     <span style={{ fontWeight: 'normal' }}>
                       {contract?.contractEndDate}
+                    </span>
+                  </p>
+                  <p className='mb-2'>
+                    Expiry Status:
+                    <span
+                      style={{
+                        fontWeight: 'normal',
+                        color:
+                          calculateDaysLeft(contract?.contractEndDate) < 0
+                            ? 'red'
+                            : 'black',
+                      }}
+                    >
+                      {calculateDaysLeft(contract?.contractEndDate) < 0
+                        ? `Expired ${calculateDaysLeft(
+                            Math.abs(
+                              calculateDaysLeft(contract?.contractEndDate)
+                            )
+                          )} days ago`
+                        : `Will expire after ${calculateDaysLeft(
+                            contract?.contractEndDate
+                          )} days`}
                     </span>
                   </p>
                 </div>

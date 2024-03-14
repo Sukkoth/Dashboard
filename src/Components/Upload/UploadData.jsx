@@ -8,7 +8,12 @@ import { EXPORT_TO_EXCEL } from '../../utils/ExportToExcel';
 import ReportRow from './ReportRow';
 import { ExtractReportForUpload } from '../../utils/ExtractReportForUpload';
 
-const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
+const UploadData = ({
+  selectedMonth,
+  selectedYear,
+  setShowReport,
+  selectedRegistrationDate,
+}) => {
   //Fetch branch data
   const {
     data: BranchData,
@@ -35,6 +40,9 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     data: {
       term: 'monthly',
       type: 'single',
+    },
+    params: {
+      date: selectedRegistrationDate,
     },
   });
 
@@ -96,20 +104,20 @@ const UploadData = ({ selectedMonth, selectedYear, setShowReport }) => {
     'ammortization'
   );
 
-  if (extractedReports.length <= 0)
-    return (
-      <LargeAlert
-        message='No report found for given dates'
-        backButton={<BackButton onClick={() => setShowReport(false)} />}
-      />
-    );
-  if (extractedAmmortization.length <= 0)
-    return (
-      <LargeAlert
-        message='No ammortization report found for given dates'
-        backButton={<BackButton onClick={() => setShowReport(false)} />}
-      />
-    );
+  // if (extractedReports.length <= 0)
+  //   return (
+  //     <LargeAlert
+  //       message='No report found for given dates'
+  //       backButton={<BackButton onClick={() => setShowReport(false)} />}
+  //     />
+  //   );
+  // if (extractedAmmortization.length <= 0)
+  //   return (
+  //     <LargeAlert
+  //       message='No ammortization report found for given dates'
+  //       backButton={<BackButton onClick={() => setShowReport(false)} />}
+  //     />
+  //   );
 
   return (
     <div className='container-fluid pt-4 px-4 take-screen'>
@@ -245,6 +253,7 @@ UploadData.propTypes = {
   selectedYear: PropTypes.number,
   setShowReport: PropTypes.func,
   selectedMonth: PropTypes.number,
+  selectedRegistrationDate: PropTypes.string,
 };
 
 export default UploadData;
