@@ -19,12 +19,12 @@ import '@fortawesome/fontawesome-free/css/all.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <DataProvider>
-      <LayoutProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <DataProvider>
+        <LayoutProvider>
           <App />
-        </BrowserRouter>
-      </LayoutProvider>
-    </DataProvider>
+        </LayoutProvider>
+      </DataProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
