@@ -107,14 +107,12 @@ const ShowContract = () => {
                         color:
                           calculateDaysLeft(contract?.contractEndDate) < 0
                             ? 'red'
-                            : 'black',
+                            : 'orange',
                       }}
                     >
                       {calculateDaysLeft(contract?.contractEndDate) < 0
-                        ? `Expired ${calculateDaysLeft(
-                            Math.abs(
-                              calculateDaysLeft(contract?.contractEndDate)
-                            )
+                        ? `Expired ${Math.abs(
+                            calculateDaysLeft(contract?.contractEndDate)
                           )} days ago`
                         : `Will expire after ${calculateDaysLeft(
                             contract?.contractEndDate
