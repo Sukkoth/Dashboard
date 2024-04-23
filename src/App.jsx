@@ -1,86 +1,61 @@
-import { Routes, Route, Outlet } from 'react-router-dom';
-import Dashboard from './Dashboard';
-import Login from './Login';
-import AddContract from './Pages/AddContract';
-import Index from './Pages/Index';
-import ListContracts from './Pages/ContractsList/ListContracts';
-import Contracts from './Pages/ContractsList';
-import ShowContract from './Pages/ShowContract';
-import SingleContractReport from './Pages/SingleContractReport';
-import ExportForUpload from './Pages/ExportForUpload';
-import EndedContracts from './Pages/ContractsList/EndedContracts';
-import ListActiveContracts from './Pages/ContractsList/ListActiveContracts';
-import Hierarchy from './Pages/Hierarchy';
-import AddHierarchy from './Pages/Hierarchy/Add';
-import UpdateContract from './Pages/UpdateContract';
+import { Routes, Route } from 'react-router-dom';
+
+import { Dashboard, HOME, CONTRACTS, HIERARCHY } from './Pages';
+import CONTRACTS_OUTLET from './Pages/ContractsList';
+import HIERARCHY_OUTLET from './Pages/Hierarchy';
+import NOT_FOUND from './Pages/NotFound';
+
 import UpdateProvider from './Providers/UpdateProvider';
-import Search from './Pages/ContractsList/Search';
-import ListBranches from './Pages/Hierarchy/Branches/ListBranches';
-import ListDistricts from './Pages/Hierarchy/District/ListDistricts';
-import ListRegions from './Pages/Hierarchy/Regions/ListRegions';
-import UpdateRegion from './Pages/Hierarchy/Regions/UpdateRegion';
-import UpdateDistrict from './Pages/Hierarchy/District/UpdateDistrict';
-import UpdateBranch from './Pages/Hierarchy/Branches/UpdateBranch';
-import DistrictSummary from './Pages/Hierarchy/District/Summary/DistrictSummary';
-import NotFound from './Pages/NotFound';
 
 function App() {
   return (
     <div className='wrapper'>
       <Routes>
-        <Route path='/login' Component={Login} />
-        <Route path='/' Component={Dashboard}>
-          <Route index Component={Index} />
-          <Route path='/contracts' element={<Contracts />}>
-            <Route path=':contractId' element={<ShowContract />} />
-            <Route path='add' element={<AddContract />} />
-            <Route path='all' element={<ListContracts />} />
-            <Route path='active' element={<ListActiveContracts />} />
-            <Route path='expired' element={<EndedContracts />} />
-            <Route path='search' element={<Search />} />
+        <Route path='/' element={<Dashboard />}>
+          <Route index element={<HOME />} />
+          <Route path='/contracts' element={<CONTRACTS_OUTLET />}>
+            <Route path=':contractId' element={<CONTRACTS.SHOW />} />
+            <Route path='add' element={<CONTRACTS.ADD />} />
+            <Route path='all' element={<CONTRACTS.LIST />} />
+            <Route path='active' element={<CONTRACTS.ACTIVE />} />
+            <Route path='expired' element={<CONTRACTS.ACTIVE />} />
+            <Route path='search' element={<CONTRACTS.SEARCH />} />
             <Route
               path='update'
               element={
                 <UpdateProvider>
-                  <UpdateContract />
+                  <CONTRACTS.UPDATE />
                 </UpdateProvider>
               }
             />
           </Route>
-          <Route path='/add-contract' Component={AddContract} />
-          <Route path='/list-contracts/all' Component={ListContracts} />
-          <Route path='/list-contracts/ended' Component={EndedContracts} />
-          <Route
-            path='/list-contracts/active'
-            Component={ListActiveContracts}
-          />
-          <Route path='/list-contracts/search' Component={Search} />
-          <Route path='/leases/:contractId' Component={ShowContract} />
-          <Route
-            path='/leases/:contractId/update'
-            element={
-              <UpdateProvider>
-                <UpdateContract />
-              </UpdateProvider>
-            }
-          />
-          <Route path='/report/:contractId' Component={SingleContractReport} />
-          <Route path='/export' Component={ExportForUpload} />
-          <Route path='/hierarchy' element={<Hierarchy />}>
-            <Route index element={<AddHierarchy />} />
-            <Route path='branches' element={<ListBranches />} />
-            <Route path='districts' element={<ListDistricts />} />
-            <Route path='regions' element={<ListRegions />} />
-            <Route path='branches/:branchId' element={<UpdateBranch />} />
-            <Route path='districts/:districtId' element={<UpdateDistrict />} />
+
+          <Route path='/report/:contractId' element={<CONTRACTS.REPORT />} />
+          <Route path='/export' element={<CONTRACTS.UPLOAD />} />
+          <Route path='/hierarchy' element={<HIERARCHY_OUTLET />}>
+            <Route index element={<HIERARCHY.ADD />} />
+            <Route path='branches' element={<HIERARCHY.BRANCHES />} />
+            <Route path='districts' element={<HIERARCHY.DISTRICTS />} />
+            <Route path='regions' element={<HIERARCHY.REGIONS />} />
+            <Route
+              path='branches/:branchId'
+              element={<HIERARCHY.UPDATE_BRANCH />}
+            />
+            <Route
+              path='districts/:districtId'
+              element={<HIERARCHY.UPDATE_DISTRICT />}
+            />
             <Route
               path='districts/:districtId/summary'
-              element={<DistrictSummary />}
+              element={<HIERARCHY.DISTRICT_SUMMARY />}
             />
-            <Route path='regions/:regionId' element={<UpdateRegion />} />
+            <Route
+              path='regions/:regionId'
+              element={<HIERARCHY.UPDATE_REGION />}
+            />
           </Route>
 
-          <Route path='*' element={<NotFound />} />
+          <Route path='*' element={<NOT_FOUND />} />
         </Route>
       </Routes>
     </div>

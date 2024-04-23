@@ -3,7 +3,7 @@ import useApiFetch from '../API/useApiFetch';
 import { useContext } from 'react';
 import { DataContext } from '../Providers/DataProvider';
 
-const Index = () => {
+const Home = () => {
   const navigate = useNavigate();
   const { data, isLoading, errors } = useApiFetch({
     url: '/leases/static',
@@ -31,7 +31,7 @@ const Index = () => {
           <div className='col-sm-6 col-xl-3 '>
             <div
               className='trans  d-flex align-items-center justify-content-between p-4 hover-up '
-              onClick={() => navigate('/list-contracts/all')}
+              onClick={() => navigate('/contracts/all')}
             >
               <i className='fa fa fa-chart-pie fa-3x icon-pink'></i>
               <div className='ms-3'>
@@ -43,7 +43,7 @@ const Index = () => {
           <div className='col-sm-6 col-xl-3'>
             <div
               className='trans d-flex align-items-center justify-content-between p-4 hover-up'
-              onClick={() => navigate('/list-contracts/active')}
+              onClick={() => navigate('/contracts/active')}
             >
               <i className='fab fa-creative-commons-sampling fa-3x icon-pink'></i>
               <div className='ms-3'>
@@ -55,7 +55,7 @@ const Index = () => {
           <div className='col-sm-6 col-xl-3'>
             <div
               className='trans d-flex align-items-center justify-content-between p-4 hover-up'
-              onClick={() => navigate('/list-contracts/ended')}
+              onClick={() => navigate('/contracts/expired')}
             >
               <i className='fas fa-stopwatch fa-3x icon-pink'></i>
               <div className='ms-3'>
@@ -113,7 +113,7 @@ const Index = () => {
                 <h6 className='mb-0'>Active Contracts</h6>
                 <Link
                   className='text-pink'
-                  to='/list-contracts/active'
+                  to='/contracts/active'
                   style={{
                     textDecoration: 'underline',
                   }}
@@ -129,7 +129,7 @@ const Index = () => {
               <div className='d-flex align-items-center justify-content-between mb-4'>
                 <h6 className='mb-0'>Expired Contracts</h6>
                 <Link
-                  to='/list-contracts/ended'
+                  to='/contracts/expired'
                   style={{
                     textDecoration: 'underline',
                   }}
@@ -146,4 +146,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Home;
