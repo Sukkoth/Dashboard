@@ -3,32 +3,7 @@ import PropTypes from 'prop-types';
 import Pagination from '../Pagination/Pagination';
 import numeral from 'numeral';
 import LargeAlert from './Alerts/LargeAlert';
-
-function Menu({ children, name, handleChange }) {
-  let [searchParams, setSearchParams] = useSearchParams();
-  return (
-    <th
-      scope='col'
-      onClick={() => handleChange(name)}
-      style={{ padding: '0', textAlign: 'center', position: 'relative' }}
-    >
-      <div className='table-menu'>
-        <span>{children}</span>
-        <span>
-          {searchParams.get('sortBy') === name ? (
-            searchParams.get('sortOrder') === 'desc' ? (
-              <i className='fas fa-arrow-down'></i>
-            ) : (
-              <i className='fas fa-arrow-up'></i>
-            )
-          ) : (
-            ''
-          )}
-        </span>
-      </div>
-    </th>
-  );
-}
+import Menu from '../TableMenu';
 
 const ContractsList = ({ contractsData, fetchData }) => {
   let [searchParams, setSearchParams] = useSearchParams();
@@ -59,8 +34,6 @@ const ContractsList = ({ contractsData, fetchData }) => {
         return prevSearchParams;
       });
     }
-
-    console.log('PARAMS', Object.fromEntries(searchParams.entries()));
 
     fetchData({
       params: {

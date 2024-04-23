@@ -15,8 +15,6 @@ function Pagination({ fetchData, pagination }) {
         ...Object.fromEntries(searchParams.entries()),
         page: page,
         size: pagination.pageSize,
-        startYear: searchParams.get('startYear'),
-        endYear: searchParams.get('endYear'),
       },
     });
   }
@@ -31,8 +29,6 @@ function Pagination({ fetchData, pagination }) {
         ...Object.fromEntries(searchParams.entries()),
         page: searchParams.get('page') || 1,
         size: pageSize,
-        startYear: searchParams.get('startYear'),
-        endYear: searchParams.get('endYear'),
       },
     });
   }
@@ -78,7 +74,7 @@ function Pagination({ fetchData, pagination }) {
             className='btn btn-outline-primary pagination-btn'
             onClick={() => handlePageChange(pagination?.currentPage - 1)}
           >
-            {pagination?.previousPage}
+            {pagination?.currentPage - 1}
           </button>
         )}
         {/* PREVIOUS PAGE */}

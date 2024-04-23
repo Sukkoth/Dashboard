@@ -35,7 +35,6 @@ const useApiFetch = (
   const fetchData = useCallback(async (request) => {
     setIsLoading(true);
     setErrors({});
-
     try {
       const response = await axios.request({
         ...requestConfig,
@@ -45,21 +44,20 @@ const useApiFetch = (
       // return true;
     } catch (error) {
       if (error?.response?.status === 400) {
-        setErrors({ message: 'Bad request', details: error });
+        setErrors({ isError: true, message: 'Bad request', details: error });
       } else if (error?.response?.status === 401) {
-        setErrors({ message: 'Unauthorized', details: error });
+        setErrors({ isError: true, message: 'Unauthorized', details: error });
       } else if (error?.response?.status === 404) {
-        setErrors({
-          message: 'NOT FOUND',
-          details: error,
-        });
+        setErrors({ isError: true, message: 'NOT FOUND', details: error });
       } else if (error?.response?.status === 422) {
         setErrors({
+          isError: true,
           message: 'Invalid Data, check your inputs',
           details: error,
         });
       } else if (error?.response?.status === 415) {
         setErrors({
+          isError: true,
           message: 'Invalid MIME type, check your inputs',
           details: error,
         });
@@ -68,27 +66,23 @@ const useApiFetch = (
         400 <= error?.response?.status &&
         error?.response?.status <= 499
       ) {
-        setErrors({
-          message: 'Bad Request',
-          details: error,
-        });
+        setErrors({ isError: true, message: 'Bad Request', details: error });
       } else if (
         error?.response?.status &&
         500 <= error?.response?.status &&
         error?.response?.status <= 599
       ) {
-        setErrors({ message: 'Server Error', details: error });
+        setErrors({ isError: true, message: 'Server Error', details: error });
       } else if (error?.response?.data?.message) {
         setErrors({
+          isError: true,
           message: error?.response?.message,
           details: error,
         });
       } else if (error?.message) {
-        setErrors({ message: error?.message, details: error });
+        setErrors({ isError: true, message: error?.message, details: error });
       } else {
-        setErrors({
-          message: 'Unknown Error',
-        });
+        setErrors({ isError: true, message: 'Unknown Error' });
       }
 
       // return false;

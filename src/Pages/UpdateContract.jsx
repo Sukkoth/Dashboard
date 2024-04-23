@@ -14,7 +14,6 @@ import ContractDuration from '../Components/UpdateContract/Forms/ContractDuratio
 import ContractDetails from '../Components/UpdateContract/Forms/ContractDetails';
 import BranchInfo from '../Components/UpdateContract/Forms/BranchInfo';
 import { UpdateContext } from '../Providers/UpdateProvider';
-import LargeAlert from '../Components/ListContracts/Alerts/LargeAlert';
 
 const UpdateContract = () => {
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ const UpdateContract = () => {
 
     updatedData,
     isUpdating,
-    updatingError,
+
     updateContract,
   } = useContext(UpdateContext);
   const [installmentData, setInstallmentData] = useState([]);
@@ -96,8 +95,6 @@ const UpdateContract = () => {
       }, 1500);
     }
   }, [updatedData, isUpdating, navigate, reset]);
-
-  console.log(backEndError);
 
   return backEndError?.message ? (
     <BackEndError message={backEndError?.message || 'Error getting contract'} />

@@ -69,14 +69,14 @@ Dropdown.Item = function Item({ children, icon, end, to }) {
 
 // PROP TYPES
 Dropdown.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.array.isRequired,
 };
 Dropdown.Title.propTypes = {
   children: PropTypes.string.isRequired,
   icon: PropTypes.any.isRequired,
 };
 Dropdown.List.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.array.isRequired,
 };
 Dropdown.Item.propTypes = {
   children: PropTypes.string.isRequired,

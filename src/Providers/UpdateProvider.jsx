@@ -11,7 +11,6 @@ const UpdateProvider = ({ children }) => {
     data: contractData,
     isLoading: contractLoading,
     errors: backEndError,
-    fetchData,
   } = useApiFetch({
     url: `/leases/${contractId}`,
     method: 'GET',
@@ -29,8 +28,6 @@ const UpdateProvider = ({ children }) => {
     },
     false
   );
-
-  console.log('PROVIDER', backEndError);
 
   return (
     <UpdateContext.Provider
