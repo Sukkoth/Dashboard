@@ -76,7 +76,7 @@ const SingleContractReport = () => {
               </div>
             </div>
             <div>
-              <Link className='btn btn-primary' to={`/leases/${contractId}`}>
+              <Link className='btn btn-primary' to={`/contracts/${contractId}`}>
                 View Detail
               </Link>
             </div>

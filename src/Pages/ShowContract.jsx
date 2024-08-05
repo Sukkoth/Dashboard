@@ -195,7 +195,7 @@ const ShowContract = () => {
           <div className='d-flex gap-3'>
             <button
               className='btn btn-primary  mt-5'
-              onClick={() => navigate(`/leases/${contractId}/update`)}
+              onClick={() => navigate(`/contracts/${contractId}/update`)}
             >
               Update
             </button>

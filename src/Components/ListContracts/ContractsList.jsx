@@ -147,7 +147,7 @@ const ContractsList = ({ contractsData, fetchData }) => {
                             >
                               <li>
                                 <Link
-                                  to={`/leases/${contract?.id}`}
+                                  to={`/contracts/${contract?.id}`}
                                   className='dropdown-item'
                                 >
                                   <i className='fa fa-info-circle me-2'></i>
@@ -187,7 +187,6 @@ const ContractsList = ({ contractsData, fetchData }) => {
 
 ContractsList.propTypes = {
   contractsData: PropTypes.object,
-  setTobeDeleted: PropTypes.func,
   fetchData: PropTypes.func,
   sortOrder: PropTypes.string,
   setSortOrder: PropTypes.func,

@@ -21,7 +21,7 @@ function App() {
             <Route path='expired' element={<CONTRACTS.ACTIVE />} />
             <Route path='search' element={<CONTRACTS.SEARCH />} />
             <Route
-              path='update'
+              path=':contractId/update'
               element={
                 <UpdateProvider>
                   <CONTRACTS.UPDATE />

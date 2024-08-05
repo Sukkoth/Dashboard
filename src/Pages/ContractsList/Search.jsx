@@ -65,7 +65,6 @@ const Search = () => {
       <FullLoader isLoading={isLoading} />
       {!isLoading && (
         <>
-          {/* <ConfirmationModal tobeDeleted={tobeDeleted} /> */}
           <div className='container-fluid take-screen p-3 pb-3'>
             <form>
               <div className='row my-3 mx-2 gap-3 gap-md-0'>

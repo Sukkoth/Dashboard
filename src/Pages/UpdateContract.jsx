@@ -91,7 +91,7 @@ const UpdateContract = () => {
     if (!isUpdating && updatedData?.id) {
       reset();
       setTimeout(() => {
-        navigate(`/leases/${updatedData?.id}`);
+        navigate(`/contracts/${updatedData?.id}`);
       }, 1500);
     }
   }, [updatedData, isUpdating, navigate, reset]);

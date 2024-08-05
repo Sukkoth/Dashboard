@@ -27,7 +27,7 @@ function Pagination({ fetchData, pagination }) {
     fetchData({
       params: {
         ...Object.fromEntries(searchParams.entries()),
-        page: searchParams.get('page') || 1,
+        page: 1,
         size: pageSize,
       },
     });

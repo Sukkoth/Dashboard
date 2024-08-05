@@ -40,7 +40,7 @@ const AddContract = () => {
     if (!isLoading && contractData?.id) {
       reset();
       setTimeout(() => {
-        navigate('/list-contracts/all');
+        navigate('/contracts/all');
       }, 1500);
     }
   }, [contractData, isLoading, navigate, reset]);

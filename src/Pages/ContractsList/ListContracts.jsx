@@ -2,14 +2,11 @@ import { useEffect, useState } from 'react';
 import useApiFetch from '../../API/useApiFetch';
 import FullLoader from '../../Components/Loaders/FullLoader';
 import LargeAlert from '../../Components/ListContracts/Alerts/LargeAlert';
-// import ConfirmationModal from '../../Components/ListContracts/ConfirmationModal';
 import ContractsList from '../../Components/ListContracts/ContractsList';
 import { useSearchParams } from 'react-router-dom';
 
 const ListContracts = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const [tobeDeleted, setTobeDeleted] = useState(false);
   const [startDate, setStartDate] = useState(
     searchParams.get('startYear') || ''
   );
@@ -105,11 +102,7 @@ const ListContracts = () => {
               </div>
             </div>
           </form>
-          <ContractsList
-            contractsData={contractsData}
-            setTobeDeleted={setTobeDeleted}
-            fetchData={fetchData}
-          />
+          <ContractsList contractsData={contractsData} fetchData={fetchData} />
         </div>
       )}
       <LargeAlert isLoading={isLoading} message={errors?.message} />
