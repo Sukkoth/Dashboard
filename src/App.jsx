@@ -18,7 +18,7 @@ function App() {
             <Route path='add' element={<CONTRACTS.ADD />} />
             <Route path='all' element={<CONTRACTS.LIST />} />
             <Route path='active' element={<CONTRACTS.ACTIVE />} />
-            <Route path='expired' element={<CONTRACTS.ACTIVE />} />
+            <Route path='expired' element={<CONTRACTS.EXPIRED />} />
             <Route path='search' element={<CONTRACTS.SEARCH />} />
             <Route
               path=':contractId/update'
